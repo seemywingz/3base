@@ -110,7 +110,7 @@ export function init() {
   renderer.shadowMap.enabled = true;
   renderer.shadowMapSoft = true;
   renderer.shadowCameraNear = 0.1;
-  renderer.shadowCameraFar = 10000;
+  renderer.shadowCameraFar = 1000;
   renderer.shadowCameraFov = 45;
   renderer.shadowMapBias = 0.0001;
   renderer.shadowMapDarkness = 0.02;

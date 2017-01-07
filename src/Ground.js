@@ -12,10 +12,9 @@ export default class Ground extends SceneObject {
 
     this.texture.wrapS = this.texture.wrapT = THREE.RepeatWrapping;
     this.texture.repeat.set( 20, 20 );
-    // this.texture.magFilter = THREE.LinearFilter;
-    // this.texture.minFilter = THREE.LinearMipMapLinearFilter;
 
-    this.mesh.rotation.x = Math.PI/2;
+    this.mesh.rotation.x = -Math.PI/2;
+    this.mesh.material.shininess = 0;
 
     if(physic_enabled)
       this.initPhysics(scale);

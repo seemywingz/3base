@@ -3,7 +3,7 @@
 import * as THREE from 'three';
 import * as CANNON from 'cannon';
 import SceneObject from './SceneObject';
-import {world, animatedObjects} from './init';
+import {world, animatedObjects, physic_enabled} from './init';
 
 export default class Ball extends SceneObject {
 

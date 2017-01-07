@@ -10,7 +10,7 @@ import { scene, clock, animatedObjects, pointerLockElement } from './init';
 export default class Camera {
 
   constructor(){
-    this.x = navigator.hardwareConcurrency*2.1;
+    this.x = 0;
     this.y = 10;
     this.z = 0;
     this.lastTouch = 9999;
@@ -87,6 +87,8 @@ export default class Camera {
     if(!this.controls.enabled && pointerLockElement){
       pointerLockElement.requestPointerLock();
       this.controls.enabled = true;
+    }else{
+      this.shoot();
     }
   }
 
@@ -206,5 +208,21 @@ export default class Camera {
       this.konamiIndex = 0;
     }
   }
+
+  shoot(){
+    // let matrix = new THREE.Matrix4();
+    let direction = new THREE.Vector3();
+    this.controls.getDirection( direction );
+    let pos = this.controls.getObject().position;
+
+    let spd = 150;
+    let velocity = this.getDirection(new THREE.Vector3(direction.x * spd, direction.y * spd, direction.z * spd));
+
+    let ball = new Ball(0, 5, 0, null, 0.5, 100);
+    ball.body.angularVelocity.set(0, 0, 0);
+    ball.body.position.set(pos.x,pos.y,pos.z);
+    ball.body.velocity.set(velocity.x, velocity.y, velocity.z);
+  }
+
 
 }// Camera

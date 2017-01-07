@@ -30,8 +30,7 @@ export default class SceneObject {
       var material = new THREE.MeshPhongMaterial({
         map: this.texture,
         transparent: true,
-        shading: THREE.SmoothShading,
-        side: THREE.DoubleSide
+        shading: THREE.SmoothShading
       });
       this.mesh = new THREE.Mesh(this.geometry, material);
       this.mesh.customDepthMaterial = new THREE.ShaderMaterial();
