@@ -31,7 +31,6 @@ function createLights(){
 export default function createScene(){
   createLights();
 
-
   new Sky(0, 900, 0, '/sky.jpg');
   new Ground(0, 0, 0, '/dry.jpg', 1000);
 

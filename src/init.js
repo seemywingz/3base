@@ -3,8 +3,7 @@
 import * as THREE from 'three';
 import * as CANNON from 'cannon';
 import Camera from './Camera';
-import {createScene} from './sceneCreation';
-import {loadControls} from './THREE_Controls';
+import createScene from './assets/scenes/scene1.js';
 import {
   mouseWheel,
   keyUp,
@@ -54,7 +53,6 @@ function stepSimulation () {
   let frameTime = (newTime - currentTime)/100;
   currentTime = newTime;
   world.step(deltaTime, frameTime, 10);
-  // console.log(frameTime);
 }
 
 function pause(){
@@ -73,24 +71,7 @@ function onWindowResize() {
   renderer.setSize( window.innerWidth, window.innerHeight );
 }
 
-function initCannon() {
-  world = new CANNON.World();
-  world.gravity.set(0,-9.82,0);
-  world.broadphase = new CANNON.NaiveBroadphase();
-  world.solver.iterations = 10;
-
-  // // Create a plane
-  // var groundBody = new CANNON.Body({
-  //     mass: 0 // mass == 0 makes the body static
-  // });
-  // var groundShape = new CANNON.Plane();
-  // groundBody.addShape(groundShape);
-  // groundBody.quaternion.setFromAxisAngle(new CANNON.Vec3(1,0,0),-Math.PI/2);
-  // groundBody.position.set(0, 0, 0);
-  // world.addBody(groundBody);
-}
-
-function initPointerLock(element) {
+function initPointerLock() {
   pointerLockElement = document.body;
   // Hook pointer lock state change events
   document.addEventListener('pointerlockchange', pointerlockchange, false);
@@ -122,9 +103,6 @@ function pointerlockchange() {
 }
 
 export function init() {
-  loadControls();
-  if(physic_enabled)
-    initCannon();
 
   renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
   renderer.setPixelRatio( window.devicePixelRatio );
@@ -139,10 +117,12 @@ export function init() {
   renderer.shadowMapWidth = 2048;
   renderer.shadowMapHeight = 2048;
 
-  clock = new THREE.Clock();
-  scene = new THREE.Scene();
-  camera = new Camera();
-  initPointerLock(pointerLockElement);
+  if(physic_enabled){
+    world = new CANNON.World();
+    world.gravity.set(0,-9.82,0);
+    world.broadphase = new CANNON.NaiveBroadphase();
+    world.solver.iterations = 10;
+  }
 
   // Event Listeners
   window.addEventListener( 'resize', onWindowResize, false );
@@ -150,8 +130,6 @@ export function init() {
   window.addEventListener( 'keyup', keyUp, false);
   window.addEventListener( 'keydown', keyDown, false);
   window.addEventListener( 'click', click, false);
-  // window.addEventListener( 'onblur', (e) => {clock.stop();}, false);
-  // window.addEventListener( 'onfocus', (e) => {clock.start();}, false);
   // window.addEventListener( 'touchmove', touchMove, false );
   // window.addEventListener( 'touchend', touchEnd, false );
   //  window.addEventListener( 'mousemove', mouseMove, false);
@@ -162,6 +140,9 @@ export function init() {
 
   window.focus();
 
+  scene = new THREE.Scene();
+  camera = new Camera();
+  initPointerLock();
   createScene();
   animate();
 }//..

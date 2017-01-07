@@ -4,6 +4,7 @@ import Ball from './Ball';
 import Box from './Box';
 import * as THREE from 'three';
 import {randNum} from './Utils';
+import {loadControls} from './THREE_Controls';
 import { scene, clock, animatedObjects, pointerLockElement } from './init';
 
 export default class Camera {
@@ -25,6 +26,7 @@ export default class Camera {
     );
     this.camera.position.set(this.x, this.y, this.z);
 
+    loadControls();
     this.controls = new THREE.PointerLockControls(this.camera);
     this.controls.lookSpeed = 0.02;
     this.controls.movementSpeed = this.speed;
