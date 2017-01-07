@@ -1,7 +1,7 @@
 'use-strict';
 
 import * as THREE from 'three';
-//import * as CANNON from 'cannon';
+import * as CANNON from 'cannon';
 import {scene, world, physic_enabled} from './init';
 import {textureLoader, jsonLoader} from './Utils';
 

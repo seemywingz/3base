@@ -1,7 +1,7 @@
 'use-strict';
 
 import * as THREE from 'three';
-//import * as CANNON from 'cannon';
+import * as CANNON from 'cannon';
 import Camera from './Camera';
 import {createScene} from './sceneCreation';
 import {loadControls} from './THREE_Controls';
@@ -24,12 +24,12 @@ export var
   camera,
   renderer,
   pointerLockElement,
-  physic_enabled = false;
+  physic_enabled = true;
 
 let
-    currentTime = Date.now(),
+    currentTime = new Date().getTime(),
     accumulator = 0,
-    deltaTime = 0.0425;
+    deltaTime = 0.008;
 
 export let animatedObjects = [];
 
@@ -50,16 +50,22 @@ function animate() {
 }
 
 function stepSimulation () {
-  let newTime = Date.now();
-  let frameTime = (newTime - currentTime);
+  let newTime = new Date().getTime();
+  let frameTime = (newTime - currentTime)/100;
   currentTime = newTime;
-  accumulator += frameTime;
+  world.step(deltaTime, frameTime, 10);
+  // console.log(frameTime);
+}
 
-  while ( accumulator >= deltaTime ){
-    accumulator -= deltaTime;
-  }
-  world.step(deltaTime);
-  // world.step(clock.getDelta());
+function pause(){
+  console.log("PAUSING!!");
+  physic_enabled=false;
+}
+
+function unpause(){
+  console.log("!!UNPAUSING");
+  currentTime = new Date().getTime();
+  physic_enabled=true;
 }
 
 function onWindowResize() {
@@ -82,7 +88,6 @@ function initCannon() {
   groundBody.quaternion.setFromAxisAngle(new CANNON.Vec3(1,0,0),-Math.PI/2);
   groundBody.position.set(0, 0, 0);
   world.addBody(groundBody);
-  physic_enabled = true;
 }
 
 function initPointerLock(element) {
@@ -118,7 +123,8 @@ function pointerlockchange() {
 
 export function init() {
   loadControls();
-  // initCannon();
+  if(physic_enabled)
+    initCannon();
 
   renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
   renderer.setPixelRatio( window.devicePixelRatio );
@@ -136,7 +142,7 @@ export function init() {
   clock = new THREE.Clock();
   scene = new THREE.Scene();
   camera = new Camera();
-  // initPointerLock(pointerLockElement);
+  initPointerLock(pointerLockElement);
 
   // Event Listeners
   window.addEventListener( 'resize', onWindowResize, false );
@@ -151,7 +157,11 @@ export function init() {
   //  window.addEventListener( 'mousemove', mouseMove, false);
   window.addEventListener( 'mouseup', mouseUp, false);
   window.addEventListener( 'mousedown', mouseDown, false);
+  window.addEventListener("blur", pause);
+  window.addEventListener("focus", unpause);
+
+  window.focus();
 
   createScene();
-  animate();  
+  animate();
 }//..
