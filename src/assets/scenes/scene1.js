@@ -19,8 +19,8 @@ function createLights(){
   light.shadow.mapSize.height = 1024;
   scene.add( light );
 
-  var pointLightHelper = new THREE.PointLightHelper( light, 2 );
-  scene.add( pointLightHelper );
+  // var pointLightHelper = new THREE.PointLightHelper( light, 2 );
+  // scene.add( pointLightHelper );
 
   light = new THREE.HemisphereLight( 0xffffbb, 0x080820, 1 );
   scene.add( light );

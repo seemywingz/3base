@@ -27,7 +27,6 @@ export var
 
 let
     currentTime = new Date().getTime(),
-    accumulator = 0,
     deltaTime = 0.008;
 
 export let animatedObjects = [];
@@ -114,8 +113,8 @@ export function init() {
   renderer.shadowCameraFov = 45;
   renderer.shadowMapBias = 0.0001;
   renderer.shadowMapDarkness = 0.02;
-  renderer.shadowMapWidth = 2048;
-  renderer.shadowMapHeight = 2048;
+  renderer.shadowMapWidth = 1024;
+  renderer.shadowMapHeight = 1024;
 
   if(physic_enabled){
     world = new CANNON.World();

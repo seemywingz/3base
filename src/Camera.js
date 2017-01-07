@@ -119,7 +119,7 @@ export default class Camera {
         break;
       case 70:/* f */
         for (var i = 1; i < 16; i++) {
-          new Box(randNum(-100,100), randNum(100,200), randNum(-100,-200), 'box/'+~~randNum(0,4)+'.jpg', ~~randNum(2,6));
+          new Box(randNum(-100,100), randNum(100,200), randNum(-100,-200), 'box/'+~~randNum(0,4)+'.jpg', ~~randNum(2,10));
         }
         break;
       case 71:/* g */
@@ -217,7 +217,7 @@ export default class Camera {
     let spd = 150;
     let velocity = this.getDirection(new THREE.Vector3(direction.x * spd, direction.y * spd, direction.z * spd));
 
-    let ball = new Ball(0, 5, 0, null, 0.5, 0.1);
+    let ball = new Ball(0, 5, 0, null, 5, 0.1);
     ball.body.angularVelocity.set(0, 0, 0);
     ball.body.position.set(pos.x,pos.y,pos.z);
     ball.body.velocity.set(velocity.x, velocity.y, velocity.z);
