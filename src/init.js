@@ -79,15 +79,15 @@ function initCannon() {
   world.broadphase = new CANNON.NaiveBroadphase();
   world.solver.iterations = 10;
 
-  // Create a plane
-  var groundBody = new CANNON.Body({
-      mass: 0 // mass == 0 makes the body static
-  });
-  var groundShape = new CANNON.Plane();
-  groundBody.addShape(groundShape);
-  groundBody.quaternion.setFromAxisAngle(new CANNON.Vec3(1,0,0),-Math.PI/2);
-  groundBody.position.set(0, 0, 0);
-  world.addBody(groundBody);
+  // // Create a plane
+  // var groundBody = new CANNON.Body({
+  //     mass: 0 // mass == 0 makes the body static
+  // });
+  // var groundShape = new CANNON.Plane();
+  // groundBody.addShape(groundShape);
+  // groundBody.quaternion.setFromAxisAngle(new CANNON.Vec3(1,0,0),-Math.PI/2);
+  // groundBody.position.set(0, 0, 0);
+  // world.addBody(groundBody);
 }
 
 function initPointerLock(element) {

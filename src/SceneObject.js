@@ -22,15 +22,16 @@ export default class SceneObject {
     this.mesh = null;
     this.body = null;
     this.geometry = geometry ? geometry : new THREE.PlaneGeometry(1,1);
+    this.texture = textureSrc ? textureLoader.load( 'assets/images/' + textureSrc) : null ;
 
     if(model){
       this.loadModel(model, scale);
     }else {
-      let texture = textureSrc ? textureLoader.load( 'assets/images/' + textureSrc) : null ;
       var material = new THREE.MeshPhongMaterial({
-        map: texture,
+        map: this.texture,
         transparent: true,
-        shading: THREE.SmoothShading
+        shading: THREE.SmoothShading,
+        side: THREE.DoubleSide
       });
       this.mesh = new THREE.Mesh(this.geometry, material);
       this.mesh.customDepthMaterial = new THREE.ShaderMaterial();

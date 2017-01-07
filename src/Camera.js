@@ -116,8 +116,7 @@ export default class Camera {
       case 70:/* f */
         for (var i = 1; i < 16; i++) {
           console.time("Hello");
-          // new Ball( randNum(-100,100), randNum(100,200), randNum(-100,-200),'/mb.jpg', 5);
-          new Box(randNum(-100,100), randNum(100,200), randNum(-100,-200), 'box/'+~~randNum(0,4)+'.jpg', 10);
+          new Box(randNum(-100,100), randNum(100,200), randNum(-100,-200), 'box/'+~~randNum(0,4)+'.jpg', ~~randNum(5,10));
         }
         break;
       case 71:/* g */

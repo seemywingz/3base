@@ -2,6 +2,7 @@
 import Sky from '../../Sky';
 import Box from '../../Box';
 import Ball from '../../Ball';
+import Ground from '../../Ground';
 import * as THREE from 'three';
 import { scene } from '../../init';
 import SceneObject from '../../SceneObject';
@@ -11,7 +12,7 @@ import { createMesh, loadModel, randNum } from '../../Utils';
 function createLights(){
 
   let light = new THREE.PointLight( 0xffffff, 1, 700);
-  light.position.set(5, 10, 10);
+  light.position.set(5, 100, 10);
   light.castShadow = true;
   light.shadowMapBias = 0.00001;
   light.shadowMapDarkness = 0.000001;
@@ -31,16 +32,15 @@ function createLights(){
 export default function createScene(){
   createLights();
 
-  new Sky(0, 800, 0, '/sky.jpg');
-  // new SceneObject(0, 0, -30, null, null, 'buddha', 10);
 
+  new Sky(0, 900, 0, '/sky.jpg');
+  new Ground(0, 0, 0, '/dry.jpg', 1000);
 
-
-}
-
-export function explodeScene(){
   for (var i = 1; i < 16; i++) {
-    new Ball( randNum(-100,100), randNum(100,200), randNum(-100,-200),'/redsf.jpeg', 5);
-    new Box(randNum(-100,100), randNum(100,200), randNum(-100,-200), '/gift.png', 10);
+    console.time("Hello");
+    new Box(randNum(-100,100), randNum(100,200), randNum(-100,-200), 'box/'+~~randNum(0,4)+'.jpg', ~~randNum(5,10));
   }
+
+
+
 }

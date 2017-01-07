@@ -9,8 +9,9 @@ export var jsonLoader = new THREE.JSONLoader(manager);
 export var objectLoader = new THREE.ObjectLoader(manager);
 var loadingMsgs = [
   'My other load screen is much faster',
-  'Getting to a save spot, then loading the site....',
-  'Reticulating Splines'
+  'Getting to a save spot, then loading the app....',
+  'Reticulating Splines',
+  'Re-Reticulating Splines',
 ];
 
 // Touch
