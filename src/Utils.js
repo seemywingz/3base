@@ -137,7 +137,7 @@ manager.onError = function () {
 
 function loadingAnimation(){
   if(loading){
-    var num = Math.floor(randNum(0, loadingMsgs.length - 1));
+    var num = ~~randNum(0, loadingMsgs.length - 1);
     document.getElementById('overlay').innerHTML = loadingMsgs[num];
     setTimeout(loadingAnimation, 1000);
   }
