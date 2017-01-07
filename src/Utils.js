@@ -9,9 +9,21 @@ export var jsonLoader = new THREE.JSONLoader(manager);
 export var objectLoader = new THREE.ObjectLoader(manager);
 var loadingMsgs = [
   'My other load screen is much faster',
-  'Getting to a save spot, then loading the app....',
+  'Wait, I need to get to a save spot....',
   'Reticulating Splines',
   'Re-Reticulating Splines',
+  "Locating the required gigapixels to render...",
+  "Spinning up the hamster...",
+  "Shovelling coal into the server...",
+  "Programming the flux capacitor",
+  "At least you're not on hold",
+  "Please Wait, we're testing your patience",
+  "It's still faster than you could draw it!",
+  "Do you suffer from ADHD? Me neith- oh look, a bunny... What was I doing again? Oh, right. Here we go.",
+  "I should have compiled V8 this morning.",
+  "Development load screens are much funniers.",
+  "Scanning your hard drive for pr0n. Please be patient...",
+  "Oh hey, we can wait together "
 ];
 
 // Touch
