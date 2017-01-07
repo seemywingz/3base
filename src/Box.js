@@ -7,17 +7,17 @@ import {world, animatedObjects, physic_enabled} from './init';
 
 export default class Box extends SceneObject {
 
-  constructor(x, y, z, texturesrc, scale=1){
+  constructor(x, y, z, texturesrc, scale=1, mass=1){
     super(x, y, z, texturesrc, new THREE.BoxGeometry( scale, scale, scale ), null);
     if(physic_enabled)
-      this.initPhysics(scale);
+      this.initPhysics(scale, mass);
   }
 
-  initPhysics(scale){
+  initPhysics(scale, mass){
     // console.log(scale);
     let shape = new CANNON.Box(new CANNON.Vec3(scale*0.5, scale*0.5, scale*0.5));
     this.body = new CANNON.Body({
-      mass: 1
+      mass: mass
     });
     this.body.addShape(shape);
     this.body.position.set(this.x,this.y,this.z);

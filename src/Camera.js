@@ -17,7 +17,7 @@ export default class Camera {
     this.speed = 1;
     this.dy = 0;
     this.near = 0.1;
-    this.far = 10000;
+    this.far = 20000;
     this.camera = new THREE.PerspectiveCamera(
       45,
       window.innerWidth / window.innerHeight,
@@ -210,7 +210,6 @@ export default class Camera {
   }
 
   shoot(){
-    // let matrix = new THREE.Matrix4();
     let direction = new THREE.Vector3();
     this.controls.getDirection( direction );
     let pos = this.controls.getObject().position;
@@ -218,7 +217,7 @@ export default class Camera {
     let spd = 150;
     let velocity = this.getDirection(new THREE.Vector3(direction.x * spd, direction.y * spd, direction.z * spd));
 
-    let ball = new Ball(0, 5, 0, null, 0.5, 100);
+    let ball = new Ball(0, 5, 0, null, 0.5, 0.1);
     ball.body.angularVelocity.set(0, 0, 0);
     ball.body.position.set(pos.x,pos.y,pos.z);
     ball.body.velocity.set(velocity.x, velocity.y, velocity.z);

@@ -10,13 +10,13 @@ export default class Ball extends SceneObject {
   constructor(x, y, z, texturesrc, scale=1, mass=1){
     super(x, y, z, texturesrc, new THREE.SphereGeometry( scale, 32, 32 ), null);
     if(physic_enabled)
-      this.initPhysics(scale);
+      this.initPhysics(scale, mass);
   }
 
   initPhysics(scale, mass){
     let shape = new CANNON.Sphere(scale);
     this.body = new CANNON.Body({
-      mass: 1
+      mass: mass
     });
     this.body.addShape(shape);
     this.body.position.set(this.x,this.y,this.z);
