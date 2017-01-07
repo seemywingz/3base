@@ -1,0 +1,45 @@
+{
+  "name": "CPU_Monit",
+  "version": "1.0.0",
+  "description": "CPU Usage Visialiation",
+  "main": "./src/main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "electron . & webpack --progress --colors --watch",
+    "pack": "build --dir",
+    "dist": "webpack; build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com:seemywingz/cpu_monit.git"
+  },
+  "author": "Kevin Jayne",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/seemywingz/cpu_monit/issues"
+  },
+  "homepage": "https://github.com/seemywingz/cpu_monit#readme",
+  "build": {
+    "appId": "cpu.monit",
+    "mac": {
+      "category": "public.app-category.utilities"
+    },
+    "win": {
+      "iconUrl": "(windows-only) https link to icon"
+    }
+  },
+  "devDependencies": {
+    "babel-core": "^6.17.0",
+    "babel-loader": "^6.2.5",
+    "babel-preset-es2015": "^6.16.0",
+    "electron": "^1.4.13",
+    "electron-builder": "^10.17.3",
+    "electron-reload": "^1.1.0",
+    "webpack": "^1.13.2"
+  },
+  "dependencies": {
+    "cannon": "^0.6.2",
+    "three": "^0.83.0"
+  },
+  "postinstall": "install-app-deps"
+}
