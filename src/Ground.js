@@ -11,7 +11,7 @@ export default class Ground extends SceneObject {
     super(x, y, z, texturesrc, new THREE.PlaneGeometry(scale, scale), null);
 
     this.texture.wrapS = this.texture.wrapT = THREE.RepeatWrapping;
-    this.texture.repeat.set( 10, 10 );
+    this.texture.repeat.set( 20, 20 );
     // this.texture.magFilter = THREE.LinearFilter;
     // this.texture.minFilter = THREE.LinearMipMapLinearFilter;
 

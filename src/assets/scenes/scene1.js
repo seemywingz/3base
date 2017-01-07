@@ -1,8 +1,7 @@
 
 import Sky from '../../Sky';
-import Box from '../../Box';
-import Ball from '../../Ball';
 import Ground from '../../Ground';
+import Box from '../../Box';
 import * as THREE from 'three';
 import { scene } from '../../init';
 import SceneObject from '../../SceneObject';
@@ -37,10 +36,7 @@ export default function createScene(){
   new Ground(0, 0, 0, '/dry.jpg', 1000);
 
   for (var i = 1; i < 16; i++) {
-    console.time("Hello");
-    new Box(randNum(-100,100), randNum(100,200), randNum(-100,-200), 'box/'+~~randNum(0,4)+'.jpg', ~~randNum(5,10));
+    new Box(randNum(-100,100), randNum(100,200), randNum(-100,-200), 'box/'+~~randNum(0,4)+'.jpg', ~~randNum(2,6));
   }
-
-
 
 }

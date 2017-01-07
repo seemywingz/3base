@@ -10,7 +10,7 @@ export default class Camera {
 
   constructor(){
     this.x = navigator.hardwareConcurrency*2.1;
-    this.y = 15;
+    this.y = 10;
     this.z = 0;
     this.lastTouch = 9999;
     this.speed = 1;
@@ -115,8 +115,7 @@ export default class Camera {
         break;
       case 70:/* f */
         for (var i = 1; i < 16; i++) {
-          console.time("Hello");
-          new Box(randNum(-100,100), randNum(100,200), randNum(-100,-200), 'box/'+~~randNum(0,4)+'.jpg', ~~randNum(5,10));
+          new Box(randNum(-100,100), randNum(100,200), randNum(-100,-200), 'box/'+~~randNum(0,4)+'.jpg', ~~randNum(2,6));
         }
         break;
       case 71:/* g */
