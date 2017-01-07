@@ -23,7 +23,22 @@ var loadingMsgs = [
   "I should have compiled V8 this morning.",
   "Development load screens are much funniers.",
   "Scanning your hard drive for pr0n. Please be patient...",
-  "Oh hey, we can wait together "
+  "Oh hey, we can wait together ",
+  "Congratulations!",
+  "It is pitch black. You are likely to be eaten by a grue.",
+  "Working... unlike you!",
+  "ERROR: msg undefined",
+  "deterministically simulating the future.",
+  "null",
+  "You are in a maze of twisty loading screens, all alike...",
+  "Generating next funny line...",
+  "Entertaining you while you wait...",
+  "Improving your reading skills...",
+  "Dividing eternity by zero, please be patient...",
+  "Just stalling to simulate activity...",
+  "Loading new loading screen.",
+  "Transporting you into the future one millisecond at a time..."
+
 ];
 
 // Touch
