@@ -1,11 +1,15 @@
 'use-strict';
 
-import Ball from './Ball';
-import Box from './Box';
 import * as THREE from 'three';
 import {randNum} from './Utils';
 import {loadControls} from './THREE_Controls';
-import { scene, clock, animatedObjects, pointerLockElement } from './init';
+import {
+  scene,
+  clock,
+  levelLoader,
+  animatedObjects,
+  pointerLockElement
+} from './init';
 
 export default class Camera {
 
@@ -88,7 +92,7 @@ export default class Camera {
       pointerLockElement.requestPointerLock();
       this.controls.enabled = true;
     }else{
-      this.shoot();
+      levelLoader.currentLevel.click();
     }
   }
 
@@ -209,20 +213,5 @@ export default class Camera {
       this.konamiIndex = 0;
     }
   }
-
-  shoot(){
-    let direction = new THREE.Vector3();
-    this.controls.getDirection( direction );
-    let pos = this.controls.getObject().position;
-
-    let spd = 100;
-    let velocity = this.getDirection(new THREE.Vector3(direction.x * spd, direction.y * spd, direction.z * spd));
-
-    let ball = new Ball(0, 0, 0, null, 1, 10);
-    ball.body.angularVelocity.set(0, 0, 0);
-    ball.body.position.set(pos.x,pos.y,pos.z);
-    ball.body.velocity.set(velocity.x, velocity.y, velocity.z);
-  }
-
 
 }// Camera

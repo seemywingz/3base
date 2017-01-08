@@ -1,8 +1,9 @@
 'use-strict';
 
+import Camera from './Camera';
 import * as THREE from 'three';
 import * as CANNON from 'cannon';
-import Camera from './Camera';
+import LevelLoader from './LevelLoader';
 import createScene from './assets/scenes/scene1.js';
 import {
   mouseWheel,
@@ -22,6 +23,7 @@ export var
   clock,
   camera,
   renderer,
+  levelLoader,
   pointerLockElement,
   physic_enabled = true;
 
@@ -119,7 +121,7 @@ export function init() {
     world.gravity.set(0,-9.82,0);
     world.broadphase = new CANNON.NaiveBroadphase();
     world.solver.iterations = 10;
-    // world.allowSleep = true;
+    world.allowSleep = true;
   }
 
   // Event Listeners
@@ -133,14 +135,14 @@ export function init() {
   //  window.addEventListener( 'mousemove', mouseMove, false);
   window.addEventListener( 'mouseup', mouseUp, false);
   window.addEventListener( 'mousedown', mouseDown, false);
-  window.addEventListener("blur", pause);
-  window.addEventListener("focus", unpause);
+  window.addEventListener( 'blur', pause);
+  window.addEventListener( 'focus', unpause);
 
   window.focus();
 
   scene = new THREE.Scene();
+  levelLoader = new LevelLoader();
   camera = new Camera();
   initPointerLock();
-  createScene();
   animate();
 }//..
