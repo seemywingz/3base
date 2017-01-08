@@ -2,7 +2,7 @@
 
 import * as THREE from 'three';
 import * as CANNON from 'cannon';
-import {scene, world, physic_enabled} from './init';
+import {scene, world, physic_enabled, removeBodies} from './init';
 import {textureLoader, jsonLoader} from './Utils';
 
 THREE.Cache.enabled = true;
@@ -90,6 +90,13 @@ export default class SceneObject {
 
   setPosition(x, y, z){
     this.mesh.position.set(this.x = x, this.y = y, this.z = z);
+  }
+
+  die(){
+    scene.remove(this.mesh);
+    if(physic_enabled){
+      removeBodies.push(this.body);
+    }
   }
 
 }

@@ -18,7 +18,7 @@ export default class Camera {
     this.y = 20;
     this.z = 100;
     this.lastTouch = 9999;
-    this.speed = 1;
+    this.speed = 2;
     this.dy = 0;
     this.near = 0.1;
     this.far = 20000;
@@ -92,7 +92,7 @@ export default class Camera {
       pointerLockElement.requestPointerLock();
       this.controls.enabled = true;
     }else{
-      levelLoader.currentLevel.click();
+      levelLoader.currentLevel.click(event);
     }
   }
 
@@ -122,10 +122,7 @@ export default class Camera {
         this.printPosition();
         break;
       case 70:/* f */
-        for (var i = 1; i < 10; i++) {
-          new Box(randNum(-100,100), randNum(100,200), randNum(-100,-200), 'box/'+~~randNum(0,4)+'.jpg', ~~randNum(2,10));
-          // new Box(randNum(-100,100), randNum(100,200), randNum(-100,-200), null, ~~randNum(2,10));
-        }
+        levelLoader.currentLevel.extra();
         break;
       case 71:/* g */
         break;
@@ -207,7 +204,7 @@ export default class Camera {
       if(this.konamiIndex === this.konamiCode.length){
         this.konamiIndex = 0;
         alert('Konami Code of HONOR!');
-        this.allowLook = !this.allowLook;
+        levelLoader.currentLevel.extra();
       }
     }else{
       this.konamiIndex = 0;

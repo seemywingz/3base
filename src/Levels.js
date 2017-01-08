@@ -15,11 +15,10 @@ class Level {
     this.createScene();
   }
 
-  createLights(){
-  }
-
-  createScene(){
-  }
+  createLights(){}
+  createScene(){}
+  extra(){}
+  click(){}
 }
 
 export class Level1 extends Level {
@@ -54,8 +53,9 @@ export class Level1 extends Level {
     new Sky(0, 800, 0, '/sky.jpg', 10000);
     new Ground(0, 0, 0, 'dry.jpg', 1000);
 
-    let scale = 10;
-    for (let x = 0; x < 2; x++) {
+    let scale = 10,
+        start = 5;
+    for (let x = -start; x < start; x++) {
       for (var z = 0; z < 1; z++) {
         for (var y = 0; y < 20; y++) {
           let box = new Box((x*scale), (0.5*scale)+(y*scale), z*scale, 'box/1.jpg', scale, 10);
@@ -64,43 +64,52 @@ export class Level1 extends Level {
       }
     }
 
-    scale = 1;
-    for (let x = 0; x < 2; x++) {
-      for (let z = 0; z < 1; z++) {
-        for (let y = 0; y < 20; y++) {
-          let box = new Box(-20+(x*scale), (0.5*scale)+(y*scale), z*scale, 'box/1.jpg', scale, 1);
-          box.body.sleep();
-        }
-      }
-    }
-
-    scale = 1;
-    for (let x = 0; x < 2; x++) {
-      for (let z = 0; z < 1; z++) {
-        for (let y = 0; y < 20; y++) {
-          let box = new Box(30+(x*scale), (0.5*scale)+(y*scale), z*scale, 'box/1.jpg', scale, 1);
-          box.body.sleep();
-        }
-      }
-    }
+    // scale = 1;
+    // for (let x = 0; x < 2; x++) {
+    //   for (let z = 0; z < 1; z++) {
+    //     for (let y = 0; y < 20; y++) {
+    //       let box = new Box(-20+(x*scale), (0.5*scale)+(y*scale), z*scale, 'box/1.jpg', scale, 1);
+    //       box.body.sleep();
+    //     }
+    //   }
+    // }
+    //
+    // scale = 1;
+    // for (let x = 0; x < 2; x++) {
+    //   for (let z = 0; z < 1; z++) {
+    //     for (let y = 0; y < 20; y++) {
+    //       let box = new Box(30+(x*scale), (0.5*scale)+(y*scale), z*scale, 'box/1.jpg', scale, 1);
+    //       box.body.sleep();
+    //     }
+    //   }
+    // }
 
     // var audio = new Audio('./assets/audio/wind.wav');
     // audio.play();
   }
 
-  click(){
+  click(event){
     let getDirection = camera.getDirection;
     let direction = new THREE.Vector3();
     camera.controls.getDirection( direction );
     let pos = camera.controls.getObject().position;
 
-    let spd = 100;
+    let spd = 300;
     let velocity = camera.getDirection(new THREE.Vector3(direction.x * spd, direction.y * spd, direction.z * spd));
 
     let ball = new Ball(0, 0, 0, null, 1, 10);
     ball.body.angularVelocity.set(0, 0, 0);
     ball.body.position.set(pos.x,pos.y,pos.z);
     ball.body.velocity.set(velocity.x, velocity.y, velocity.z);
+    ball.body.addEventListener("sleep",(event)=>{
+      ball.die();
+    });
+  }
+
+  extra(){
+    for (var i = 1; i < 10; i++) {
+      new Box(randNum(-100,100), randNum(100,200), randNum(-100,-200), 'box/'+~~randNum(0,4)+'.jpg', ~~randNum(2,10));
+    }
   }
 
 }

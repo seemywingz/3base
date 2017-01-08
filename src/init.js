@@ -31,7 +31,9 @@ let
     lastTime = Date.now(),
     fixedTime = 0.016;
 
-export let animatedObjects = [];
+export let
+  animatedObjects = [],
+  removeBodies = [];
 
 function animate() {
   requestAnimationFrame( animate );
@@ -43,7 +45,9 @@ function animate() {
       let deltaTime = (time - lastTime);
       world.step(fixedTime, deltaTime , 3);
       lastTime = time;
-      // console.log(deltaTime);
+      removeBodies.map((body)=>{
+        world.remove(body);
+      });
     }
 
     animatedObjects.map((animatedObject)=>{

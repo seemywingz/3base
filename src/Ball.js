@@ -22,6 +22,9 @@ export default class Ball extends SceneObject {
     this.body.position.set(this.x,this.y,this.z);
     this.body.angularVelocity.set(0,0,0);
     this.body.angularDamping = 0.7;
+    this.body.allowSleep = true;
+    this.body.sleepSpeedLimit = 0.01; // Body will feel sleepy if speed < n (speed == norm of velocity)
+    this.body.sleepTimeLimit = 1; // Body falls asleep after n seconds of sleepiness
     world.addBody(this.body);
     animatedObjects.push(this);
   }
