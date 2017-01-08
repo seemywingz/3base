@@ -2,8 +2,14 @@
 
 import * as THREE from 'three';
 import * as CANNON from 'cannon';
-import {scene, world, physic_enabled, removeBodies} from './init';
 import {textureLoader, jsonLoader} from './Utils';
+import {
+  scene,
+  world,
+  removeBodies,
+  physic_enabled,
+  animatedObjects
+} from './init';
 
 THREE.Cache.enabled = true;
 
@@ -82,10 +88,28 @@ export default class SceneObject {
     );
   }
 
-  initPhysics(){
+  initPhysics(scale, mass, shape){
+    this.body = new CANNON.Body({
+      mass: mass
+    });
+    this.body.addShape(shape);
+    this.body.position.set(this.x,this.y,this.z);
+    this.body.angularVelocity.set(0,0,0);
+    this.body.angularDamping = 0.7;
+    this.body.allowSleep = true;
+    this.body.sleepSpeedLimit = 0.01; // Body will feel sleepy if speed < n (speed == norm of velocity)
+    this.body.sleepTimeLimit = 0.5; // Body falls asleep after n seconds of sleepiness
+    world.addBody(this.body);
+    animatedObjects.push(this);
   }
 
   animate(){
+    if(physic_enabled){
+      this.mesh.position.copy(this.body.position);
+      this.mesh.quaternion.copy(this.body.quaternion);
+    }else{
+
+    }
   }
 
   setPosition(x, y, z){
