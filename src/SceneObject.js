@@ -77,7 +77,6 @@ export default class SceneObject {
            });
            this.mesh = new THREE.Mesh( geometry, material );
         }
-
         this.mesh.castShadow = true;
         this.mesh.receiveShadow = true;
         this.mesh.position.set(this.x, this.y, this.z);
@@ -107,8 +106,6 @@ export default class SceneObject {
     if(physic_enabled){
       this.mesh.position.copy(this.body.position);
       this.mesh.quaternion.copy(this.body.quaternion);
-    }else{
-
     }
   }
 

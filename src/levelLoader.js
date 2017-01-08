@@ -1,6 +1,7 @@
 'use-strict'
 
 import {Level1} from './levels/Level1';
+import {Level2} from './levels/Level2';
 
 
 export default class LevelLoader {

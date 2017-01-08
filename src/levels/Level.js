@@ -3,8 +3,8 @@
 import Ball from '../Ball';
 import Box from '../Box';
 import * as THREE from 'three';
-import { camera } from '../init';
 import { randNum } from '../Utils';
+import { scene, camera } from '../init';
 
 export default class Level {
 
@@ -13,8 +13,28 @@ export default class Level {
     this.createScene();
   }
 
-  createLights(){}
   createScene(){}
+
+  createLights(){
+    let light = new THREE.PointLight( 0xc9c9c9, 1, 0, 3);
+    light.position.set(0, 500, 100);
+    light.castShadow = true;
+    light.shadowMapBias = 0.01;
+    light.shadowMapDarkness = 0.01;
+    light.shadow.mapSize.width = 1024;
+    light.shadow.mapSize.height = 1024;
+    scene.add( light );
+
+    // var pointLightHelper = new THREE.PointLightHelper( light, 2 );
+    // scene.add( pointLightHelper );
+
+    light = new THREE.HemisphereLight( 0xe8ffe9, 0x262626, 1 );
+    scene.add( light );
+
+    // light = new THREE.AmbientLight(0xd6d6d6);
+    // light = new THREE.AmbientLight(0xffffff);
+    // scene.add( light );
+  }
 
   click(){
       let getDirection = camera.getDirection;
