@@ -1,8 +1,10 @@
 'use-strict';
 
 import Ball from '../Ball';
+import Box from '../Box';
 import * as THREE from 'three';
 import { camera } from '../init';
+import { randNum } from '../Utils';
 
 export default class Level {
 
@@ -13,7 +15,6 @@ export default class Level {
 
   createLights(){}
   createScene(){}
-  extra(){}
 
   click(){
       let getDirection = camera.getDirection;
@@ -31,6 +32,12 @@ export default class Level {
       ball.body.addEventListener("sleep",(event)=>{
         ball.die();
       });
+  }
+
+  extra(){
+    for (var i = 1; i < 10; i++) {
+      new Box(randNum(-100,100), randNum(100,200), randNum(-100,-200), 'box/'+~~randNum(0,4)+'.jpg', ~~randNum(2,10));
+    }
   }
 
 }

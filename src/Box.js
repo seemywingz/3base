@@ -25,7 +25,7 @@ export default class Box extends SceneObject {
     this.body.angularDamping = 0.7;
     this.body.allowSleep = true;
     this.body.sleepSpeedLimit = 0.01; // Body will feel sleepy if speed < n (speed == norm of velocity)
-    this.body.sleepTimeLimit = 1; // Body falls asleep after n seconds of sleepiness
+    this.body.sleepTimeLimit = 0.5; // Body falls asleep after n seconds of sleepiness
     world.addBody(this.body);
     animatedObjects.push(this);
   }
