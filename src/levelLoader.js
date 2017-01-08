@@ -13,6 +13,7 @@ export default class LevelLoader {
   }
 
   loadLevels(){
+    this.levels.push(new Level2());
     this.levels.push(new Level1());
   }
 }

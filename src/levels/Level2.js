@@ -5,10 +5,9 @@ import Box from '../Box';
 import Level from './Level';
 import * as THREE from 'three';
 import Ground from '../Ground';
-import { scene } from '../init';
 import { randNum } from '../Utils';
 
-export class Level1 extends Level {
+export class Level2 extends Level {
 
   constructor() {
     super();
@@ -20,17 +19,17 @@ export class Level1 extends Level {
     new Ground(0, 0, 0, 'ground.jpg', 1000);
 
     let scale = 10,
-        start = 1;
+        start = 5;
     for (let x = -start; x < start; x++) {
-      for (var z = 0; z < 1; z++) {
-        for (var y = 0; y < 10; y++) {
+      for (let z = 0; z < 1; z++) {
+        for (let y = 0; y < 10; y++) {
           let box = new Box((x*scale), (0.5*scale)+(y*scale), z*scale, 'box/1.jpg', scale, 10);
           box.body.sleep();
         }
       }
     }
 
-    // var audio = new Audio('./assets/audio/wind.wav');
+    // let audio = new Audio('./assets/audio/wind.wav');
     // audio.play();
   }
 

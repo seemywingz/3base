@@ -5,7 +5,6 @@ import Box from '../Box';
 import Level from './Level';
 import * as THREE from 'three';
 import Ground from '../Ground';
-import { scene } from '../init';
 import { randNum } from '../Utils';
 
 export class Level1 extends Level {
