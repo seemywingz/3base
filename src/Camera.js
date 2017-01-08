@@ -11,8 +11,8 @@ export default class Camera {
 
   constructor(){
     this.x = 0;
-    this.y = 10;
-    this.z = 0;
+    this.y = 20;
+    this.z = 100;
     this.lastTouch = 9999;
     this.speed = 1;
     this.dy = 0;
@@ -24,7 +24,6 @@ export default class Camera {
       this.near,
       this.far
     );
-    this.camera.position.set(this.x, this.y, this.z);
 
     loadControls();
     this.controls = new THREE.PointerLockControls(this.camera);
@@ -32,6 +31,7 @@ export default class Camera {
     this.controls.movementSpeed = this.speed;
     // this.controls.lon = -90;
     this.controls.getObject().position.set(this.x, this.y, this.z);
+    // this.camera.position.set(this.x, this.y, this.z);
     scene.add(this.controls.getObject());
 
     this.raycaster = new THREE.Raycaster(); // create once and reuse
@@ -118,8 +118,9 @@ export default class Camera {
         this.printPosition();
         break;
       case 70:/* f */
-        for (var i = 1; i < 16; i++) {
+        for (var i = 1; i < 10; i++) {
           new Box(randNum(-100,100), randNum(100,200), randNum(-100,-200), 'box/'+~~randNum(0,4)+'.jpg', ~~randNum(2,10));
+          // new Box(randNum(-100,100), randNum(100,200), randNum(-100,-200), null, ~~randNum(2,10));
         }
         break;
       case 71:/* g */
@@ -214,10 +215,10 @@ export default class Camera {
     this.controls.getDirection( direction );
     let pos = this.controls.getObject().position;
 
-    let spd = 150;
+    let spd = 100;
     let velocity = this.getDirection(new THREE.Vector3(direction.x * spd, direction.y * spd, direction.z * spd));
 
-    let ball = new Ball(0, 5, 0, null, 5, 0.1);
+    let ball = new Ball(0, 0, 0, null, 1, 10);
     ball.body.angularVelocity.set(0, 0, 0);
     ball.body.position.set(pos.x,pos.y,pos.z);
     ball.body.velocity.set(velocity.x, velocity.y, velocity.z);

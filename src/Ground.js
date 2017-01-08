@@ -10,8 +10,10 @@ export default class Ground extends SceneObject {
   constructor(x, y, z, texturesrc, scale=1){
     super(x, y, z, texturesrc, new THREE.PlaneGeometry(scale, scale), null);
 
-    this.texture.wrapS = this.texture.wrapT = THREE.RepeatWrapping;
-    this.texture.repeat.set( 20, 20 );
+    if(this.texture){
+      this.texture.wrapS = this.texture.wrapT = THREE.RepeatWrapping;
+      this.texture.repeat.set( 30, 30 );
+    }
 
     this.mesh.rotation.x = -Math.PI/2;
     this.mesh.material.shininess = 0;

@@ -26,8 +26,8 @@ export var
   physic_enabled = true;
 
 let
-    currentTime = new Date().getTime(),
-    deltaTime = 0.008;
+    lastTime = Date.now(),
+    fixedTime = 0.016;
 
 export let animatedObjects = [];
 
@@ -36,22 +36,20 @@ function animate() {
   if(document.hasFocus()){
     camera.animate();
 
-    if(physic_enabled)
-      stepSimulation();
+    if(physic_enabled){
+      let time = Date.now();
+      let deltaTime = (time - lastTime);
+      world.step(fixedTime, deltaTime , 3);
+      lastTime = time;
+      // console.log(deltaTime);
+    }
 
-    animatedObjects.map(function(animatedObject){
+    animatedObjects.map((animatedObject)=>{
       animatedObject.animate();
     });
 
     renderer.render( scene, camera.camera );
   }
-}
-
-function stepSimulation () {
-  let newTime = new Date().getTime();
-  let frameTime = (newTime - currentTime)/100;
-  currentTime = newTime;
-  world.step(deltaTime, frameTime, 10);
 }
 
 function pause(){
@@ -61,7 +59,7 @@ function pause(){
 
 function unpause(){
   console.log("!!UNPAUSING");
-  currentTime = new Date().getTime();
+  lastTime = new Date().getTime();
   physic_enabled=true;
 }
 
@@ -121,6 +119,7 @@ export function init() {
     world.gravity.set(0,-9.82,0);
     world.broadphase = new CANNON.NaiveBroadphase();
     world.solver.iterations = 10;
+    // world.allowSleep = true;
   }
 
   // Event Listeners
