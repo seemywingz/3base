@@ -1,13 +1,8 @@
 'use-strict';
 
 import * as THREE from 'three';
-import { scene, levelLoader, renderer, animatedObjects } from './init';
 
-var manager = new THREE.LoadingManager();
-export var textureLoader = new THREE.TextureLoader(manager);
-export var jsonLoader = new THREE.JSONLoader(manager);
-export var objectLoader = new THREE.ObjectLoader(manager);
-var loadingMsgs = [
+export let loadingMsgs = [
   'My other load screen is much faster',
   'Wait, I need to get to a save spot....',
   'Reticulating Splines',
@@ -69,31 +64,4 @@ export function fade(element) {
         element.style.filter = 'alpha(opacity=' + op * 100 + ')';
         op -= op * 0.1;
     }, 50);
-}
-
-// Loading Manager
-var loading = false;
-manager.onProgress = function (/*item, loaded*/) {
-  if(!loading){
-    loading = true;
-    loadingAnimation();
-  }
-};
-
-manager.onLoad = function () {// Completion
-  loading = false;
-  document.body.appendChild( renderer.domElement );
-  fade( document.getElementById('overlay'));
-};
-
-manager.onError = function () {
-  console.log('there has been an error');
-};
-
-function loadingAnimation(){
-  if(loading){
-    var num = ~~randNum(0, loadingMsgs.length - 1);
-    document.getElementById('overlay').innerHTML = loadingMsgs[num];
-    setTimeout(loadingAnimation, 1000);
-  }
 }

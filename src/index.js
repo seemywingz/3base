@@ -1,5 +1,4 @@
 'use-strict';
 
-import {init} from './init';
-
-init();
+import LevelLoader from './LevelLoader';
+new LevelLoader();

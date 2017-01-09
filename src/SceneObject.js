@@ -2,20 +2,12 @@
 
 import * as THREE from 'three';
 import * as CANNON from 'cannon';
-import {textureLoader, jsonLoader} from './Utils';
-import {
-  scene,
-  world,
-  removeBodies,
-  physic_enabled,
-  animatedObjects
-} from './init';
 
 THREE.Cache.enabled = true;
 
 export default class SceneObject {
 
-  constructor(x, y, z, textureSrc, geometry, model, scale=1){
+  constructor(level, x, y, z, textureSrc, geometry, model, scale=1){
     this.x = x;
     this.y = y;
     this.z = z;
@@ -24,11 +16,12 @@ export default class SceneObject {
     this.xrotation = 0;
     this.yrotation = 0;
     this.zrotation = 0;
+    this.level = level;
 
     this.mesh = null;
     this.body = null;
     this.geometry = geometry ? geometry : new THREE.PlaneGeometry(1,1);
-    this.texture = textureSrc ? textureLoader.load( 'assets/images/' + textureSrc) : null ;
+    this.texture = textureSrc ? level.textureLoader.load( 'assets/images/' + textureSrc) : null ;
 
     if(model){
       this.loadModel(model, scale);
@@ -44,13 +37,13 @@ export default class SceneObject {
       this.mesh.receiveShadow = true;
       this.mesh.position.set(this.x, this.y, this.z);
       this.mesh.scale.set(this.scale, this.scale, this.scale);
-      scene.add(this.mesh);
+      this.level.scene.add(this.mesh);
     }
   }
 
   loadModel(model, scale=1) {
     let material;
-    jsonLoader.load(
+    this.level.jsonLoader.load(
       './assets/models/' + model + '/' + model + '.json',
       ( geometry, materials ) => {
         this.geometry = geometry;
@@ -81,8 +74,7 @@ export default class SceneObject {
         this.mesh.receiveShadow = true;
         this.mesh.position.set(this.x, this.y, this.z);
         this.mesh.scale.set(scale, scale, scale);
-        // console.log('Loaded:',this.mesh);
-        scene.add(this.mesh);
+        this.level.scene.add(this.mesh);
       }
     );
   }
@@ -98,12 +90,12 @@ export default class SceneObject {
     this.body.allowSleep = true;
     this.body.sleepSpeedLimit = 0.01; // Body will feel sleepy if speed < n (speed == norm of velocity)
     this.body.sleepTimeLimit = 0.5; // Body falls asleep after n seconds of sleepiness
-    world.addBody(this.body);
-    animatedObjects.push(this);
+    this.level.world.addBody(this.body);
+    this.level.animatedObjects.push(this);
   }
 
   animate(){
-    if(physic_enabled){
+    if(this.level.physic_enabled){
       this.mesh.position.copy(this.body.position);
       this.mesh.quaternion.copy(this.body.quaternion);
     }
@@ -114,9 +106,9 @@ export default class SceneObject {
   }
 
   die(){
-    scene.remove(this.mesh);
-    if(physic_enabled){
-      removeBodies.push(this.body);
+    this.level.scene.remove(this.mesh);
+    if(this.level.physic_enabled){
+      this.level.removeBodies.push(this.body);
     }
   }
 

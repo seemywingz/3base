@@ -3,18 +3,14 @@
 import * as THREE from 'three';
 import {randNum} from './Utils';
 import {loadControls} from './THREE_Controls';
-import {
-  scene,
-  levelLoader,
-  animatedObjects
-} from './init';
 
 export default class Camera {
 
-  constructor(x=0, y=20, z=100){
+  constructor(level, x=0, y=20, z=100){
     this.x = x;
     this.y = y;
     this.z = z;
+    this.level = level;
     this.lastTouch = 9999;
     this.speed = 2;
     this.dy = 0;
@@ -33,17 +29,17 @@ export default class Camera {
     this.controls.movementSpeed = this.speed;
     // this.controls.lon = -90;
     this.controls.getObject().position.set(this.x, this.y, this.z);
-    // this.camera.position.set(this.x, this.y, this.z);
-    scene.add(this.controls.getObject());
+    this.level.scene.add(this.controls.getObject());
 
-    this.raycaster = new THREE.Raycaster(); // create once and reuse
+    this.addEventListeners();
+    this.initPointerLock();
+
+    // this.raycaster = new THREE.Raycaster(); // create once and reuse
 
     // Easter Eggs
     this.konamiCode = [38, 38, 40, 40, 37, 39, 37, 39, 66, 65];
     this.konamiIndex = 0;
     this.allowLook = true;
-    this.addEventListeners();
-    this.initPointerLock();
   }
 
   animate() {
@@ -72,7 +68,7 @@ export default class Camera {
       this.pointerLockElement.requestPointerLock();
       this.controls.enabled = true;
     }else{
-      levelLoader.currentLevel.click(this);
+      this.level.click(this);
     }
   }
 
@@ -140,22 +136,6 @@ export default class Camera {
         this.jumping = true;
         break;
     }
-  }
-
-  touchScroll(event){
-    let t = event.changedTouches[0];
-    if(this.lastTouch === 9999){
-      this.lastTouch = t.clientY;
-      return;
-    }else{
-      let dy = this.lastTouch - t.clientY;
-      this.lastTouch = t.clientY;
-      this.z += dy * 0.01;
-    }
-  }
-
-  touchEnd(){
-    this.lastTouch = 9999;
   }
 
   resize(){

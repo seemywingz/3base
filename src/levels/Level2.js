@@ -2,7 +2,7 @@
 
 import Sky from '../Sky';
 import Box from '../Box';
-import Level from './Level';
+import Level from '../Level';
 import * as THREE from 'three';
 import Ground from '../Ground';
 import { randNum } from '../Utils';

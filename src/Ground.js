@@ -3,12 +3,11 @@
 import * as THREE from 'three';
 import * as CANNON from 'cannon';
 import SceneObject from './SceneObject';
-import {world, animatedObjects, physic_enabled} from './init';
 
 export default class Ground extends SceneObject {
 
-  constructor(x, y, z, texturesrc, scale=1){
-    super(x, y, z, texturesrc, new THREE.PlaneGeometry(scale, scale), null);
+  constructor(level, x, y, z, texturesrc, scale=1){
+    super(level, x, y, z, texturesrc, new THREE.PlaneGeometry(scale, scale), null);
 
     if(this.texture){
       this.texture.wrapS = this.texture.wrapT = THREE.RepeatWrapping;
@@ -18,7 +17,7 @@ export default class Ground extends SceneObject {
     this.mesh.rotation.x = -Math.PI/2;
     this.mesh.material.shininess = 0;
 
-    if(physic_enabled)
+    if(this.level.physic_enabled)
       this.initPhysics(scale);
   }
 
@@ -31,8 +30,8 @@ export default class Ground extends SceneObject {
     this.body.addShape(groundShape);
     this.body.quaternion.setFromAxisAngle(new CANNON.Vec3(1,0,0),-Math.PI/2);
     this.body.position.set(0, 0, 0);
-    world.addBody(this.body);
-    animatedObjects.push(this);
+    this.level.world.addBody(this.body);
+    this.level.animatedObjects.push(this);
   }
 
   animate(){
