@@ -5,18 +5,16 @@ import {randNum} from './Utils';
 import {loadControls} from './THREE_Controls';
 import {
   scene,
-  clock,
   levelLoader,
-  animatedObjects,
-  pointerLockElement
+  animatedObjects
 } from './init';
 
 export default class Camera {
 
-  constructor(){
-    this.x = 0;
-    this.y = 20;
-    this.z = 100;
+  constructor(x=0, y=20, z=100){
+    this.x = x;
+    this.y = y;
+    this.z = z;
     this.lastTouch = 9999;
     this.speed = 2;
     this.dy = 0;
@@ -44,55 +42,37 @@ export default class Camera {
     this.konamiCode = [38, 38, 40, 40, 37, 39, 37, 39, 66, 65];
     this.konamiIndex = 0;
     this.allowLook = true;
+    this.addEventListeners();
+    this.initPointerLock();
   }
 
   animate() {
-    // if(this.controls.enabled){
-      var velocity = new THREE.Vector3();
+    let velocity = new THREE.Vector3();
 
-      if (this.moveForward) velocity = this.getDirection(new THREE.Vector3(0, 0, -this.speed));
-      if (this.moveBackward) velocity = this.getDirection(new THREE.Vector3(0, 0, this.speed));
-      this.controls.getObject().translateZ(velocity.z);
+    if (this.moveForward) velocity = this.getDirection(new THREE.Vector3(0, 0, -this.speed));
+    if (this.moveBackward) velocity = this.getDirection(new THREE.Vector3(0, 0, this.speed));
+    this.controls.getObject().translateZ(velocity.z);
 
-      if (this.moveLeft) velocity = this.getDirection(new THREE.Vector3(-this.speed, 0, 0));
-      if (this.moveRight) velocity = this.getDirection(new THREE.Vector3(this.speed, 0, 0));
-      this.controls.getObject().translateX(velocity.x);
+    if (this.moveLeft) velocity = this.getDirection(new THREE.Vector3(-this.speed, 0, 0));
+    if (this.moveRight) velocity = this.getDirection(new THREE.Vector3(this.speed, 0, 0));
+    this.controls.getObject().translateX(velocity.x);
 
-      if (this.jumping) velocity = this.getDirection(new THREE.Vector3(0, this.dy, 0));
-      this.controls.getObject().translateY(velocity.y);
-    // }
+    if (this.jumping) velocity = this.getDirection(new THREE.Vector3(0, this.dy, 0));
+    this.controls.getObject().translateY(velocity.y);
   }
 
   getDirection(angle){
-    var matrix = new THREE.Matrix4();
+    let matrix = new THREE.Matrix4();
     matrix.extractRotation( this.camera.matrix );
     return angle.applyMatrix4(matrix);
   }
 
-  mouseScroll(event){
-    // this.z = this.camera.position.z;
-    // this.z -= (event.deltaY * this.speed);
-    // this.camera.position.z = this.z;
-  }
-
-  mouseMove(event){
-
-  }
-
-  mouseDown(event){
-    // this.controls.enabled = true;
-  }
-
-  mouseUp(event){
-    // this.controls.enabled = false;
-  }
-
   click(event){
-    if(!this.controls.enabled && pointerLockElement){
-      pointerLockElement.requestPointerLock();
+    if(!this.controls.enabled && this.pointerLockElement){
+      this.pointerLockElement.requestPointerLock();
       this.controls.enabled = true;
     }else{
-      levelLoader.currentLevel.click(event);
+      levelLoader.currentLevel.click(this);
     }
   }
 
@@ -163,12 +143,12 @@ export default class Camera {
   }
 
   touchScroll(event){
-    var t = event.changedTouches[0];
+    let t = event.changedTouches[0];
     if(this.lastTouch === 9999){
       this.lastTouch = t.clientY;
       return;
     }else{
-      var dy = this.lastTouch - t.clientY;
+      let dy = this.lastTouch - t.clientY;
       this.lastTouch = t.clientY;
       this.z += dy * 0.01;
     }
@@ -211,4 +191,40 @@ export default class Camera {
     }
   }
 
+  addEventListeners(){
+    window.addEventListener( 'keyup', this.keyUp.bind(this), false);
+    window.addEventListener( 'keydown', this.keyDown.bind(this), false);
+    window.addEventListener( 'click', this.click.bind(this), false);
+  }
+
+  initPointerLock() {
+    this.pointerLockElement = document.body;
+    // Hook pointer lock state change events
+    document.addEventListener('pointerlockchange', this.pointerlockchange.bind(this), false);
+    document.addEventListener('mozpointerlockchange', this.pointerlockchange.bind(this), false);
+    document.addEventListener('webkitpointerlockchange', this.pointerlockchange.bind(this), false);
+
+    let havePointerLock = 'pointerLockElement' in document || 'mozPointerLockElement' in document || 'webkitPointerLockElement' in document;
+    if(havePointerLock){
+      this.pointerLockElement.requestPointerLock = this.pointerLockElement.requestPointerLock || this.pointerLockElement.mozRequestPointerLock || this.pointerLockElement.webkitRequestPointerLock;
+    }else{
+      alert('Your Browser Does not Support Pointer Locking!');
+    }
+
+    // Ask the browser to release the pointer
+    // document.exitPointerLock = document.exitPointerLock || document.mozExitPointerLock || document.webkitExitPointerLock;
+    // document.exitPointerLock();
+  }
+
+  pointerlockchange() {
+      if (document.pointerLockElement === this.pointerLockElement || document.mozPointerLockElement === this.pointerLockElement || document.webkitPointerLockElement === this.pointerLockElement) {
+        this.controls.enabled = true;
+        console.log('controls enabled');
+        // document.getElementById('menu').style.display = 'none';
+      } else {
+        this.controls.enabled = false;
+        console.log('controls disabled');
+        // document.getElementById('menu').style.display = 'block';
+      }
+  }
 }// Camera

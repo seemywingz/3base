@@ -1,7 +1,7 @@
 'use-strict';
 
 import * as THREE from 'three';
-import { scene, camera, renderer, animatedObjects } from './init';
+import { scene, levelLoader, renderer, animatedObjects } from './init';
 
 var manager = new THREE.LoadingManager();
 export var textureLoader = new THREE.TextureLoader(manager);
@@ -38,52 +38,7 @@ var loadingMsgs = [
   "Just stalling to simulate activity...",
   "Loading new loading screen.",
   "Transporting you into the future one millisecond at a time..."
-
 ];
-
-// Touch
-export function touchMove (event) {
-  event.preventDefault();
-  camera.touchScroll(event);
-}
-
-export function touchEnd (event) {
-  camera.touchEnd(event);
-}
-
-// Mouse
-export function mouseWheel(event){
-  event.preventDefault();
-  camera.mouseScroll(event);
-}
-
-export function mouseMove(event){
-  // event.preventDefault();
-  camera.mouseMove(event);
-  // console.log('mousemove');
-}
-
-export function mouseDown(event){
-  camera.mouseDown(event);
-}
-
-export function mouseUp(event){
-  camera.mouseUp(event);
-}
-
-export function click(event){
-  camera.click(event);
-}
-
-// Key
-export function keyUp(event){
-  // console.log('keyUp');
-  camera.keyUp(event);
-}
-
-export function keyDown(event){
-  camera.keyDown(event);
-}
 
 // Utility
 export function randNum(min, max) {

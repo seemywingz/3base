@@ -3,14 +3,17 @@
 import Sky from '../Sky';
 import Box from '../Box';
 import Level from './Level';
+import Camera from '../Camera';
 import * as THREE from 'three';
 import Ground from '../Ground';
 import { randNum } from '../Utils';
+import { camera } from '../init';
 
 export class Level1 extends Level {
 
   constructor() {
     super();
+    this.camera = new Camera();
   }
 
   createScene(){

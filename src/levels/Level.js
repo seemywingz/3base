@@ -4,16 +4,19 @@ import Ball from '../Ball';
 import Box from '../Box';
 import * as THREE from 'three';
 import { randNum } from '../Utils';
-import { scene, camera } from '../init';
+import { scene } from '../init';
 
 export default class Level {
 
   constructor() {
-    this.createLights();
-    this.createScene();
   }
 
   createScene(){}
+
+  load(){
+    this.createLights();
+    this.createScene();
+  }
 
   createLights(){
     let light = new THREE.PointLight( 0xc9c9c9, 1, 0, 3);
@@ -36,7 +39,7 @@ export default class Level {
     // scene.add( light );
   }
 
-  click(){
+  click(camera){
       let getDirection = camera.getDirection;
       let direction = new THREE.Vector3();
       camera.controls.getDirection( direction );
