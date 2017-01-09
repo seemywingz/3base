@@ -8,7 +8,9 @@ import { randNum, loadingMsgs, fade } from './Utils';
 
 export default class Level {
 
-  constructor() {
+  constructor(loader) {
+
+    this.loader = loader;
 
     this.loading = false;
     this.animatedObjects = [];
@@ -19,19 +21,6 @@ export default class Level {
     this.fixedTime = 0.016;
 
     this.manageLoaders();
-
-    this.renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
-    this.renderer.setPixelRatio( window.devicePixelRatio );
-    this.renderer.setSize( window.innerWidth, window.innerHeight );
-    this.renderer.shadowMap.enabled = true;
-    this.renderer.shadowMapSoft = true;
-    this.renderer.shadowCameraNear = 0.1;
-    this.renderer.shadowCameraFar = 1000;
-    this.renderer.shadowCameraFov = 45;
-    this.renderer.shadowMapBias = 0.0001;
-    this.renderer.shadowMapDarkness = 0.02;
-    this.renderer.shadowMapWidth = 1024;
-    this.renderer.shadowMapHeight = 1024;
 
     if(this.physic_enabled){
       this.world = new CANNON.World();
@@ -44,7 +33,7 @@ export default class Level {
   }
 
   animate() {
-    requestAnimationFrame( this.animate.bind(this) );
+    this.animationRequest = requestAnimationFrame( this.animate.bind(this) );
     if(document.hasFocus()){
       this.camera.animate();
 
@@ -62,7 +51,7 @@ export default class Level {
         animatedObject.animate();
       });
 
-      this.renderer.render( this.scene, this.camera.camera );
+      this.loader.renderer.render( this.scene, this.camera.camera );
     }
   }
 
@@ -77,9 +66,10 @@ export default class Level {
         this.loadingAnimation();
       }
     }.bind(this);
+
     this.manager.onLoad = function () {// Completion
       this.loading = false;
-      document.body.appendChild( this.renderer.domElement );
+      document.body.appendChild( this.loader.renderer.domElement );
       fade( document.getElementById('overlay'));
     }.bind(this);
 
@@ -145,6 +135,11 @@ export default class Level {
     for (var i = 1; i < 10; i++) {
       new Box(randNum(-100,100), randNum(100,200), randNum(-100,-200), 'box/'+~~randNum(0,4)+'.jpg', ~~randNum(2,10));
     }
+  }
+
+  die(){
+    this.camera.removeEventListeners();
+    window.cancelAnimationFrame(this.animationRequest);
   }
 
   createScene(){}

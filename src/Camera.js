@@ -68,6 +68,7 @@ export default class Camera {
       this.pointerLockElement.requestPointerLock();
       this.controls.enabled = true;
     }else{
+      console.log(this);
       this.level.click(this);
     }
   }
@@ -101,6 +102,7 @@ export default class Camera {
         levelLoader.currentLevel.extra();
         break;
       case 71:/* g */
+        this.level.next();
         break;
       case 27:/* escape */
         document.exitPointerLock = document.exitPointerLock || document.mozExitPointerLock || document.webkitExitPointerLock;
@@ -175,6 +177,15 @@ export default class Camera {
     window.addEventListener( 'keyup', this.keyUp.bind(this), false);
     window.addEventListener( 'keydown', this.keyDown.bind(this), false);
     window.addEventListener( 'click', this.click.bind(this), false);
+  }
+
+  removeEventListeners(){
+    window.removeEventListener( 'keyup', this.keyUp, false);
+    window.removeEventListener( 'keydown', this.keyDown, false);
+    window.removeEventListener( 'click', this.click, false);
+    document.removeEventListener('pointerlockchange', this.pointerlockchange.bind(this), false);
+    document.removeEventListener('mozpointerlockchange', this.pointerlockchange.bind(this), false);
+    document.removeEventListener('webkitpointerlockchange', this.pointerlockchange.bind(this), false);
   }
 
   initPointerLock() {

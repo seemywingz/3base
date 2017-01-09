@@ -6,12 +6,13 @@ import Level from '../Level';
 import Camera from '../Camera';
 import * as THREE from 'three';
 import Ground from '../Ground';
+import Level2 from './Level2';
 import { randNum } from '../Utils';
 
-export class Level1 extends Level {
+export default class Level1 extends Level {
 
-  constructor() {
-    super();
+  constructor(loader) {
+    super(loader);
     this.scene = new THREE.Scene();
     this.camera = new Camera(this);
   }
@@ -34,6 +35,11 @@ export class Level1 extends Level {
 
     // var audio = new Audio('./assets/audio/wind.wav');
     // audio.play();
+  }
+
+  next(){
+    this.die();
+    this.loader.next(new Level2(this.loader));
   }
 
 }
