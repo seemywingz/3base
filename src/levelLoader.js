@@ -11,6 +11,7 @@ export default class LevelLoader {
 
     this.currentLevel = new Level1(this);
     this.currentLevel.load();
+    this.paused = false;
 
     // Window Event Listeners
     window.addEventListener( 'resize', this.onWindowResize.bind(this), false );
@@ -52,18 +53,18 @@ export default class LevelLoader {
 
   onWindowResize() {
     this.currentLevel.camera.resize();
-    this.currentLevel.renderer.setSize( window.innerWidth, window.innerHeight );
+    this.renderer.setSize( window.innerWidth, window.innerHeight );
   }
 
   pause(){
     console.log("!!PAUSING");
-    this.currentLevel.physic_enabled = false;
+    this.paused = true;
   }
 
   unPause(){
     console.log("UNPAUSING!!");
     this.currentLevel.lastTime = new Date().getTime();
-    this.currentLevel.physic_enabled = true;
+    this.paused = false;
   }
 
   changeLevel(levelNumber){

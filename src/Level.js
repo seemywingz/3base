@@ -15,14 +15,14 @@ export default class Level {
     this.loading = false;
     this.animatedObjects = [];
     this.removeBodies = [];
-    this.physic_enabled = true;
+    this.physics_enabled = true;
 
     this.lastTime = Date.now();
     this.fixedTime = 0.016;
 
     this.manageLoaders();
 
-    if(this.physic_enabled){
+      if(this.physics_enabled){
       this.world = new CANNON.World();
       this.world.gravity.set(0,-9.82,0);
       this.world.broadphase = new CANNON.NaiveBroadphase();
@@ -34,13 +34,13 @@ export default class Level {
 
   animate() {
     this.animationRequest = requestAnimationFrame( this.animate.bind(this) );
-    if(document.hasFocus()){
+    if(document.hasFocus() && !this.loader.paused){
       this.camera.animate();
 
-      if(this.physic_enabled){
+      if(this.physics_enabled){
         let time = Date.now();
         let deltaTime = (time - this.lastTime);
-        this.world.step(this.fixedTime, deltaTime , 3);
+        this.world.step(this.fixedTime, deltaTime + 5, 3);
         this.lastTime = time;
         this.removeBodies.map((body)=>{
           this.world.remove(body);
@@ -114,26 +114,26 @@ export default class Level {
   }
 
   click(camera){
-      let getDirection = camera.getDirection;
-      let direction = new THREE.Vector3();
-      camera.controls.getDirection( direction );
-      let pos = camera.controls.getObject().position;
+    let getDirection = camera.getDirection;
+    let direction = new THREE.Vector3();
+    camera.controls.getDirection( direction );
+    let pos = camera.controls.getObject().position;
 
-      let spd = 300;
-      let velocity = camera.getDirection(new THREE.Vector3(direction.x * spd, direction.y * spd, direction.z * spd));
+    let spd = 150;
+    let velocity = camera.getDirection(new THREE.Vector3(direction.x * spd, direction.y * spd, direction.z * spd));
 
-      let ball = new Ball(this,0, 0, 0, null, 1, 10);
-      ball.body.angularVelocity.set(0, 0, 0);
-      ball.body.position.set(pos.x,pos.y,pos.z);
-      ball.body.velocity.set(velocity.x, velocity.y, velocity.z);
-      ball.body.addEventListener("sleep",(event)=>{
-        ball.die();
-      });
+    let ball = new Ball(this,0, 0, 0, null, 1, 1000);
+    ball.body.angularVelocity.set(0, 0, 0);
+    ball.body.position.set(pos.x,pos.y,pos.z);
+    ball.body.velocity.set(velocity.x, velocity.y, velocity.z);
+    ball.body.addEventListener("sleep",(event)=>{
+      ball.die();
+    });
   }
 
   extra(){
     for (var i = 1; i < 10; i++) {
-      new Box(randNum(-100,100), randNum(100,200), randNum(-100,-200), 'box/'+~~randNum(0,4)+'.jpg', ~~randNum(2,10));
+      new Box(this, randNum(-100,100), randNum(100,200), randNum(-100,-200), 'box/'+~~randNum(0,4)+'.jpg', ~~randNum(2,10));
     }
   }
 

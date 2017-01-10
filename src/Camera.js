@@ -68,7 +68,7 @@ export default class Camera {
       this.pointerLockElement.requestPointerLock();
       this.controls.enabled = true;
     }else{
-      console.log(this);
+      // console.log(this);
       this.level.click(this);
     }
   }
@@ -99,7 +99,7 @@ export default class Camera {
         this.printPosition();
         break;
       case 70:/* f */
-        levelLoader.currentLevel.extra();
+        this.level.extra();
         break;
       case 71:/* g */
         this.level.next();
@@ -166,7 +166,8 @@ export default class Camera {
       if(this.konamiIndex === this.konamiCode.length){
         this.konamiIndex = 0;
         alert('Konami Code of HONOR!');
-        levelLoader.currentLevel.extra();
+        this.level.next();
+        // levelLoader.currentLevel.extra();
       }
     }else{
       this.konamiIndex = 0;

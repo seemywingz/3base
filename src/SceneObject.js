@@ -95,7 +95,7 @@ export default class SceneObject {
   }
 
   animate(){
-    if(this.level.physic_enabled){
+    if(this.level.physics_enabled){
       this.mesh.position.copy(this.body.position);
       this.mesh.quaternion.copy(this.body.quaternion);
     }
@@ -107,7 +107,7 @@ export default class SceneObject {
 
   die(){
     this.level.scene.remove(this.mesh);
-    if(this.level.physic_enabled){
+    if(this.level.physics_enabled){
       this.level.removeBodies.push(this.body);
     }
   }
