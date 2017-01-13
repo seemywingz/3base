@@ -6,6 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "electron . & webpack --progress --colors --watch",
+    "app": "webpack --progress --colors;electron .",
     "pack": "build --dir",
     "dist": "webpack; build"
   },
