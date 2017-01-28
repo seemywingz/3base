@@ -26,8 +26,7 @@ export default class Camera {
     );
 
     loadControls();
-    this.initPhysics(1, 10, new CANNON.Cylinder(1, 1, this.height, 32));
-    this.controls = new THREE.PointerLockControls(this.camera, this.body);
+    this.controls = new THREE.PointerLockControls(this.camera);
     this.controls.lookSpeed = 0.02;
     this.controls.movementSpeed = this.speed;
     // this.controls.lon = -90;
@@ -36,6 +35,7 @@ export default class Camera {
 
     this.addEventListeners();
     this.initPointerLock();
+    this.initPhysics(1, 10, new CANNON.Cylinder(1, 1, this.height, 32));
 
     // this.raycaster = new THREE.Raycaster(); // create once and reuse
 
@@ -48,10 +48,13 @@ export default class Camera {
   animate() {
     let velocity = new THREE.Vector3();
 
+    this.speed = 100;
+
     if (this.moveForward){
       velocity = this.getDirection(new THREE.Vector3(0, 0, -this.speed));
-      // this.controls.getObject().translateZ(velocity.z);
-      this.body.velocity.z = velocity.z;
+      this.controls.getObject().translateZ(velocity.z);
+      this.body.position.z += 1;
+      // this.body.velocity = new CANNON.Vec3(velocity.x, velocity.y, velocity.z);
     }
 
     if (this.moveBackward){
@@ -88,6 +91,7 @@ export default class Camera {
     this.body.position.set(this.x,this.y,this.z);
     this.body.angularVelocity.set(0,0,0);
     this.body.angularDamping = 0.7;
+    this.body.fixedRotation = true;
     // this.body.allowSleep = true;
     // this.body.sleepSpeedLimit = 0.01; // Body will feel sleepy if speed < n (speed == norm of velocity)
     // this.body.sleepTimeLimit = 0.5; // Body falls asleep after n seconds of sleepiness
