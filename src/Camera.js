@@ -1,21 +1,23 @@
 'use-strict';
 
 import * as THREE from 'three';
-import {randNum} from './Utils';
+import * as CANNON from 'cannon';
 import {loadControls} from './THREE_Controls';
 
 export default class Camera {
 
-  constructor(level, x=0, y=20, z=100){
+  constructor(level, x=0, y=200, z=0){
     this.x = x;
     this.y = y;
     this.z = z;
+    this.height = 6;
     this.level = level;
     this.lastTouch = 9999;
     this.speed = 2;
     this.dy = 0;
     this.near = 0.1;
     this.far = 20000;
+    this.body = null;
     this.camera = new THREE.PerspectiveCamera(
       45,
       window.innerWidth / window.innerHeight,
@@ -24,7 +26,8 @@ export default class Camera {
     );
 
     loadControls();
-    this.controls = new THREE.PointerLockControls(this.camera);
+    this.initPhysics(1, 10, new CANNON.Cylinder(1, 1, this.height, 32));
+    this.controls = new THREE.PointerLockControls(this.camera, this.body);
     this.controls.lookSpeed = 0.02;
     this.controls.movementSpeed = this.speed;
     // this.controls.lon = -90;
@@ -45,16 +48,50 @@ export default class Camera {
   animate() {
     let velocity = new THREE.Vector3();
 
-    if (this.moveForward) velocity = this.getDirection(new THREE.Vector3(0, 0, -this.speed));
-    if (this.moveBackward) velocity = this.getDirection(new THREE.Vector3(0, 0, this.speed));
-    this.controls.getObject().translateZ(velocity.z);
+    if (this.moveForward){
+      velocity = this.getDirection(new THREE.Vector3(0, 0, -this.speed));
+      // this.controls.getObject().translateZ(velocity.z);
+      this.body.velocity.z = velocity.z;
+    }
 
-    if (this.moveLeft) velocity = this.getDirection(new THREE.Vector3(-this.speed, 0, 0));
-    if (this.moveRight) velocity = this.getDirection(new THREE.Vector3(this.speed, 0, 0));
-    this.controls.getObject().translateX(velocity.x);
+    if (this.moveBackward){
+      velocity = this.getDirection(new THREE.Vector3(0, 0, this.speed));
+      this.controls.getObject().translateZ(velocity.z);
+    }
 
-    if (this.jumping) velocity = this.getDirection(new THREE.Vector3(0, this.dy, 0));
-    this.controls.getObject().translateY(velocity.y);
+    if (this.moveLeft){
+       velocity = this.getDirection(new THREE.Vector3(-this.speed, 0, 0));
+      // this.controls.getObject().translateX(velocity.x);
+      // this.body.velocity = new CANNON.Vec3(velocity.x, velocity.y, velocity.z);
+    }
+
+    if (this.moveRight){
+      velocity = this.getDirection(new THREE.Vector3(this.speed, 0, 0));
+      this.controls.getObject().translateX(velocity.x);
+    }
+
+    if (this.jumping){
+      velocity = this.getDirection(new THREE.Vector3(0, this.dy, 0));
+      this.controls.getObject().translateY(velocity.y);
+    }
+
+    // console.log(this.body.position);
+    this.controls.getObject().position.copy(this.body.position);
+    this.controls.getObject().position.y += this.height;
+  }
+
+  initPhysics(scale, mass, shape){
+    this.body = new CANNON.Body({
+      mass: mass
+    });
+    this.body.addShape(shape);
+    this.body.position.set(this.x,this.y,this.z);
+    this.body.angularVelocity.set(0,0,0);
+    this.body.angularDamping = 0.7;
+    // this.body.allowSleep = true;
+    // this.body.sleepSpeedLimit = 0.01; // Body will feel sleepy if speed < n (speed == norm of velocity)
+    // this.body.sleepTimeLimit = 0.5; // Body falls asleep after n seconds of sleepiness
+    this.level.world.addBody(this.body);
   }
 
   getDirection(angle){

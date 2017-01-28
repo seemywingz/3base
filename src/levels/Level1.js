@@ -22,7 +22,7 @@ export default class Level1 extends Level {
     new Sky(this, 0, 800, 0, '/sky.jpg', 10000);
     new Ground(this, 0, 0, 0, 'ground.jpg', 1000);
 
-    let scale = 10,
+    let scale = 1,
         start = 1;
     for (let x = -start; x < start; x++) {
       for (let z = 0; z < 1; z++) {

@@ -91,7 +91,6 @@ export default class SceneObject {
     this.body.sleepSpeedLimit = 0.01; // Body will feel sleepy if speed < n (speed == norm of velocity)
     this.body.sleepTimeLimit = 0.5; // Body falls asleep after n seconds of sleepiness
     this.level.world.addBody(this.body);
-    this.level.animatedObjects.push(this);
   }
 
   animate(){

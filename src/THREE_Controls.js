@@ -389,7 +389,7 @@ export function loadControls() {
 
       document.removeEventListener( 'mousemove', onMouseMove, false );
 
-    }
+    };
 
     document.addEventListener( 'mousemove', onMouseMove, false );
 
@@ -527,7 +527,7 @@ export function loadControls() {
 
               return v;
 
-          }
+          };
 
       }();
 
