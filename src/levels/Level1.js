@@ -40,8 +40,8 @@ export default class Level1 extends Level {
 
     this.buildTower();
 
-    var audio = new Audio('./assets/audio/wind.wav');
-    audio.play();
+    // var audio = new Audio('./assets/audio/wind.wav');
+    // audio.play();
   }
 
   buildTower(start=2, scale=1, length=5, height=20, width=1){
