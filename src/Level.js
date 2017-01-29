@@ -37,7 +37,7 @@ export default class Level {
     if(document.hasFocus() && !this.loader.paused){
       this.camera.animate();
 
-      if(this.physics_enabled){
+      if(this.physics_enabled ){
         let time = Date.now();
         let deltaTime = (time - this.lastTime);
         this.world.step(this.fixedTime, deltaTime + 5, 3);

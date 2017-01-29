@@ -6,7 +6,7 @@ import {loadControls} from './THREE_Controls';
 
 export default class Camera {
 
-  constructor(level, x=0, y=2, z=10){
+  constructor(level, x=0, y=200, z=10){
     this.x = x;
     this.y = y;
     this.z = z;
@@ -35,7 +35,7 @@ export default class Camera {
 
     this.addEventListeners();
     this.initPointerLock();
-    // this.initPhysics(1, 10, new CANNON.Cylinder(1, 1, this.height, 32));
+    this.initPhysics(1, 10, new CANNON.Cylinder(1, 1, this.height, 32));
 
     // this.raycaster = new THREE.Raycaster(); // create once and reuse
 
@@ -46,13 +46,21 @@ export default class Camera {
   }
 
   animate() {
+    // this.body.wakeUp();
+    let direction = new THREE.Vector3();
+    this.controls.getDirection( direction );
+    let pos = this.controls.getObject().position;
+    let spd = this.speed + 10;
 
     if (this.moveForward){
-      this.controls.getObject().translateZ(-this.speed);
+      this.body.velocity.set(direction.x * spd, this.body.velocity.y, direction.z * spd);
+      // this.controls.getObject().translateZ(-this.speed);
     }
 
     if (this.moveBackward){
-      this.controls.getObject().translateZ(this.speed);
+      spd = -spd;
+      this.body.velocity.set(direction.x * spd, this.body.velocity.y, direction.z * spd);
+      // this.controls.getObject().translateZ(this.speed);
     }
 
     if (this.moveLeft){
@@ -68,8 +76,8 @@ export default class Camera {
     }
 
     // console.log(this.body.position);
-    // this.controls.getObject().position.copy(this.body.position);
-    // this.controls.getObject().position.y += this.height;
+    this.controls.getObject().position.copy(this.body.position);
+    this.controls.getObject().position.y += this.height;
   }
 
   initPhysics(scale, mass, shape){
@@ -78,12 +86,9 @@ export default class Camera {
     });
     this.body.addShape(shape);
     this.body.position.set(this.x,this.y,this.z);
-    this.body.angularVelocity.set(0,0,0);
-    this.body.angularDamping = 0.7;
+    this.body.angularDamping = 1;
     this.body.fixedRotation = true;
-    // this.body.allowSleep = true;
-    // this.body.sleepSpeedLimit = 0.01; // Body will feel sleepy if speed < n (speed == norm of velocity)
-    // this.body.sleepTimeLimit = 0.5; // Body falls asleep after n seconds of sleepiness
+    this.body.allowSleep = false;
     this.level.world.addBody(this.body);
   }
 
