@@ -38,30 +38,21 @@ export default class Level1 extends Level {
     new Sky(this, 0, 800, 0, '/sky.jpg', 10000);
     new Ground(this, 0, 0, 0, 'ground.jpg', 1000);
 
-    let scale = 1,
-        start = 1;
-    for (let x = -start; x < start; x++) {
-      for (let z = 0; z < 1; z++) {
-        for (let y = 0; y < 20; y++) {
+    this.buildTower();
+
+    var audio = new Audio('./assets/audio/wind.wav');
+    audio.play();
+  }
+
+  buildTower(start=2, scale=1, length=5, height=20, width=1){
+    for (let x = -start; x < -start+length; x++) {
+      for (let z = 0; z < width; z++) {
+        for (let y = 0; y < height; y++) {
           let box = new Box(this, (x*scale), (0.5*scale)+(y*scale), z*scale, 'box/1.jpg', scale, 10);
           box.body.sleep();
         }
       }
     }
-
-    scale = 1;
-    start = 10;
-    for (let x = -start; x < -start+1; x++) {
-      for (let z = 0; z < 1; z++) {
-        for (let y = 0; y < 20; y++) {
-          let box = new Box(this, (x*scale), (0.5*scale)+(y*scale), z*scale, 'box/1.jpg', scale, 1);
-          box.body.sleep();
-        }
-      }
-    }
-
-    // var audio = new Audio('./assets/audio/wind.wav');
-    // audio.play();
   }
 
   next(){
@@ -70,7 +61,7 @@ export default class Level1 extends Level {
   }
 
   extra(){
-    let scale = 10,
+    let scale = 1,
         start = 1;
     for (let x = -start; x < start; x++) {
       for (let z = 0; z < 1; z++) {
