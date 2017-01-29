@@ -13,11 +13,16 @@ export default class Camera {
     this.height = 2;
     this.level = level;
     this.lastTouch = 9999;
-    this.speed = 0.5;
+    this.speed = 10;
     this.dy = 0;
     this.near = 0.1;
     this.far = 20000;
     this.body = null;
+    this.jumpVelocity = 7;
+    this.jumping = false;
+    this.canJump = true;
+    this.contactNormal = new CANNON.Vec3();
+    this.upAxis = new CANNON.Vec3(0,1,0);
     this.camera = new THREE.PerspectiveCamera(
       45,
       window.innerWidth / window.innerHeight,
@@ -47,37 +52,62 @@ export default class Camera {
 
   animate() {
     // this.body.wakeUp();
-    let direction = new THREE.Vector3();
-    this.controls.getDirection( direction );
-    let pos = this.controls.getObject().position;
-    let spd = this.speed + 10;
+    if(this.controls.enabled){
+      if (this.moveForward && !this.jumping){
+        this.move('forward', this.speed);
+      }
 
-    if (this.moveForward){
-      this.body.velocity.set(direction.x * spd, this.body.velocity.y, direction.z * spd);
-      // this.controls.getObject().translateZ(-this.speed);
+      if (this.moveBackward && !this.jumping){
+        this.move('backward', this.speed);
+      }
+
+      if (this.moveLeft){
+        this.move('left', this.speed*0.5);
+      }
+
+      if (this.moveRight){
+        this.move('right', this.speed*0.5);
+      }
+
+      if (this.jumping && !this.canJump){
+        this.canJump = true;
+        this.body.velocity.set(this.body.velocity.x, this.jumpVelocity, this.body.velocity.z);
+      }
+
     }
-
-    if (this.moveBackward){
-      spd = -spd;
-      this.body.velocity.set(direction.x * spd, this.body.velocity.y, direction.z * spd);
-      // this.controls.getObject().translateZ(this.speed);
-    }
-
-    if (this.moveLeft){
-      this.controls.getObject().translateX(-this.speed*0.5);
-    }
-
-    if (this.moveRight){
-      this.controls.getObject().translateX(this.speed*0.5);
-    }
-
-    if (this.jumping){
-      this.controls.getObject().translateY(this.dy);
-    }
-
     // console.log(this.body.position);
     this.controls.getObject().position.copy(this.body.position);
     this.controls.getObject().position.y += this.height;
+  }
+
+  move(direction, speed){
+    switch (direction) {
+      case 'forward':
+        direction = new THREE.Vector3(0,0,-1);
+        break;
+      case 'backward':
+        direction = new THREE.Vector3(0,0,1);
+        break;
+      case 'left':
+        direction = new THREE.Vector3(-1,0,0);
+        break;
+      case 'right':
+        direction = new THREE.Vector3(1,0,0);
+        break;
+      default:
+
+    }
+    let newDirection = new THREE.Vector3();
+    this.controls.getDirection( newDirection , direction);
+    // this.body.velocity.set(newDirection.x * speed, this.body.velocity.y, newDirection.z * speed);
+    let v = this.body.velocity.vadd(new CANNON.Vec3(newDirection.x * speed, 0, newDirection.z * speed));
+    v.x = this.clamp(v.x,-10,10);
+    v.z = this.clamp(v.z,-10,10);
+    this.body.velocity = v;
+  }
+
+  clamp(num, min, max) {
+    return num <= min ? min : num >= max ? max : num;
   }
 
   initPhysics(scale, mass, shape){
@@ -87,8 +117,24 @@ export default class Camera {
     this.body.addShape(shape);
     this.body.position.set(this.x,this.y,this.z);
     this.body.angularDamping = 1;
+    // this.body.linearDamping = 0.9;
     this.body.fixedRotation = true;
     this.body.allowSleep = false;
+    this.body.addEventListener("collide",function(e){
+      let contact = e.contact;
+      // contact.bi and contact.bj are the colliding bodies, and contact.ni is the collision normal.
+      // We do not yet know which one is which! Let's check.
+      if(contact.bi.id == this.body.id)  // bi is the player body, flip the contact normal
+          contact.ni.negate(this.contactNormal);
+      else
+          this.contactNormal.copy(contact.ni); // bi is something else. Keep the normal as it is
+      // If contactNormal.dot(upAxis) is between 0 and 1, we know that the contact normal is somewhat in the up direction.
+      if(this.contactNormal.dot(this.upAxis) > 0.5){ // Use a "good" threshold value between 0 and 1 here!
+        this.canJump = true;
+        this.jumping = false;
+      }
+    }.bind(this));
+
     this.level.world.addBody(this.body);
   }
 
@@ -128,7 +174,6 @@ export default class Camera {
         this.moveRight = false;
         break;
       case 32: // space
-          this.jumping = false;
         break;
       case 80:/* p */
         this.printPosition();
@@ -165,12 +210,15 @@ export default class Camera {
         this.moveRight = true;
         break;
       case 32: // space
-        if(!event.shiftKey){
-          this.dy = this.speed;
-        }else{
-          this.dy = -this.speed;
+        // if(!event.shiftKey){
+        //   this.dy = this.speed;
+        // }else{
+        //   this.dy = -this.speed;
+        // }
+        if ( !this.jumping && this.canJump ){
+          this.jumping = true;
+          this.canJump = false;
         }
-        this.jumping = true;
         break;
     }
   }

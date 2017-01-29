@@ -128,11 +128,10 @@ export function loadControls() {
       this.getDirection = function() {
 
           // assumes the camera itself is not rotated
-
-          var direction = new THREE.Vector3( 0, 0, -1 );
+          // var direction = new THREE.Vector3( 1, 0, 0 );
           var rotation = new THREE.Euler( 0, 0, 0, "YXZ" );
 
-          return function( v ) {
+          return function( v , direction = new THREE.Vector3(0,0,-1)) {
 
               rotation.set( pitchObject.rotation.x, yawObject.rotation.y, 0 );
 

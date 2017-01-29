@@ -61,16 +61,7 @@ export default class Level1 extends Level {
   }
 
   extra(){
-    let scale = 1,
-        start = 1;
-    for (let x = -start; x < start; x++) {
-      for (let z = 0; z < 1; z++) {
-        for (let y = 0; y < 20; y++) {
-          let box = new Box(this, (x*scale), (0.5*scale)+(y*scale), z*scale, 'box/1.jpg', scale, 10);
-          box.body.sleep();
-        }
-      }
-    }
+    this.buildTower();
   }
 
 }
