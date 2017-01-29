@@ -6,14 +6,14 @@ import {loadControls} from './THREE_Controls';
 
 export default class Camera {
 
-  constructor(level, x=0, y=200, z=0){
+  constructor(level, x=0, y=2, z=10){
     this.x = x;
     this.y = y;
     this.z = z;
-    this.height = 6;
+    this.height = 2;
     this.level = level;
     this.lastTouch = 9999;
-    this.speed = 2;
+    this.speed = 0.5;
     this.dy = 0;
     this.near = 0.1;
     this.far = 20000;
@@ -35,7 +35,7 @@ export default class Camera {
 
     this.addEventListeners();
     this.initPointerLock();
-    this.initPhysics(1, 10, new CANNON.Cylinder(1, 1, this.height, 32));
+    // this.initPhysics(1, 10, new CANNON.Cylinder(1, 1, this.height, 32));
 
     // this.raycaster = new THREE.Raycaster(); // create once and reuse
 
@@ -46,41 +46,30 @@ export default class Camera {
   }
 
   animate() {
-    let velocity = new THREE.Vector3();
-
-    this.speed = 100;
 
     if (this.moveForward){
-      velocity = this.getDirection(new THREE.Vector3(0, 0, -this.speed));
-      this.controls.getObject().translateZ(velocity.z);
-      this.body.position.z += 1;
-      // this.body.velocity = new CANNON.Vec3(velocity.x, velocity.y, velocity.z);
+      this.controls.getObject().translateZ(-this.speed);
     }
 
     if (this.moveBackward){
-      velocity = this.getDirection(new THREE.Vector3(0, 0, this.speed));
-      this.controls.getObject().translateZ(velocity.z);
+      this.controls.getObject().translateZ(this.speed);
     }
 
     if (this.moveLeft){
-       velocity = this.getDirection(new THREE.Vector3(-this.speed, 0, 0));
-      // this.controls.getObject().translateX(velocity.x);
-      // this.body.velocity = new CANNON.Vec3(velocity.x, velocity.y, velocity.z);
+      this.controls.getObject().translateX(-this.speed*0.5);
     }
 
     if (this.moveRight){
-      velocity = this.getDirection(new THREE.Vector3(this.speed, 0, 0));
-      this.controls.getObject().translateX(velocity.x);
+      this.controls.getObject().translateX(this.speed*0.5);
     }
 
     if (this.jumping){
-      velocity = this.getDirection(new THREE.Vector3(0, this.dy, 0));
-      this.controls.getObject().translateY(velocity.y);
+      this.controls.getObject().translateY(this.dy);
     }
 
     // console.log(this.body.position);
-    this.controls.getObject().position.copy(this.body.position);
-    this.controls.getObject().position.y += this.height;
+    // this.controls.getObject().position.copy(this.body.position);
+    // this.controls.getObject().position.y += this.height;
   }
 
   initPhysics(scale, mass, shape){
@@ -110,7 +99,7 @@ export default class Camera {
       this.controls.enabled = true;
     }else{
       // console.log(this);
-      this.level.click(this);
+      this.level.click();
     }
   }
 

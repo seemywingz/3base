@@ -2,6 +2,7 @@
 
 import Sky from '../Sky';
 import Box from '../Box';
+import Ball from '../Ball';
 import Level from '../Level';
 import Camera from '../Camera';
 import * as THREE from 'three';
@@ -15,6 +16,21 @@ export default class Level1 extends Level {
     super(loader);
     this.scene = new THREE.Scene();
     this.camera = new Camera(this);
+  }
+
+  click(){
+    let direction = new THREE.Vector3();
+    this.camera.controls.getDirection( direction );
+    let pos = this.camera.controls.getObject().position;
+
+    let spd = 150;
+    let ball = new Ball(this,0, 0, 0, null, 1, 1000);
+    ball.body.angularVelocity.set(0, 0, 0);
+    ball.body.position.set(pos.x,pos.y,pos.z);
+    ball.body.velocity.set(direction.x * spd, direction.y * spd, direction.z * spd);
+    ball.body.addEventListener("sleep",(event)=>{
+      ball.die();
+    });
   }
 
   createScene(){
@@ -33,7 +49,7 @@ export default class Level1 extends Level {
       }
     }
 
-    scale = 2;
+    scale = 1;
     start = 10;
     for (let x = -start; x < -start+1; x++) {
       for (let z = 0; z < 1; z++) {

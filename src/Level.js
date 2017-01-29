@@ -113,14 +113,13 @@ export default class Level {
     // scene.add( light );
   }
 
-  click(camera){
-    let getDirection = camera.getDirection;
+  click(){
     let direction = new THREE.Vector3();
-    camera.controls.getDirection( direction );
-    let pos = camera.controls.getObject().position;
+    this.camera.controls.getDirection( direction );
+    let pos = this.camera.controls.getObject().position;
 
     let spd = 150;
-    let velocity = camera.getDirection(new THREE.Vector3(direction.x * spd, direction.y * spd, direction.z * spd));
+    let velocity = this.camera.getDirection(new THREE.Vector3(direction.x * spd, direction.y * spd, direction.z * spd));
 
     let ball = new Ball(this,0, 0, 0, null, 1, 1000);
     ball.body.angularVelocity.set(0, 0, 0);
