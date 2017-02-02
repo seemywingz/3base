@@ -101,8 +101,8 @@ export default class Camera {
     this.controls.getDirection( newDirection , direction);
     // this.body.velocity.set(newDirection.x * speed, this.body.velocity.y, newDirection.z * speed);
     let v = this.body.velocity.vadd(new CANNON.Vec3(newDirection.x * speed, 0, newDirection.z * speed));
-    v.x = this.clamp(v.x,-10,10);
-    v.z = this.clamp(v.z,-10,10);
+    v.x = this.clamp(v.x,-20,10);
+    v.z = this.clamp(v.z,-20,10);
     this.body.velocity = v;
   }
 

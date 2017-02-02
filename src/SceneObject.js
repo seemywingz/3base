@@ -21,7 +21,7 @@ export default class SceneObject {
     this.mesh = null;
     this.body = null;
     this.geometry = geometry ? geometry : new THREE.PlaneGeometry(1,1);
-    this.texture = textureSrc ? level.textureLoader.load( 'assets/images/' + textureSrc) : null ;
+    this.texture = textureSrc ? this.level.textureLoader.load( 'assets/images/' + textureSrc) : null ;
 
     if(model){
       this.loadModel(model, scale);

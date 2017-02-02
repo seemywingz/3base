@@ -64,6 +64,7 @@ export default class Level {
       if(!this.loading){
         this.loading = true;
         this.loadingAnimation();
+        console.log("Loading");
       }
     }.bind(this);
 
