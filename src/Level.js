@@ -20,9 +20,7 @@ export default class Level {
     this.lastTime = Date.now();
     this.fixedTime = 0.016;
 
-    this.manageLoaders();
-
-      if(this.physics_enabled){
+    if(this.physics_enabled){
       this.world = new CANNON.World();
       this.world.gravity.set(0,-9.82,0);
       this.world.broadphase = new CANNON.NaiveBroadphase();
@@ -56,6 +54,7 @@ export default class Level {
   }
 
   manageLoaders(){
+    console.log("Loading Managers");
     this.manager = new THREE.LoadingManager();
     this.textureLoader = new THREE.TextureLoader(this.manager);
     this.jsonLoader = new THREE.JSONLoader(this.manager);

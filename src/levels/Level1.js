@@ -16,6 +16,8 @@ export default class Level1 extends Level {
     super(loader);
     this.scene = new THREE.Scene();
     this.camera = new Camera(this);
+    this.manageLoaders();
+    this.load();
   }
 
   click(){
@@ -38,13 +40,13 @@ export default class Level1 extends Level {
     new Sky(this, 0, 800, 0, '/sky.jpg', 10000);
     new Ground(this, 0, 0, 0, 'ground.jpg', 1000);
 
-    this.buildTower();
+    this.buildTower(1, 1, 50, 1, 0);
 
     // var audio = new Audio('./assets/audio/wind.wav');
     // audio.play();
   }
 
-  buildTower(start=2, scale=1, length=5, height=20, width=1){
+  buildTower(length=5, width=1, height=20, scale=1, start=2){
     for (let x = -start; x < -start+length; x++) {
       for (let z = 0; z < width; z++) {
         for (let y = 0; y < height; y++) {

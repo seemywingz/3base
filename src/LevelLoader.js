@@ -9,8 +9,6 @@ export default class LevelLoader {
 
     this.initRenderer();
 
-    this.currentLevel = new Level1(this);
-    this.currentLevel.load();
     this.paused = false;
 
     // Window Event Listeners
@@ -20,6 +18,8 @@ export default class LevelLoader {
 
     window.focus();
 
+    this.currentLevel = new Level1(this);
+    // this.currentLevel.load();
   }
 
   next(nextLevel){
