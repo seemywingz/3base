@@ -9,6 +9,7 @@ import * as THREE from 'three';
 import Ground from '../Ground';
 import Level2 from './Level2';
 import { randNum } from '../Utils';
+import SceneObject from '../SceneObject';
 import {textureLoader} from '../LevelLoader';
 
 export default class Level1 extends Level {
@@ -41,11 +42,13 @@ export default class Level1 extends Level {
     this.boxTexture = textureLoader.load( 'assets/images/box/1.jpg');
     this.skyTexture = textureLoader.load( 'assets/images/sky.jpg');
     this.groundTexture = textureLoader.load( 'assets/images/ground.jpg');
-    
+
+        new SceneObject(this, 0, 0, 0, null, null, 'tree', 10);
     new Sky(this, 0, 800, 0, this.skyTexture, 10000);
     new Ground(this, 0, 0, 0, this.groundTexture, 1000);
 
     this.buildTower(2, 1, 50, 1, 0);
+
 
     // var audio = new Audio('./assets/audio/wind.wav');
     // audio.play();

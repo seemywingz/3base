@@ -2,6 +2,7 @@
 
 import * as THREE from 'three';
 import * as CANNON from 'cannon';
+import {jsonLoader} from './LevelLoader';
 
 THREE.Cache.enabled = true;
 
@@ -42,13 +43,14 @@ export default class SceneObject {
 
   loadModel(model, scale=1) {
     let material;
-    this.level.jsonLoader.load(
+    jsonLoader.load(
       './assets/models/' + model + '/' + model + '.json',
       ( geometry, materials ) => {
         this.geometry = geometry;
         if(materials){
           console.log(materials);
           if(materials.length > 1){
+            console.log("Multi Material Found");
             this.mesh = new THREE.Mesh( geometry, new THREE.MultiMaterial(materials));
           }else{
             material = new THREE.MeshPhongMaterial({
@@ -57,8 +59,7 @@ export default class SceneObject {
               bumpScale: materials[0].bumpScale,
               normalMap: materials[0].normalMap,
               specularMap: materials[0].specularMap,
-              shininess: materials[0].shininess,
-              side: THREE.DoubleSide
+              shininess: materials[0].shininess
             });
             // console.log('Using Material', materials[0].clone());
             this.mesh = new THREE.Mesh( geometry, material);
@@ -67,6 +68,7 @@ export default class SceneObject {
            material = new THREE.MeshPhongMaterial({
              'shading': THREE.FlatShading
            });
+           console.log("No Model Materials");
            this.mesh = new THREE.Mesh( geometry, material );
         }
         this.mesh.castShadow = true;
