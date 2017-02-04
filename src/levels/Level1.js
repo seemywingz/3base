@@ -70,11 +70,11 @@ export default class Level1 extends Level {
     new Sky(this, 0, 800, 0, this.skyTexture, 10000);
     new Ground(this, 0, 0, 0, this.groundTexture, 1000);
 
-    let m = 10;
+    let m = 100;
     let n = m*20;
     for (let i = 0; i < m; i++) {
       let scale = randNum(2,20);
-      new SceneObject(this, randNum(-n,n), scale*2, randNum(-n,n), null, null, 'test', scale, scale * 2000);
+      new SceneObject(this, randNum(-n,n), scale*1.3, randNum(-n,n), null, null, 'test', scale, scale * 1000);
     }
 
     // m = 10;
