@@ -33,6 +33,7 @@
     "babel-core": "^6.17.0",
     "babel-loader": "^6.2.5",
     "babel-preset-es2015": "^6.16.0",
+    "bluebird": "^3.4.7",
     "electron": "^1.4.13",
     "electron-builder": "^10.17.3",
     "electron-reload": "^1.1.0",

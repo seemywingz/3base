@@ -7,7 +7,6 @@ import { randNum, loadingMsgs, fade } from './Utils';
 
 export let
   manager = new THREE.LoadingManager(),
-  // mtlLoader = new THREE.OBJMTLLoader(),
   jsonLoader = new THREE.JSONLoader(manager),
   objectLoader = new THREE.ObjectLoader(manager),
   textureLoader = new THREE.TextureLoader(manager);
@@ -34,8 +33,7 @@ export default class LevelLoader {
   }
 
   manageLoaders(){
-    console.log("Loading Managers");
-    // this.objectLoader = new THREE.ObjectLoader(manager);
+    console.log("Loading Loaders");
     manager.onProgress = function (/*item, loaded*/) {
       if(!this.loading){
         this.loading = true;
