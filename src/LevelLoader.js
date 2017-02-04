@@ -3,10 +3,18 @@
 import * as CANNON from 'cannon';
 import * as THREE from 'three';
 import Level1 from './levels/Level1';
+import { randNum, loadingMsgs, fade } from './Utils';
+
+export let
+  manager = new THREE.LoadingManager(),
+  textureLoader = new THREE.TextureLoader(manager),
+  jsonLoader = new THREE.JSONLoader(manager);
+
 
 export default class LevelLoader {
   constructor() {
 
+    this.manageLoaders();
     this.initRenderer();
 
     this.paused = false;
@@ -18,8 +26,39 @@ export default class LevelLoader {
 
     window.focus();
 
+
     this.currentLevel = new Level1(this);
     // this.currentLevel.load();
+  }
+
+  manageLoaders(){
+    console.log("Loading Managers");
+    // this.objectLoader = new THREE.ObjectLoader(manager);
+    manager.onProgress = function (/*item, loaded*/) {
+      if(!this.loading){
+        this.loading = true;
+        this.loadingAnimation();
+        console.log("Loading...");
+      }
+    }.bind(this);
+
+    manager.onLoad = function () {// Completion
+      this.loading = false;
+      document.body.appendChild( this.renderer.domElement );
+      fade( document.getElementById('overlay'));
+    }.bind(this);
+
+    manager.onError = function () {
+      console.log('there has been an error');
+    };
+  }
+
+  loadingAnimation(){
+    if(this.loading){
+      var num = ~~randNum(0, loadingMsgs.length - 1);
+      document.getElementById('overlay').innerHTML = loadingMsgs[num];
+      setTimeout(this.loadingAnimation, 1000);
+    }
   }
 
   next(nextLevel){

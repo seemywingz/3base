@@ -17,11 +17,10 @@ export default class SceneObject {
     this.yrotation = 0;
     this.zrotation = 0;
     this.level = level;
-    console.log("new object");
     this.mesh = null;
     this.body = null;
     this.geometry = geometry ? geometry : new THREE.PlaneGeometry(1,1);
-    this.texture = textureSrc ? this.level.textureLoader.load( 'assets/images/' + textureSrc) : null ;
+    this.texture = textureSrc;
 
     if(model){
       this.loadModel(model, scale);

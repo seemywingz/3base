@@ -4,7 +4,6 @@ import Ball from './Ball';
 import Box from './Box';
 import * as THREE from 'three';
 import * as CANNON from 'cannon';
-import { randNum, loadingMsgs, fade } from './Utils';
 
 export default class Level {
 
@@ -50,39 +49,6 @@ export default class Level {
       });
 
       this.loader.renderer.render( this.scene, this.camera.camera );
-    }
-  }
-
-  manageLoaders(){
-    console.log("Loading Managers");
-    this.manager = new THREE.LoadingManager();
-    this.textureLoader = new THREE.TextureLoader(this.manager);
-    this.jsonLoader = new THREE.JSONLoader(this.manager);
-    // this.objectLoader = new THREE.ObjectLoader(manager);
-    this.manager.onProgress = function (/*item, loaded*/) {
-      if(!this.loading){
-        this.loading = true;
-        this.loadingAnimation();
-        console.log("Loading");
-      }
-    }.bind(this);
-
-    this.manager.onLoad = function () {// Completion
-      this.loading = false;
-      document.body.appendChild( this.loader.renderer.domElement );
-      fade( document.getElementById('overlay'));
-    }.bind(this);
-
-    this.manager.onError = function () {
-      console.log('there has been an error');
-    };
-  }
-
-  loadingAnimation(){
-    if(this.loading){
-      var num = ~~randNum(0, loadingMsgs.length - 1);
-      document.getElementById('overlay').innerHTML = loadingMsgs[num];
-      setTimeout(this.loadingAnimation, 1000);
     }
   }
 

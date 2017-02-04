@@ -8,6 +8,7 @@ import Camera from '../Camera';
 import * as THREE from 'three';
 import Ground from '../Ground';
 import { randNum } from '../Utils';
+import {textureLoader} from '../LevelLoader';
 
 export default class Level2 extends Level {
 
@@ -19,15 +20,19 @@ export default class Level2 extends Level {
 
   createScene(){
 
-    new Sky(this, 0, 800, 0, '/sky.jpg', 10000);
-    new Ground(this, 0, 0, 0, 'ground.jpg', 1000);
+    this.boxTexture = textureLoader.load( 'assets/images/box/1.jpg');
+    this.skyTexture = textureLoader.load( 'assets/images/sky.jpg');
+    this.groundTexture = textureLoader.load( 'assets/images/ground.jpg');
+    new Sky(this, 0, 800, 0, this.skyTexture, 10000);
+    new Ground(this, 0, 0, 0, this.groundTexture, 1000);
+
 
     let scale = 1,
         start = 5;
     for (let x = -start; x < start; x++) {
       for (var z = 0; z < 3; z++) {
         for (var y = 0; y < 60; y++) {
-          let box = new Box(this, (x*scale), (0.5*scale)+(y*scale), z*scale, 'box/1.jpg', scale, 10);
+          let box = new Box(this, (x*scale), (0.5*scale)+(y*scale), z*scale, this.boxTexture, scale, 10);
           box.body.sleep();
         }
       }

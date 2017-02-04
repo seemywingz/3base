@@ -9,6 +9,7 @@ import * as THREE from 'three';
 import Ground from '../Ground';
 import Level2 from './Level2';
 import { randNum } from '../Utils';
+import {textureLoader} from '../LevelLoader';
 
 export default class Level1 extends Level {
 
@@ -16,8 +17,8 @@ export default class Level1 extends Level {
     super(loader);
     this.scene = new THREE.Scene();
     this.camera = new Camera(this);
-    this.manageLoaders();
     this.load();
+
   }
 
   click(){
@@ -37,10 +38,14 @@ export default class Level1 extends Level {
 
   createScene(){
 
-    new Sky(this, 0, 800, 0, '/sky.jpg', 10000);
-    new Ground(this, 0, 0, 0, 'ground.jpg', 1000);
+    this.boxTexture = textureLoader.load( 'assets/images/box/1.jpg');
+    this.skyTexture = textureLoader.load( 'assets/images/sky.jpg');
+    this.groundTexture = textureLoader.load( 'assets/images/ground.jpg');
+    
+    new Sky(this, 0, 800, 0, this.skyTexture, 10000);
+    new Ground(this, 0, 0, 0, this.groundTexture, 1000);
 
-    this.buildTower(1, 1, 50, 1, 0);
+    this.buildTower(2, 1, 50, 1, 0);
 
     // var audio = new Audio('./assets/audio/wind.wav');
     // audio.play();
@@ -50,7 +55,7 @@ export default class Level1 extends Level {
     for (let x = -start; x < -start+length; x++) {
       for (let z = 0; z < width; z++) {
         for (let y = 0; y < height; y++) {
-          let box = new Box(this, (x*scale), (0.5*scale)+(y*scale), z*scale, 'box/1.jpg', scale, 10);
+          let box = new Box(this, (x*scale), (0.5*scale)+(y*scale), z*scale, this.boxTexture, scale, 10);
           box.body.sleep();
         }
       }
