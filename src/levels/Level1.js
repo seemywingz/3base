@@ -73,7 +73,8 @@ export default class Level1 extends Level {
     let m = 10;
     let n = m*20;
     for (let i = 0; i < m; i++) {
-      new SceneObject(this, randNum(-n,n), 0, randNum(-n,n), null, null, 'test', randNum(2,20), 0);
+      let scale = randNum(2,20);
+      new SceneObject(this, randNum(-n,n), scale*2, randNum(-n,n), null, null, 'test', scale, scale * 2000);
     }
 
     // m = 10;
