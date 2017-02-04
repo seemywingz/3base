@@ -7,8 +7,10 @@ import { randNum, loadingMsgs, fade } from './Utils';
 
 export let
   manager = new THREE.LoadingManager(),
-  textureLoader = new THREE.TextureLoader(manager),
-  jsonLoader = new THREE.JSONLoader(manager);
+  // mtlLoader = new THREE.OBJMTLLoader(),
+  jsonLoader = new THREE.JSONLoader(manager),
+  objectLoader = new THREE.ObjectLoader(manager),
+  textureLoader = new THREE.TextureLoader(manager);
 
 
 export default class LevelLoader {

@@ -37,13 +37,35 @@ export default class Level1 extends Level {
     });
   }
 
+  createLights(){
+    let light = new THREE.PointLight( 0xc9c9c9, 1, 0, 3);
+    light.position.set(0, 500, 100);
+    light.castShadow = true;
+    light.shadowMapBias = 0.01;
+    light.shadowMapDarkness = 0.01;
+    light.shadow.mapSize.width = 1024;
+    light.shadow.mapSize.height = 1024;
+    this.scene.add( light );
+
+    // var pointLightHelper = new THREE.PointLightHelper( light, 2 );
+    // scene.add( pointLightHelper );
+
+    light = new THREE.HemisphereLight( 0xe8ffe9, 0x262626, 1 );
+    this.scene.add( light );
+
+    // light = new THREE.AmbientLight(0xd6d6d6);
+    light = new THREE.AmbientLight(0xffffff);
+    this.scene.add( light );
+  }
+
   createScene(){
 
     this.boxTexture = textureLoader.load( 'assets/images/box/1.jpg');
     this.skyTexture = textureLoader.load( 'assets/images/sky.jpg');
     this.groundTexture = textureLoader.load( 'assets/images/ground.jpg');
 
-        new SceneObject(this, 0, 0, 0, null, null, 'tree', 10);
+    new SceneObject(this, 0, 0, 0, null, null, 'tree', 10);
+    new SceneObject(this, 0, 0, -1000, null, null, 'buddha', 10);
     new Sky(this, 0, 800, 0, this.skyTexture, 10000);
     new Ground(this, 0, 0, 0, this.groundTexture, 1000);
 

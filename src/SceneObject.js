@@ -2,7 +2,7 @@
 
 import * as THREE from 'three';
 import * as CANNON from 'cannon';
-import {jsonLoader} from './LevelLoader';
+import {jsonLoader, objectLoader} from './LevelLoader';
 
 THREE.Cache.enabled = true;
 
@@ -42,6 +42,24 @@ export default class SceneObject {
   }
 
   loadModel(model, scale=1) {
+    try{
+      // this.loadOBJECT(model);
+      this.loadJSON(model, scale);
+    }catch (error) {
+      console.log("Not Loading JSON");
+    }
+  }
+
+  loadOBJECT(model){
+    objectLoader.load(
+      './assets/models/' + model + '/' + model + '.json',
+      ( obj ) => {
+        this.level.scene.add(obj);
+      }
+    );
+  }
+
+  loadJSON(model, scale=1){
     let material;
     jsonLoader.load(
       './assets/models/' + model + '/' + model + '.json',
@@ -53,13 +71,15 @@ export default class SceneObject {
             console.log("Multi Material Found");
             this.mesh = new THREE.Mesh( geometry, new THREE.MultiMaterial(materials));
           }else{
+            console.log("Single Material Found");
             material = new THREE.MeshPhongMaterial({
               map: materials[0].map,
               bumpMap: materials[0].bumpMap,
               bumpScale: materials[0].bumpScale,
               normalMap: materials[0].normalMap,
               specularMap: materials[0].specularMap,
-              shininess: materials[0].shininess
+              shininess: materials[0].shininess,
+              side: THREE.DoubleSide
             });
             // console.log('Using Material', materials[0].clone());
             this.mesh = new THREE.Mesh( geometry, material);
@@ -76,7 +96,9 @@ export default class SceneObject {
         this.mesh.position.set(this.x, this.y, this.z);
         this.mesh.scale.set(scale, scale, scale);
         this.level.scene.add(this.mesh);
-      }
+      },
+      () => {},
+      (e) => {console.log(e,"FART");}
     );
   }
 
