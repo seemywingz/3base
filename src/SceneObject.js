@@ -44,8 +44,8 @@ export default class SceneObject {
   loadModel() {
     this.loadJSON(this.model, this.scale)
     .then(() => {
-      console.log("Model Loaded ");
-      if(this.level.physics_enabled){
+      // console.log("Model Loaded ");
+      if(this.level.physics_enabled && this.mass > 0){
         console.log("Loading Physics ");
 
         let cannonPoints = this.mesh.geometry.vertices.map(function(v) {
@@ -58,7 +58,6 @@ export default class SceneObject {
         var box = new THREE.Box3().setFromObject( this.mesh );
         this.mesh.geometry.computeBoundingBox();
         var boundingBox = this.mesh.geometry.boundingBox.clone();
-        console.log(box.getSize());
         let size = box.getSize();
         // this.initPhysics(this.scale, this.mass, new CANNON.ConvexPolyhedron( cannonPoints, cannonFaces) );
         this.initPhysics(this.scale, this.mass, new CANNON.Box(new CANNON.Vec3(size.x*0.5, size.y*0.5, size.z*0.5)) );
@@ -84,10 +83,10 @@ export default class SceneObject {
           this.geometry = geometry;
           if(materials){
             if(materials.length > 1){
-              console.log("Multi Material Found");
+              // console.log("Multi Material Found");
               this.mesh = new THREE.Mesh( geometry, new THREE.MultiMaterial(materials));
             }else{
-              console.log("Single Material Found");
+              // console.log("Single Material Found");
               material = new THREE.MeshPhongMaterial({
                 map: materials[0].map,
                 bumpMap: materials[0].bumpMap,

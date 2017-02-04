@@ -13,7 +13,7 @@ export default class Camera {
     this.height = 2;
     this.level = level;
     this.lastTouch = 9999;
-    this.speed = 10;
+    this.speed = 20;
     this.dy = 0;
     this.near = 0.1;
     this.far = 20000;
@@ -81,6 +81,7 @@ export default class Camera {
   }
 
   move(direction, speed){
+    var localForward;
     switch (direction) {
       case 'forward':
         direction = new THREE.Vector3(0,0,-1);
@@ -99,11 +100,12 @@ export default class Camera {
     }
     let newDirection = new THREE.Vector3();
     this.controls.getDirection( newDirection , direction);
-    // this.body.velocity.set(newDirection.x * speed, this.body.velocity.y, newDirection.z * speed);
-    let v = this.body.velocity.vadd(new CANNON.Vec3(newDirection.x * speed, 0, newDirection.z * speed));
-    v.x = this.clamp(v.x,-20,10);
-    v.z = this.clamp(v.z,-20,10);
-    this.body.velocity = v;
+    this.body.velocity.set(newDirection.x * speed, this.body.velocity.y, newDirection.z * speed);
+    // let v = this.body.velocity.vadd(new CANNON.Vec3(newDirection.x * speed, 0, newDirection.z * speed));
+    // let n = 200;
+    // v.x = this.clamp(v.x,-n,n);
+    // v.z = this.clamp(v.z,-n,n);
+    // this.body.velocity = v;
   }
 
   clamp(num, min, max) {

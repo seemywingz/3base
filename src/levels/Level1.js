@@ -3,7 +3,6 @@
 import Sky from '../Sky';
 import Box from '../Box';
 import Ball from '../Ball';
-import House from '../HOuse';
 import Level from '../Level';
 import Camera from '../Camera';
 import * as THREE from 'three';
@@ -66,14 +65,15 @@ export default class Level1 extends Level {
 
     // new SceneObject(this, 20, 0, 0, null, null, 'buddha', 10);
 
-    new SceneObject(this, -10, 100, 0, null, null, 'buddha', 10, 20000);
+    // new SceneObject(this, -10, 100, 0, null, null, 'test', 10, 20000);
 
     new Sky(this, 0, 800, 0, this.skyTexture, 10000);
     new Ground(this, 0, 0, 0, this.groundTexture, 1000);
 
-    // for (let i = 0; i < 100; i++) {
-    //   new SceneObject(this, randNum(-300,300), 0, randNum(-100,100), null, null, 'test', 10);
-    // }
+    let n = 100;
+    for (let i = 0; i < n; i++) {
+      new SceneObject(this, randNum(-n,n), 0, randNum(-n,n), null, null, 'test', randNum(2,20), 0);
+    }
 
     this.buildTower(2, 1, 50, 1, 0);
 
