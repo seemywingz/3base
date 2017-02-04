@@ -45,9 +45,7 @@ export default class SceneObject {
     this.loadJSON(this.model, this.scale)
     .then(() => {
       // console.log("Model Loaded ");
-      if(this.level.physics_enabled && this.mass > 0){
-        console.log("Loading Physics ");
-
+      if(this.level.physics_enabled && this.mass >= 0){
         let cannonPoints = this.mesh.geometry.vertices.map(function(v) {
           return new CANNON.Vec3( v.x, v.y, v.z );
         });
@@ -55,12 +53,13 @@ export default class SceneObject {
         let cannonFaces = this.mesh.geometry.faces.map(function(f) {
             return [f.a, f.b, f.c];
         });
+
         var box = new THREE.Box3().setFromObject( this.mesh );
         this.mesh.geometry.computeBoundingBox();
         var boundingBox = this.mesh.geometry.boundingBox.clone();
         let size = box.getSize();
         // this.initPhysics(this.scale, this.mass, new CANNON.ConvexPolyhedron( cannonPoints, cannonFaces) );
-        this.initPhysics(this.scale, this.mass, new CANNON.Box(new CANNON.Vec3(size.x*0.5, size.y*0.5, size.z*0.5)) );
+        this.initPhysics(this.scale, this.mass, new CANNON.Box(new CANNON.Vec3(size.x*0.5, size.y, size.z*0.5)) );
       }
     });
   }

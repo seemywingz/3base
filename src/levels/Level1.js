@@ -65,15 +65,22 @@ export default class Level1 extends Level {
 
     // new SceneObject(this, 20, 0, 0, null, null, 'buddha', 10);
 
-    // new SceneObject(this, -10, 100, 0, null, null, 'test', 10, 20000);
+    // new SceneObject(this, -10, 0, 0, null, null, 'test', 1, 0);
 
     new Sky(this, 0, 800, 0, this.skyTexture, 10000);
     new Ground(this, 0, 0, 0, this.groundTexture, 1000);
 
-    let n = 100;
-    for (let i = 0; i < n; i++) {
+    let m = 10;
+    let n = m*20;
+    for (let i = 0; i < m; i++) {
       new SceneObject(this, randNum(-n,n), 0, randNum(-n,n), null, null, 'test', randNum(2,20), 0);
     }
+
+    // m = 10;
+    // n = m*20;
+    // for (let i = 0; i < m; i++) {
+    //   new SceneObject(this, randNum(-n,n), 0, randNum(-n,n), null, null, 'test', randNum(2,20), -1);
+    // }
 
     this.buildTower(2, 1, 50, 1, 0);
 
