@@ -67,7 +67,7 @@ export default class Level1 extends Level {
     new Sky(this, 0, 800, 0, this.skyTexture, 10000);
     new Ground(this, 0, 0, 0, this.groundTexture, 1000);
 
-    let buddha = new SceneObject(this, 100, 10, 0, null, null, 'buddha', 10, 1000);
+    let buddha = new SceneObject(this, 0, 10, -20, null, null, 'buddha', 5, 1000);
 
     let fl_start = -1000;
 
