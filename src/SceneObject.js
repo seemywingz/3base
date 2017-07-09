@@ -91,8 +91,6 @@ export default class SceneObject {
             }else{
               // console.log("Single Material Found");
               material = new THREE.MeshPhongMaterial({
-    						morphTargets: true,
-		    				morphNormals: true,
                 map: materials[0].map,
                 bumpMap: materials[0].bumpMap,
                 vertexColors: THREE.FaceColors,
@@ -104,6 +102,8 @@ export default class SceneObject {
               });
               this.mesh = new THREE.Mesh( geometry, material);
               if (!!this.geometry.animations){
+                material.morphTargets = true;
+                material.morphNormals = true;
                 this.mixer = new THREE.AnimationMixer( this.mesh );
 					      this.mixer.clipAction( geometry.animations[ 0 ] ).setDuration( 1 ).play();
               }

@@ -91,23 +91,19 @@ export default class Level1 extends Level {
     flamingo = new SceneObject(this, 5, 98, fl_start - 10, null, null, 'flamingo', 0.03, 0, 0.033);
     flamingo.addAnimation = fl_addAnimation(flamingo);
 
-    // let m = 100;
-    // let n = m*20;
-    // for (let i = 0; i < m; i++) {
-    //   let scale = randNum(2,20);
-    //   new SceneObject(this, randNum(-n,n), scale*1.3, randNum(-n,n), null, null, 'test', scale, scale * 1000);
-    // }
-
-    // m = 10;
-    // n = m*20;
-    // for (let i = 0; i < m; i++) {
-    //   new SceneObject(this, randNum(-n,n), 0, randNum(-n,n), null, null, 'test', randNum(2,20), -1);
-    // }
+    let m = 10;
+    let n = m*20;
+    for (let i = 0; i < m; i++) {
+      let scale = randNum(2,20);
+      let obj = new SceneObject(this, randNum(-n,n), scale*1.3, randNum(-n,n), null, null, 'test', scale, scale * 1000);
+    }
 
     // this.buildTower(2, 1, 50, 1, 0);
 
-
     // var audio = new Audio('./assets/audio/wind.wav');
+    // audio.play();
+    //
+    // audio = new Audio('./assets/audio/mem.mp3');
     // audio.play();
   }
 
