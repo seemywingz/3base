@@ -69,12 +69,12 @@ export default class Level1 extends Level {
 
     let buddha = new SceneObject(this, 100, 10, 0, null, null, 'buddha', 10, 1000);
 
-    let fl_start = -50;
+    let fl_start = -1000;
 
     let fl_addAnimation = (fl) => {
       return () => {
-        let start = -500;
-        fl.body.position.z += 0.1;
+        let start = -1000;
+        fl.body.position.z += 1;
         fl.body.allowSleep = false;
         if (fl.body.position.z >= -start){
           fl.body.position.z = start;
@@ -82,12 +82,14 @@ export default class Level1 extends Level {
       };
     };
 
-    let flamingo = new SceneObject(this, 0, 10, fl_start, null, null, 'flamingo', 0.08, 10);
+    let flamingo = new SceneObject(this, 0, 100, fl_start, null, null, 'flamingo', 0.08, 0, 0.03);
     flamingo.addAnimation = fl_addAnimation(flamingo);
 
-    // flamingo = new SceneObject(this, 10, 9, fl_start - 10, null, null, 'flamingo', 0.05, 0, 0.011);
-    // flamingo.addAnimation = fl_addAnimation(flamingo);
+    flamingo = new SceneObject(this, 10, 99, fl_start - 10, null, null, 'flamingo', 0.05, 0, 0.031);
+    flamingo.addAnimation = fl_addAnimation(flamingo);
 
+    flamingo = new SceneObject(this, 5, 98, fl_start - 10, null, null, 'flamingo', 0.03, 0, 0.033);
+    flamingo.addAnimation = fl_addAnimation(flamingo);
 
     // let m = 100;
     // let n = m*20;
