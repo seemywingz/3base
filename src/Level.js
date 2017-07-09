@@ -12,8 +12,8 @@ export default class Level {
     this.loader = loader;
 
     this.loading = false;
-    this.animatedObjects = [];
     this.removeBodies = [];
+    this.animatedObjects = [];
     this.physics_enabled = true;
 
     this.lastTime = Date.now();

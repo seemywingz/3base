@@ -9,7 +9,7 @@ THREE.Cache.enabled = true;
 
 export default class SceneObject {
 
-  constructor(level, x, y, z, textureSrc, geometry, model, scale=1, mass=1){
+  constructor(level, x, y, z, textureSrc, geometry, model, scale=1, mass=1, animationSpeed=0.01){
     this.x = x;
     this.y = y;
     this.z = z;
@@ -20,6 +20,8 @@ export default class SceneObject {
     this.level = level;
     this.mesh = null;
     this.body = null;
+    this.mixer = null;
+    this.animationSpeed = animationSpeed;
     this.geometry = geometry ? geometry : new THREE.PlaneGeometry(1,1);
     this.texture = textureSrc;
 
@@ -79,6 +81,8 @@ export default class SceneObject {
       jsonLoader.load(
         './assets/models/' + this.model + '/' + this.model + '.json',
         ( geometry, materials ) => {
+          geometry.computeVertexNormals();
+					geometry.computeMorphNormals();
           this.geometry = geometry;
           if(materials){
             if(materials.length > 1){
@@ -87,8 +91,11 @@ export default class SceneObject {
             }else{
               // console.log("Single Material Found");
               material = new THREE.MeshPhongMaterial({
+    						morphTargets: true,
+		    				morphNormals: true,
                 map: materials[0].map,
                 bumpMap: materials[0].bumpMap,
+                vertexColors: THREE.FaceColors,
                 bumpScale: materials[0].bumpScale,
                 normalMap: materials[0].normalMap,
                 specularMap: materials[0].specularMap,
@@ -96,6 +103,11 @@ export default class SceneObject {
                 side: THREE.DoubleSide
               });
               this.mesh = new THREE.Mesh( geometry, material);
+              if (!!this.geometry.animations){
+                this.mixer = new THREE.AnimationMixer( this.mesh );
+					      this.mixer.clipAction( geometry.animations[ 0 ] ).setDuration( 1 ).play();
+              }
+
            }
           }else {
              material = new THREE.MeshPhongMaterial({
@@ -145,7 +157,14 @@ export default class SceneObject {
       this.mesh.position.copy(this.body.position);
       this.mesh.quaternion.copy(this.body.quaternion);
     }
+
+    if( this.mixer !== null)
+      this.mixer.update( this.animationSpeed );
+
+    this.addAnimation();
   }
+
+  addAnimation(){}
 
   setPosition(x, y, z){
     this.mesh.position.set(this.x = x, this.y = y, this.z = z);

@@ -8,6 +8,7 @@ import Camera from '../Camera';
 import * as THREE from 'three';
 import Ground from '../Ground';
 import Level2 from './Level2';
+import * as CANNON from 'cannon';
 import { randNum } from '../Utils';
 import SceneObject from '../SceneObject';
 import {textureLoader} from '../LevelLoader';
@@ -27,7 +28,7 @@ export default class Level1 extends Level {
     let pos = this.camera.controls.getObject().position;
 
     let spd = 150;
-    let ball = new Ball(this,0, 0, 0, null, 1, 1000);
+    let ball = new Ball(this,0, 0, 0, null, 0.51, 1000);
     ball.body.angularVelocity.set(0, 0, 0);
     ball.body.position.set(pos.x,pos.y,pos.z);
     ball.body.velocity.set(direction.x * spd, direction.y * spd, direction.z * spd);
@@ -63,19 +64,37 @@ export default class Level1 extends Level {
     this.skyTexture = textureLoader.load( 'assets/images/sky.jpg');
     this.groundTexture = textureLoader.load( 'assets/images/ground.jpg');
 
-    // new SceneObject(this, 20, 0, 0, null, null, 'buddha', 10);
-
-    // new SceneObject(this, -10, 0, 0, null, null, 'test', 1, 0);
-
     new Sky(this, 0, 800, 0, this.skyTexture, 10000);
     new Ground(this, 0, 0, 0, this.groundTexture, 1000);
 
-    let m = 100;
-    let n = m*20;
-    for (let i = 0; i < m; i++) {
-      let scale = randNum(2,20);
-      new SceneObject(this, randNum(-n,n), scale*1.3, randNum(-n,n), null, null, 'test', scale, scale * 1000);
-    }
+    let buddha = new SceneObject(this, 100, 10, 0, null, null, 'buddha', 10, 1000);
+
+    let fl_start = -50;
+
+    let fl_addAnimation = (fl) => {
+      return () => {
+        let start = -500;
+        fl.body.position.z += 0.1;
+        fl.body.allowSleep = false;
+        if (fl.body.position.z >= -start){
+          fl.body.position.z = start;
+        }
+      };
+    };
+
+    let flamingo = new SceneObject(this, 0, 10, fl_start, null, null, 'flamingo', 0.08, 10);
+    flamingo.addAnimation = fl_addAnimation(flamingo);
+
+    // flamingo = new SceneObject(this, 10, 9, fl_start - 10, null, null, 'flamingo', 0.05, 0, 0.011);
+    // flamingo.addAnimation = fl_addAnimation(flamingo);
+
+
+    // let m = 100;
+    // let n = m*20;
+    // for (let i = 0; i < m; i++) {
+    //   let scale = randNum(2,20);
+    //   new SceneObject(this, randNum(-n,n), scale*1.3, randNum(-n,n), null, null, 'test', scale, scale * 1000);
+    // }
 
     // m = 10;
     // n = m*20;
@@ -83,7 +102,7 @@ export default class Level1 extends Level {
     //   new SceneObject(this, randNum(-n,n), 0, randNum(-n,n), null, null, 'test', randNum(2,20), -1);
     // }
 
-    this.buildTower(2, 1, 50, 1, 0);
+    // this.buildTower(2, 1, 50, 1, 0);
 
 
     // var audio = new Audio('./assets/audio/wind.wav');

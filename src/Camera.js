@@ -6,7 +6,7 @@ import {loadControls} from './THREE_Controls';
 
 export default class Camera {
 
-  constructor(level, x=0, y=200, z=10){
+  constructor(level, x=0, y=3, z=10){
     this.x = x;
     this.y = y;
     this.z = z;
