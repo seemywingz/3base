@@ -1,6 +1,5 @@
 'use-strict';
 
-import * as CANNON from 'cannon';
 import * as THREE from 'three';
 import Level1 from './levels/Level1';
 import { randNum, loadingMsgs, fade } from './Utils';
@@ -10,7 +9,6 @@ export let
   jsonLoader = new THREE.JSONLoader(manager),
   objectLoader = new THREE.ObjectLoader(manager),
   textureLoader = new THREE.TextureLoader(manager);
-
 
 export default class LevelLoader {
   constructor() {
@@ -24,25 +22,23 @@ export default class LevelLoader {
     window.addEventListener( 'resize', this.onWindowResize.bind(this), false );
     window.addEventListener( 'blur', this.pause.bind(this));
     window.addEventListener( 'focus', this.unPause.bind(this));
-
     window.focus();
-
 
     this.currentLevel = new Level1(this);
     // this.currentLevel.load();
   }
 
   manageLoaders(){
-    console.log("Loading Loaders");
+    console.log("Loading...");
     manager.onProgress = function (/*item, loaded*/) {
       if(!this.loading){
         this.loading = true;
         this.loadingAnimation();
-        console.log("Loading...");
       }
     }.bind(this);
-
+    
     manager.onLoad = function () {// Completion
+      console.log("Loaded");
       this.loading = false;
       document.body.appendChild( this.renderer.domElement );
       fade( document.getElementById('overlay'));
@@ -91,8 +87,9 @@ export default class LevelLoader {
   }
 
   onWindowResize() {
-    this.currentLevel.camera.resize();
-    this.renderer.setSize( window.innerWidth, window.innerHeight );
+    this.currentLevel.camera.lens.aspect = window.innerWidth / window.innerHeight;
+		this.currentLevel.camera.lens.updateProjectionMatrix();
+		this.renderer.setSize( window.innerWidth, window.innerHeight );
   }
 
   pause(){
@@ -102,13 +99,10 @@ export default class LevelLoader {
 
   unPause(){
     console.log("UNPAUSING!!");
-    this.currentLevel.lastTime = new Date().getTime();
     this.paused = false;
   }
 
   changeLevel(levelNumber){
-
     this.currentLevel = this.levels[levelNumber];
-
   }
 }

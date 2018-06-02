@@ -1,7 +1,6 @@
 'use-strict';
 
 import * as THREE from 'three';
-import * as CANNON from 'cannon';
 import  Promise from 'bluebird';
 import {jsonLoader, objectLoader} from './LevelLoader';
 
@@ -9,21 +8,19 @@ THREE.Cache.enabled = true;
 
 export default class SceneObject {
 
-  constructor(level, x, y, z, textureSrc, geometry, model, scale=1, mass=1, animationSpeed=0.01){
+  constructor(level, x, y, z, texture, geometry, model, scale=1, animationSpeed=0.01){
     this.x = x;
     this.y = y;
     this.z = z;
     this.scale = scale;
-    this.mass = mass;
     this.model = model;
     this.dy = 0.1;
     this.level = level;
     this.mesh = null;
-    this.body = null;
     this.mixer = null;
     this.animationSpeed = animationSpeed;
     this.geometry = geometry ? geometry : new THREE.PlaneGeometry(1,1);
-    this.texture = textureSrc;
+    this.texture = texture;
 
     if(model){
       this.loadModel();
@@ -64,15 +61,6 @@ export default class SceneObject {
         this.initPhysics(this.scale, this.mass, new CANNON.Box(new CANNON.Vec3(size.x*0.5, size.y*0.5, size.z*0.5)) );
       }
     });
-  }
-
-  loadOBJECT(model){
-    objectLoader.load(
-      './assets/models/' + model + '/' + model + '.json',
-      ( obj ) => {
-        this.level.scene.add(obj);
-      }
-    );
   }
 
   loadJSON(){
@@ -130,28 +118,6 @@ export default class SceneObject {
     });
   }
 
-  initPhysics(scale, mass, shape){
-    return new Promise ((resolve, reject) => {
-      try{
-        this.body = new CANNON.Body({
-          mass: mass
-        });
-        this.body.addShape(shape);
-        this.body.position.set(this.x,this.y,this.z);
-        this.body.angularVelocity.set(0,0,0);
-        this.body.angularDamping = 0.7;
-        this.body.allowSleep = true;
-        this.body.sleepSpeedLimit = 0.01; // Body will feel sleepy if speed < n (speed == norm of velocity)
-        this.body.sleepTimeLimit = 0.5; // Body falls asleep after n seconds of sleepiness
-        this.level.world.addBody(this.body);
-        this.level.animatedObjects.push(this);
-        resolve();
-      }catch (e) {
-        reject(e);
-      }
-    });
-  }
-
   animate(){
     if(this.level.physics_enabled ){
       this.mesh.position.copy(this.body.position);
@@ -172,9 +138,6 @@ export default class SceneObject {
 
   die(){
     this.level.scene.remove(this.mesh);
-    if(this.level.physics_enabled){
-      this.level.removeBodies.push(this.body);
-    }
   }
 
 }
