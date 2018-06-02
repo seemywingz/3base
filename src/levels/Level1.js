@@ -12,7 +12,7 @@ export default class Level1 extends Level {
     super(loader);
     this.scene = new THREE.Scene();
     this.scene.background = new THREE.Color( 0xfff000 );
-    this.camera = new Camera(0,0,100);
+    this.camera = new Camera(0,0,100, this);
     this.load();
   }
 

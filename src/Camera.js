@@ -1,10 +1,12 @@
 'use-strict';
 
 import * as THREE from 'three';
+import Level from './Level';
 
 export default class Camera{
 
-  constructor(x=0, y=0, z=0){
+  constructor(x=0, y=0, z=0, level){
+    this.level = level;
     this.lens = new THREE.PerspectiveCamera(
       45,
       window.innerWidth / window.innerHeight,
@@ -20,6 +22,10 @@ export default class Camera{
     this.addEventListeners();
   }
 
+  update(){
+    // this.controls.translateZ(this.controls.z -= 0.010);
+  }
+
   pointerLockControls(){
 	  this.lens.rotation.set( 0, 0, 0 );
 
@@ -29,11 +35,13 @@ export default class Camera{
 	  let yawObject = new THREE.Object3D();
 	  yawObject.position.y = 10;
 	  yawObject.add( pitchObject );
+    yawObject.enabled = false;
   
 	  let PI_2 = Math.PI / 2;
   
 	  let onMouseMove = function ( event ) {
-      console.log("Mouse Moving");
+      // console.log("Mouse Moving");
+      if(!yawObject.enabled) return;
 	  	let movementX = event.movementX || event.mozMovementX || event.webkitMovementX || 0;
 	  	let movementY = event.movementY || event.mozMovementY || event.webkitMovementY || 0;
   
@@ -43,7 +51,7 @@ export default class Camera{
 	  	pitchObject.rotation.x = Math.max( - PI_2, Math.min( PI_2, pitchObject.rotation.x ) );
     }
     document.addEventListener( 'mousemove', onMouseMove, false );
-    yawObject.enabled = true;
+    this.level.scene.add(yawObject);
     return yawObject;
   }
 
@@ -52,16 +60,12 @@ export default class Camera{
 
     let havePointerLock = 'pointerLockElement' in document || 'mozPointerLockElement' in document || 'webkitPointerLockElement' in document;
     if(havePointerLock){
-      console.log("Requesting PointerLock");
+      // console.log("Requesting PointerLock");
       this.pointerLockElement.requestPointerLock = this.pointerLockElement.requestPointerLock || this.pointerLockElement.mozRequestPointerLock || this.pointerLockElement.webkitRequestPointerLock;
-      this.pointerLockElement.requestPointerLock();
+      // this.pointerLockElement.requestPointerLock();
     }else{
       alert('Your Browser Does not Support Pointer Locking!');
     }
-
-    // Ask the browser to release the pointer
-    // document.exitPointerLock = document.exitPointerLock || document.mozExitPointerLock || document.webkitExitPointerLock;
-    // document.exitPointerLock();
   }
 
   pointerlockchange() {
@@ -101,7 +105,7 @@ export default class Camera{
 
   click(){
     if(!this.controls.enabled && this.pointerLockElement){
-      console.log("CLICK!")
+      // console.log("CLICK!")
       this.pointerLockElement.requestPointerLock();
       this.controls.enabled = true;
     }else{

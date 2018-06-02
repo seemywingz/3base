@@ -11,6 +11,7 @@ export default class Level {
 
   animate() {
     this.animationRequest = requestAnimationFrame( this.animate.bind(this) );
+    this.camera.update();
     this.loader.renderer.render( this.scene, this.camera.lens );
   }
 
