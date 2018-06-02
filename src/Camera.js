@@ -6,15 +6,16 @@ export default class Camera{
 
   constructor(x=0, y=0, z=0, level){
     this.level = level;
+    this.height = 1;
     this.lens = new THREE.PerspectiveCamera(
       45,
       window.innerWidth / window.innerHeight,
       0.5,
       1000000
     );
-    this.lens.position.x = x;
-    this.lens.position.y = y;
-    this.lens.position.z = z;
+    this.x = x;
+    this.y = y;
+    this.z = z;
     
     this.initPointerLock();
     this.addEventListeners();
@@ -63,7 +64,9 @@ export default class Camera{
 	  pitchObject.add( this.lens );
   
 	  let yawObject = new THREE.Object3D();
-	  yawObject.position.y = 10;
+	  yawObject.position.x = this.x;
+	  yawObject.position.y = this.height;
+	  yawObject.position.z = this.z;
 	  yawObject.add( pitchObject );
     yawObject.enabled = false;
   
