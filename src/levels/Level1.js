@@ -30,5 +30,13 @@ export default class Level1 extends Level {
     for (let index = 0; index < 100; index++) {
       new Box(this, randNum(-100,100), 0.5, randNum(-100,100), boxTexture);
     }
+
+    // var audio = new Audio('./assets/audio/wind.wav');
+    // audio.volume = 0.5;
+    // audio.play();
+
+    // audio = new Audio('./assets/audio/mem.mp3');
+    // audio.volume = 0.8;
+    // audio.play();
   }
 }
