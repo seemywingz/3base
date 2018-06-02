@@ -6,16 +6,24 @@ export default class Camera{
 
   constructor(x=0, y=0, z=0, level){
     this.level = level;
-    this.height = 1;
+    this.x = x;
+    this.y = y;
+    this.z = z;
+    this.height = 2;
+    this.speed = 400;
+    this.velocity = new THREE.Vector3();
+    this.direction = new THREE.Vector3();
+    this.moveForward = false;
+    this.moveBackward = false;
+    this.moveLeft = false;
+    this.moveRight = false;
+
     this.lens = new THREE.PerspectiveCamera(
       45,
       window.innerWidth / window.innerHeight,
       0.5,
       1000000
     );
-    this.x = x;
-    this.y = y;
-    this.z = z;
     
     this.initPointerLock();
     this.addEventListeners();
@@ -25,12 +33,6 @@ export default class Camera{
      this.konamiIndex = 0;
 
      this.pTime = performance.now();
-     this.velocity = new THREE.Vector3();
-     this.direction = new THREE.Vector3();
-     this.moveForward = false;
-     this.moveBackward = false;
-     this.moveLeft = false;
-     this.moveRight = false;
   }
 
   update(){
@@ -38,16 +40,16 @@ export default class Camera{
       let time = performance.now();
       let delta = ( time - this.pTime ) / 1000;
       
-      this.velocity.x -= this.velocity.x * 10.0 * delta;
-      this.velocity.z -= this.velocity.z * 10.0 * delta;
+      this.velocity.x -= this.velocity.x * 10 * delta;
+      this.velocity.z -= this.velocity.z * 10 * delta;
       // this.velocity.y -= 9.8 * 100.0 * delta; // 100.0 = mass
       
       this.direction.z = Number( this.moveForward ) - Number( this.moveBackward );
 			this.direction.x = Number( this.moveLeft ) - Number( this.moveRight );
       this.direction.normalize(); // this ensures consistent movements in all direction
       
-			if ( this.moveForward || this.moveBackward ) this.velocity.z -= this.direction.z * 1000 * delta;
-			if ( this.moveLeft || this.moveRight ) this.velocity.x -= this.direction.x * 1000 * delta;
+			if ( this.moveForward || this.moveBackward ) this.velocity.z -= this.direction.z * this.speed * delta;
+			if ( this.moveLeft || this.moveRight ) this.velocity.x -= this.direction.x * (this.speed * 0.5) * delta;
       
       this.controls.translateX( this.velocity.x * delta );
 			// this.controls.translateY( this.velocity.y * delta );

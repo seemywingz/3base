@@ -25,10 +25,11 @@ export default class SceneObject {
     if(model){
       this.loadModel();
     }else {
+      // console.log("mapping")
       var material = new THREE.MeshPhongMaterial({
         map: this.texture,
         transparent: true,
-        // shading: THREE.SmoothShading
+        // flatShading: true
       });
       this.mesh = new THREE.Mesh(this.geometry, material);
       this.mesh.customDepthMaterial = new THREE.ShaderMaterial();

@@ -27,20 +27,18 @@ export default class Level {
     light.position.set(0, 400, 100);
     light.castShadow = true;
     light.shadowMapBias = 0.01;
-    light.shadowMapDarkness = 0.01;
+    light.shadowMapDarkness = 0.00001;
     light.shadow.mapSize.width = 1024;
     light.shadow.mapSize.height = 1024;
     this.scene.add( light );
 
-    // var pointLightHelper = new THREE.PointLightHelper( light, 2 );
-    // this.scene.add( pointLightHelper );
+    let pointLightHelper = new THREE.PointLightHelper( light, 2 );
+    this.scene.add( pointLightHelper );
 
-    // light = new THREE.HemisphereLight( 0xe8ffe9, 0x262626, 1 );
-    // this.scene.add( light );
-
-    // light = new THREE.AmbientLight(0xd6d6d6);
-    // light = new THREE.AmbientLight(0xffffff);
-    // this.scene.add( light );
+    let skyColor = 0xe5efff;
+    let groundColor = 0xe2f9de;
+    light = new THREE.HemisphereLight( skyColor, groundColor, 0.6 );
+    this.scene.add( light );
   }
 
   click(){
