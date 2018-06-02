@@ -19,10 +19,9 @@ export default class Level1 extends Level {
 
   createScene(){
     var skyTexture = textureLoader.load( 'assets/images/sky.jpg');
-    var sky = new Sky(this, 0, 0, 0, skyTexture, 100);
+    var sky = new Sky(this, 0, 0, 0, skyTexture);
     
     var boxTexture = textureLoader.load( 'assets/images/box/0.jpg');
-    let box = new Box(this, 0, 0, 0, boxTexture, 1);
-
+    let box = new Box(this, 0, 0, 0, boxTexture);
   }
 }

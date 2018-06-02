@@ -24,7 +24,7 @@ export default class Level {
   createLights(){
     console.log("Let There Be Light!")
     let light = new THREE.PointLight( 0xc9c9c9, 1, 0, 3);
-    light.position.set(0, 500, 100);
+    light.position.set(0, 400, 100);
     light.castShadow = true;
     light.shadowMapBias = 0.01;
     light.shadowMapDarkness = 0.01;
