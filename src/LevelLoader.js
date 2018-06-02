@@ -38,7 +38,7 @@ export default class LevelLoader {
     }.bind(this);
     
     manager.onLoad = function () {// Completion
-      console.log("Loaded");
+      console.log("...Loaded");
       this.loading = false;
       document.body.appendChild( this.renderer.domElement );
       fade( document.getElementById('overlay'));

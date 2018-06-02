@@ -1,7 +1,7 @@
 {
   "name": "game_base",
   "version": "1.0.0",
-  "description": "Desktop 3d Application Boilerplate",
+  "description": "THREE.js 3d Application Boilerplate",
   "main": "./src/main.js",
   "scripts": {
     "test": "echo \"PASS\" && exit 0",
