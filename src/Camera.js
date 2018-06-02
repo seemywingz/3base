@@ -16,8 +16,8 @@ export default class Camera{
     this.lens.position.z = z;
     
     this.controls = this.pointerLockControls();
-    this.addEventListeners();
     this.initPointerLock();
+    this.addEventListeners();
   }
 
   pointerLockControls(){
@@ -49,10 +49,6 @@ export default class Camera{
 
   initPointerLock() {
     this.pointerLockElement = document.body;
-    // Hook pointer lock state change events
-    document.addEventListener('pointerlockchange', this.pointerlockchange.bind(this), false);
-    document.addEventListener('mozpointerlockchange', this.pointerlockchange.bind(this), false);
-    document.addEventListener('webkitpointerlockchange', this.pointerlockchange.bind(this), false);
 
     let havePointerLock = 'pointerLockElement' in document || 'mozPointerLockElement' in document || 'webkitPointerLockElement' in document;
     if(havePointerLock){
@@ -69,22 +65,29 @@ export default class Camera{
   }
 
   pointerlockchange() {
-      console.log("PointerLock Change");
       if (document.pointerLockElement === this.pointerLockElement || document.mozPointerLockElement === this.pointerLockElement || document.webkitPointerLockElement === this.pointerLockElement) {
         this.controls.enabled = true;
-        console.log('controls enabled');
+        console.log('Pointer Locked');
         // document.getElementById('menu').style.display = 'none';
       } else {
         this.controls.enabled = false;
-        console.log('controls disabled');
+        console.log('Pointer Released');
         // document.getElementById('menu').style.display = 'block';
       }
+  }
+
+  releasePointerLock(){
+    document.exitPointerLock = document.exitPointerLock || document.mozExitPointerLock || document.webkitExitPointerLock;
+    document.exitPointerLock();
   }
 
   addEventListeners(){
     window.addEventListener( 'keyup', this.keyUp.bind(this), false);
     window.addEventListener( 'keydown', this.keyDown.bind(this), false);
     window.addEventListener( 'click', this.click.bind(this), false);
+    document.addEventListener('pointerlockchange', this.pointerlockchange.bind(this), false);
+    document.addEventListener('mozpointerlockchange', this.pointerlockchange.bind(this), false);
+    document.addEventListener('webkitpointerlockchange', this.pointerlockchange.bind(this), false);
   }
 
   removeEventListeners(){
@@ -138,8 +141,7 @@ export default class Camera{
         this.level.next();
         break;
       case 27:/* escape */
-        document.exitPointerLock = document.exitPointerLock || document.mozExitPointerLock || document.webkitExitPointerLock;
-        document.exitPointerLock();
+        this.releasePointerLock();
         break;
     }
   }
