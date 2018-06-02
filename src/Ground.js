@@ -17,7 +17,7 @@ export default class Ground extends SceneObject {
     this.mesh.rotation.x = -Math.PI/2;
     this.mesh.material.shininess = 0;
 
-    if(this.level.physics_enabled)
+    if(this.level.physicsEnabled)
       this.initPhysics(scale);
   }
 

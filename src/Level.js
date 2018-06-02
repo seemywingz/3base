@@ -1,18 +1,51 @@
 'use-strict';
 
 import * as THREE from 'three';
+import * as CANNON from 'cannon';
 
 export default class Level {
 
   constructor(loader) {
     this.loader = loader;
     this.loading = false;
+    this.physicsEnabled = true;
+
+    this.removeBodies = [];
+    this.animatedObjects = [];
+
+    this.lastTime = performance.now();
+    this.fixedTime = 0.016;
+
+    if(this.physicsEnabled){
+      this.world = new CANNON.World();
+      this.world.gravity.set(0,-9.82,0);
+      // this.world.broadphase = new CANNON.NaiveBroadphase();
+      this.world.solver.iterations = 10;
+      this.world.allowSleep = true;
+    }
   }
 
   animate() {
     this.animationRequest = requestAnimationFrame( this.animate.bind(this) );
-    this.camera.update();
-    this.loader.renderer.render( this.scene, this.camera.lens );
+    if(document.hasFocus() && !this.loader.paused){
+      this.camera.update();
+      
+      if(this.physicsEnabled ){
+        let time = performance.now();
+        let deltaTime = (time - this.lastTime);
+        this.world.step(this.fixedTime, deltaTime + 5, 3);
+        this.lastTime = time;
+        this.removeBodies.map((body)=>{
+          this.world.remove(body);
+        });
+      }
+      
+      this.animatedObjects.map((animatedObject)=>{
+        animatedObject.animate();
+      });
+      
+      this.loader.renderer.render( this.scene, this.camera.lens );
+    }
   }
 
   load(){

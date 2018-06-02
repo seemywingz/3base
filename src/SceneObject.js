@@ -2,6 +2,7 @@
 
 import * as THREE from 'three';
 import  Promise from 'bluebird';
+import * as CANNON from 'cannon';
 import {jsonLoader, objectLoader} from './LevelLoader';
 
 THREE.Cache.enabled = true;
@@ -45,7 +46,7 @@ export default class SceneObject {
     this.loadJSON(this.model, this.scale)
     .then(() => {
       // console.log("Model Loaded ");
-      if(this.level.physics_enabled && this.mass >= 0){
+      if(this.level.physicsEnabled && this.mass >= 0){
         let cannonPoints = this.mesh.geometry.vertices.map(function(v) {
           return new CANNON.Vec3( v.x, v.y, v.z );
         });
@@ -119,8 +120,31 @@ export default class SceneObject {
     });
   }
 
+  initPhysics(scale, mass, shape){
+    return new Promise ((resolve, reject) => {
+      try{
+        this.body = new CANNON.Body({
+          mass: mass
+        });
+        this.body.addShape(shape);
+        this.body.position.set(this.x,this.y,this.z);
+        this.body.angularVelocity.set(0,0,0);
+        this.body.angularDamping = 0.7;
+        this.body.allowSleep = true;
+        this.body.sleepSpeedLimit = 0.01; // Body will feel sleepy if speed < n (speed == norm of velocity)
+        this.body.sleepTimeLimit = 0.5; // Body falls asleep after n seconds of sleepiness
+        this.level.world.addBody(this.body);
+        this.level.animatedObjects.push(this);
+        resolve();
+      }catch (e) {
+        reject(e);
+      }
+    });
+  }
+
   animate(){
-    if(this.level.physics_enabled ){
+    if(this.level.physicsEnabled){
+      // console.log("anmimating", this);
       this.mesh.position.copy(this.body.position);
       this.mesh.quaternion.copy(this.body.quaternion);
     }

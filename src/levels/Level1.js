@@ -7,6 +7,7 @@ import * as THREE from 'three';
 import Ground from '../Ground';
 import Camera from '../Camera';
 import { randNum } from '../Utils';
+import SceneObject from '../SceneObject';
 import {textureLoader} from '../LevelLoader';
 
 export default class Level1 extends Level {
@@ -31,6 +32,7 @@ export default class Level1 extends Level {
       new Box(this, randNum(-100,100), 0.5, randNum(-100,100), boxTexture);
     }
 
+    new SceneObject(this, 0, 10, -20, null, null, 'buddha', 5, 1000);
     // var audio = new Audio('./assets/audio/wind.wav');
     // audio.volume = 0.5;
     // audio.play();
