@@ -1,7 +1,6 @@
 'use-strict';
 
 import * as THREE from 'three';
-import Level from './Level';
 
 export default class Camera{
 
@@ -11,22 +10,50 @@ export default class Camera{
       45,
       window.innerWidth / window.innerHeight,
       0.5,
-      100000
+      1000000
     );
     this.lens.position.x = x;
     this.lens.position.y = y;
     this.lens.position.z = z;
     
-    this.initPointerLockControls();
+    this.initPointerLock();
     this.addEventListeners();
 
      // Easter Eggs
      this.konamiCode = [38, 38, 40, 40, 37, 39, 37, 39, 66, 65];
      this.konamiIndex = 0;
+
+     this.pTime = performance.now();
+     this.velocity = new THREE.Vector3();
+     this.direction = new THREE.Vector3();
+     this.moveForward = false;
+     this.moveBackward = false;
+     this.moveLeft = false;
+     this.moveRight = false;
   }
 
   update(){
-    // this.controls.translateZ(this.controls.z -= 0.010);
+    if(this.controls.enabled){
+      let time = performance.now();
+      let delta = ( time - this.pTime ) / 1000;
+      
+      this.velocity.x -= this.velocity.x * 10.0 * delta;
+      this.velocity.z -= this.velocity.z * 10.0 * delta;
+      // this.velocity.y -= 9.8 * 100.0 * delta; // 100.0 = mass
+      
+      this.direction.z = Number( this.moveForward ) - Number( this.moveBackward );
+			this.direction.x = Number( this.moveLeft ) - Number( this.moveRight );
+      this.direction.normalize(); // this ensures consistent movements in all direction
+      
+			if ( this.moveForward || this.moveBackward ) this.velocity.z -= this.direction.z * 1000 * delta;
+			if ( this.moveLeft || this.moveRight ) this.velocity.x -= this.direction.x * 1000 * delta;
+      
+      this.controls.translateX( this.velocity.x * delta );
+			// this.controls.translateY( this.velocity.y * delta );
+			this.controls.translateZ( this.velocity.z * delta );
+      
+      this.pTime = time;
+    }
   }
 
   pointerLockControls(){
@@ -58,7 +85,7 @@ export default class Camera{
     return yawObject;
   }
 
-  initPointerLockControls() {
+  initPointerLock() {
     this.controls = this.pointerLockControls();
     this.pointerLockElement = document.body;
     let havePointerLock = 'pointerLockElement' in document || 'mozPointerLockElement' in document || 'webkitPointerLockElement' in document;
@@ -107,11 +134,9 @@ export default class Camera{
 
   click(){
     if(!this.controls.enabled && this.pointerLockElement){
-      // console.log("CLICK!")
       this.pointerLockElement.requestPointerLock();
       this.controls.enabled = true;
     }else{
-      // console.log(this);
       // this.level.click();
     }
   }
@@ -172,11 +197,6 @@ export default class Camera{
         this.moveRight = true;
         break;
       case 32: // space
-        // if(!event.shiftKey){
-        //   this.dy = this.speed;
-        // }else{
-        //   this.dy = -this.speed;
-        // }
         if ( !this.jumping && this.standing ){
           this.jumping = true;
         }
@@ -190,8 +210,6 @@ export default class Camera{
       if(this.konamiIndex === this.konamiCode.length){
         this.konamiIndex = 0;
         alert('Konami Code of HONOR!');
-        // this.level.next();
-        // levelLoader.currentLevel.extra();
       }
     }else{
       this.konamiIndex = 0;
