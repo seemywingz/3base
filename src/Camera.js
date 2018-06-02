@@ -17,9 +17,12 @@ export default class Camera{
     this.lens.position.y = y;
     this.lens.position.z = z;
     
-    this.controls = this.pointerLockControls();
-    this.initPointerLock();
+    this.initPointerLockControls();
     this.addEventListeners();
+
+     // Easter Eggs
+     this.konamiCode = [38, 38, 40, 40, 37, 39, 37, 39, 66, 65];
+     this.konamiIndex = 0;
   }
 
   update(){
@@ -55,12 +58,11 @@ export default class Camera{
     return yawObject;
   }
 
-  initPointerLock() {
+  initPointerLockControls() {
+    this.controls = this.pointerLockControls();
     this.pointerLockElement = document.body;
-
     let havePointerLock = 'pointerLockElement' in document || 'mozPointerLockElement' in document || 'webkitPointerLockElement' in document;
     if(havePointerLock){
-      // console.log("Requesting PointerLock");
       this.pointerLockElement.requestPointerLock = this.pointerLockElement.requestPointerLock || this.pointerLockElement.mozRequestPointerLock || this.pointerLockElement.webkitRequestPointerLock;
       // this.pointerLockElement.requestPointerLock();
     }else{
@@ -115,7 +117,7 @@ export default class Camera{
   }
 
   keyUp(event){
-    // this.handleKonamiCode(event.keyCode);
+    this.handleKonamiCode(event.keyCode);
     switch(event.keyCode){
       case 38: // up
       case 87: // w
@@ -179,6 +181,20 @@ export default class Camera{
           this.jumping = true;
         }
         break;
+    }
+  }
+
+  handleKonamiCode(keyCode){
+    if(keyCode === this.konamiCode[this.konamiIndex]){
+      this.konamiIndex += 1;
+      if(this.konamiIndex === this.konamiCode.length){
+        this.konamiIndex = 0;
+        alert('Konami Code of HONOR!');
+        // this.level.next();
+        // levelLoader.currentLevel.extra();
+      }
+    }else{
+      this.konamiIndex = 0;
     }
   }
 
