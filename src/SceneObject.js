@@ -9,29 +9,29 @@ THREE.Cache.enabled = true;
 
 export default class SceneObject {
 
-  constructor(level, x, y, z, texture, geometry, model, scale=1, animationSpeed=0.01){
+  constructor(level, x, y, z, texture, geometry, model, scale=1, mass=0, animationSpeed=0.01){
     this.x = x;
     this.y = y;
     this.z = z;
+    this.mass = mass;
     this.scale = scale;
     this.model = model;
-    this.dy = 0.1;
     this.level = level;
     this.mesh = null;
     this.mixer = null;
+    this.geometry = null;
     this.animationSpeed = animationSpeed;
-    this.geometry = geometry ? geometry : new THREE.PlaneGeometry(1,1);
     this.texture = texture;
 
     if(model){
       this.loadModel();
     }else {
-      // console.log("mapping")
-      var material = new THREE.MeshPhongMaterial({
+      let material = new THREE.MeshPhongMaterial({
         map: this.texture,
         transparent: true,
         // flatShading: true
       });
+      this.geometry = geometry ? geometry : new THREE.PlaneGeometry(1,1);
       this.mesh = new THREE.Mesh(this.geometry, material);
       this.mesh.customDepthMaterial = new THREE.ShaderMaterial();
       this.mesh.castShadow = true;
@@ -126,6 +126,7 @@ export default class SceneObject {
         this.body = new CANNON.Body({
           mass: mass
         });
+        // console.log("Init Physics");
         this.body.addShape(shape);
         this.body.position.set(this.x,this.y,this.z);
         this.body.angularVelocity.set(0,0,0);
@@ -144,7 +145,7 @@ export default class SceneObject {
 
   animate(){
     if(this.level.physicsEnabled){
-      // console.log("anmimating", this);
+      // console.log("anmimating object");
       this.mesh.position.copy(this.body.position);
       this.mesh.quaternion.copy(this.body.quaternion);
     }

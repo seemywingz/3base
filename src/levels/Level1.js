@@ -15,7 +15,6 @@ export default class Level1 extends Level {
   constructor(loader) {
     super(loader);
     this.scene = new THREE.Scene();
-    this.scene.background = new THREE.Color( 0xfff000 );
     this.camera = new Camera(0,0,10, this);
     this.load();
   }
@@ -29,10 +28,11 @@ export default class Level1 extends Level {
     
     var boxTexture = textureLoader.load( 'assets/images/box/0.jpg');
     for (let index = 0; index < 100; index++) {
-      new Box(this, randNum(-100,100), 0.5, randNum(-100,100), boxTexture);
+      new Box(this, randNum(-100,100), randNum(0.5, 200), randNum(-100,100), boxTexture);
     }
 
     new SceneObject(this, 0, 10, -20, null, null, 'buddha', 5, 1000);
+    
     // var audio = new Audio('./assets/audio/wind.wav');
     // audio.volume = 0.5;
     // audio.play();

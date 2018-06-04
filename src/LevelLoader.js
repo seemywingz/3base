@@ -30,19 +30,19 @@ export default class LevelLoader {
 
   manageLoaders(){
     console.log("Loading...");
-    manager.onProgress = function (/*item, loaded*/) {
+    manager.onProgress = (/*item, loaded*/) => {
       if(!this.loading){
         this.loading = true;
         this.loadingAnimation();
       }
-    }.bind(this);
+    };
     
-    manager.onLoad = function () {// Completion
+    manager.onLoad = () => {// Completion
       console.log("...Loaded");
       this.loading = false;
       document.body.appendChild( this.renderer.domElement );
       fade( document.getElementById('overlay'));
-    }.bind(this);
+    };
 
     manager.onError = function () {
       console.log('there has been an error');
