@@ -28,8 +28,8 @@ export default class Level1 extends Level {
     new Ground(this, 0, 0, 0, groundTexture, 1000);
     
     var boxTexture = textureLoader.load( 'assets/images/box/0.jpg');
-    for (let index = 0; index < 100; index++) {
-      new Box(this, randNum(-100,100), randNum(0.5, 200), randNum(-100,100), boxTexture, 1, 100);
+    for (let index = 0; index < 50; index++) {
+      new Box(this, randNum(-50,50), randNum(0.5, 200), randNum(-50,50), boxTexture, 1, 200);
     }
 
     this.cannonBallTexture = textureLoader.load( 'assets/images/ball.jpg');
