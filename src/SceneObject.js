@@ -58,7 +58,8 @@ export default class SceneObject {
         var box = new THREE.Box3().setFromObject( this.mesh );
         this.mesh.geometry.computeBoundingBox();
         var boundingBox = this.mesh.geometry.boundingBox.clone();
-        let size = box.getSize();
+        let size = new THREE.Vector3;
+        box.getSize(size);
         // this.initPhysics(this.scale, this.mass, new CANNON.ConvexPolyhedron( cannonPoints, cannonFaces) );
         this.initPhysics(this.scale, this.mass, new CANNON.Box(new CANNON.Vec3(size.x*0.5, size.y*0.5, size.z*0.5)) );
       }

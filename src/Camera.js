@@ -142,8 +142,18 @@ export default class Camera{
       this.pointerLockElement.requestPointerLock();
       this.controls.enabled = true;
     }else{
-      // this.level.click();
+      this.level.click();
     }
+  }
+
+  getDirection () {
+    let v = new THREE.Vector3();
+    let direction = new THREE.Vector3( 0, 0, -1 );
+    let rotation = new THREE.Euler( 0, 0, 0, "YXZ" );
+    // console.log(this.controls.children[0]);
+    rotation.set( this.controls.children[0].rotation.x, this.controls.rotation.y, 0 );
+		v.copy( direction ).applyEuler( rotation );
+		return v;
   }
 
   keyUp(event){

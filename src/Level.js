@@ -14,7 +14,7 @@ export default class Level {
     this.animatedObjects = [];
 
     this.lastTime = performance.now();
-    this.fixedTime = 0.016;
+    this.fixedTime = 0.015;
 
     if(this.physicsEnabled){
       console.log("Level Physics Enabled")
@@ -34,7 +34,7 @@ export default class Level {
       if(this.physicsEnabled ){
         let time = performance.now();
         let deltaTime = (time - this.lastTime);
-        this.world.step(this.fixedTime, deltaTime + 5, 3);
+        this.world.step(this.fixedTime, deltaTime, 5);
         this.lastTime = time;
         this.removeBodies.map((body)=>{
           this.world.remove(body);
@@ -76,11 +76,11 @@ export default class Level {
   }
 
   click(){
-    console.log("CLICK!")
+    console.log("Level CLICK!")
   }
 
   extra(){
-    console.log("EXTRA!")
+    console.log("Level EXTRA!")
   }
 
   die(){

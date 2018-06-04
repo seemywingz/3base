@@ -6,10 +6,10 @@ import SceneObject from './SceneObject';
 
 export default class Ball extends SceneObject {
 
-  constructor(level, x, y, z, texturesrc, scale=1, mass=1){
-    super(level, x, y, z, texturesrc, new THREE.SphereGeometry( scale, 32, 32 ), null);
-    if(this.level.physicsEnabled) this.initPhysics(scale, mass, new CANNON.Sphere(scale) );
-    this.level.animatedObjects.push(this);
+  constructor(level, x, y, z, texture, scale=1, mass=1){
+    super(level, x, y, z, texture, new THREE.SphereGeometry( scale, 32, 32 ), null, scale, mass);
+    if(this.level.physicsEnabled)
+      this.initPhysics(this.scale, this.mass, new CANNON.Sphere(scale) );
   }
 
 }
