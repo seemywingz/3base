@@ -1,11 +1,13 @@
 {
   "name": "game_base",
+  "sideEffects": false,
   "version": "1.0.0",
   "description": "THREE.js 3d Application Boilerplate",
   "main": "./src/main.js",
   "scripts": {
     "test": "echo \"PASS\" && exit 0",
     "dev": "ELECTRON_DISABLE_SECURITY_WARNINGS=true electron . & webpack --progress --colors --watch --mode development",
+    "dev1": "ELECTRON_DISABLE_SECURITY_WARNINGS=true electron . & webpack --progress --colors --watch --mode production",
     "dev-server": "webpack-dev-server --content-base srv/",
     "app": "webpack --progress --colors;electron .",
     "pack": "build --dir",
