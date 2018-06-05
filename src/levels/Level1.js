@@ -35,10 +35,13 @@ export default class Level1 extends Level {
     this.cannonBallTexture = textureLoader.load( 'assets/images/ball.jpg');
     var ballTexture = textureLoader.load( 'assets/images/beachBall.jpg');
     for (let index = 0; index < 200; index++) {
-      new Ball(this, randNum(-50,50), randNum(0.5, 200), randNum(-50,50), ballTexture, 1, 1);
+      new Ball(this, randNum(-50,50), randNum(0.5, 200), randNum(-50,50), ballTexture, 1, 0.1);
     }
 
     new SceneObject(this, 0, 10, -20, null, null, 'buddha', 5, 1000);
+    
+    // new SceneObject(this, 0, 5, 10, null, null, 'flamingo', 0.08, 0, 0.03);
+    // flamingo.addAnimation = fl_addAnimation(flamingo);
 
     // var audio = new Audio('./assets/audio/wind.wav');
     // audio.volume = 0.5;
@@ -53,8 +56,8 @@ export default class Level1 extends Level {
     let direction = this.camera.getDirection();
     let pos = this.camera.controls.position;
 
-    let spd = 150;
-    let ball = new Ball(this,0, 0, 0, this.cannonBallTexture, 0.51, 10);
+    let spd = 50;
+    let ball = new Ball(this,0, 0, 0, this.cannonBallTexture, 0.51, 100);
     ball.body.angularVelocity.set(0, 0, 0);
     ball.body.position.set(pos.x,pos.y,pos.z);
     ball.body.velocity.set(direction.x * spd, direction.y * spd, direction.z * spd);
