@@ -22,7 +22,9 @@ function createWindow () {
   }));
 
   // Open the DevTools.
-  win.webContents.openDevTools();
+  if(process.env.ELECTRON_DISABLE_SECURITY_WARNINGS === "true"){
+    win.webContents.openDevTools();
+  }
 
   // Emitted when the window is closed.
   win.on('closed', () => {
