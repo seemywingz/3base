@@ -1,6 +1,11 @@
 'use-strict';
 
-import * as THREE from 'three';
+import {
+  Euler,
+  Vector3,
+  Object3D,
+  PerspectiveCamera,
+} from 'three';
 
 export default class Camera{
 
@@ -11,14 +16,14 @@ export default class Camera{
     this.z = z;
     this.height = 2;
     this.speed = 400;
-    this.velocity = new THREE.Vector3();
-    this.direction = new THREE.Vector3();
+    this.velocity = new Vector3();
+    this.direction = new Vector3();
     this.moveForward = false;
     this.moveBackward = false;
     this.moveLeft = false;
     this.moveRight = false;
 
-    this.lens = new THREE.PerspectiveCamera(
+    this.lens = new PerspectiveCamera(
       45,
       window.innerWidth / window.innerHeight,
       0.5,
@@ -62,10 +67,10 @@ export default class Camera{
   pointerLockControls(){
 	  this.lens.rotation.set( 0, 0, 0 );
 
-	  let pitchObject = new THREE.Object3D();
+	  let pitchObject = new Object3D();
 	  pitchObject.add( this.lens );
   
-	  let yawObject = new THREE.Object3D();
+	  let yawObject = new Object3D();
 	  yawObject.position.x = this.x;
 	  yawObject.position.y = this.height;
 	  yawObject.position.z = this.z;
@@ -147,9 +152,9 @@ export default class Camera{
   }
 
   getDirection () {
-    let v = new THREE.Vector3();
-    let direction = new THREE.Vector3( 0, 0, -1 );
-    let rotation = new THREE.Euler( 0, 0, 0, "YXZ" );
+    let v = new Vector3();
+    let direction = new Vector3( 0, 0, -1 );
+    let rotation = new Euler( 0, 0, 0, "YXZ" );
     // console.log(this.controls.children[0]);
     rotation.set( this.controls.children[0].rotation.x, this.controls.rotation.y, 0 );
 		v.copy( direction ).applyEuler( rotation );

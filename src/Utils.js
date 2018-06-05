@@ -1,7 +1,5 @@
 'use-strict';
 
-import * as THREE from 'three';
-
 export let loadingMsgs = [
   'My other load screen is much faster',
   'Wait, I need to get to a save spot....',

@@ -1,14 +1,17 @@
 'use-strict';
 
-import * as THREE from 'three';
+import {
+  JSONLoader, 
+  TextureLoader,
+  LoadingManager,
+  WebGLRenderer} from 'three';
 import Level1 from './levels/Level1';
 import { randNum, loadingMsgs, fade } from './Utils';
 
 export let
-  manager = new THREE.LoadingManager(),
-  jsonLoader = new THREE.JSONLoader(manager),
-  objectLoader = new THREE.ObjectLoader(manager),
-  textureLoader = new THREE.TextureLoader(manager);
+  manager = new LoadingManager(),
+  jsonLoader = new JSONLoader(manager),
+  textureLoader = new TextureLoader(manager);
 
 export default class LevelLoader {
   constructor() {
@@ -72,7 +75,7 @@ export default class LevelLoader {
   }
 
   initRenderer(){
-    this.renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+    this.renderer = new WebGLRenderer({ alpha: true, antialias: true });
     this.renderer.setPixelRatio( window.devicePixelRatio );
     this.renderer.setSize( window.innerWidth, window.innerHeight );
     this.renderer.shadowMap.enabled = true;

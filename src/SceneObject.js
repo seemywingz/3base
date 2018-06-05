@@ -1,11 +1,18 @@
 'use-strict';
 
-import * as THREE from 'three';
+import {
+Mesh,
+Box3,
+Cache,
+Vector3,
+AnimationMixer,
+MeshPhongMaterial,
+} from 'three';
 import  Promise from 'bluebird';
 import * as CANNON from 'cannon';
 import {jsonLoader} from './LevelLoader';
 
-THREE.Cache.enabled = true;
+Cache.enabled = true;
 
 export default class SceneObject {
 
@@ -23,10 +30,10 @@ export default class SceneObject {
     if(model){
       this.loadModel(model)
     }else {
-      let material = new THREE.MeshPhongMaterial({
+      let material = new MeshPhongMaterial({
         map: texture,
       });
-      this.mesh = new THREE.Mesh(geometry, material);
+      this.mesh = new Mesh(geometry, material);
       this.configMesh();
     }
 
@@ -45,12 +52,12 @@ export default class SceneObject {
       jsonLoader.load(
         './assets/models/' + model + '/' + model + '.json',
         ( geometry, materials ) => {
-          this.mesh = new THREE.Mesh( geometry, materials);   
+          this.mesh = new Mesh( geometry, materials);   
           this.configMesh(); 
           if (!!geometry.animations){
             material.morphTargets = true;
             material.morphNormals = true;
-            this.mixer = new THREE.AnimationMixer( this.mesh );
+            this.mixer = new AnimationMixer( this.mesh );
             this.mixer.clipAction( geometry.animations[ 0 ] ).setDuration( 1 ).play();
           }
           resolve();
@@ -60,8 +67,8 @@ export default class SceneObject {
       );
     }).then(()=>{ // model is loaded
       if(this.level.physicsEnabled && this.mass >= 0){
-        var box = new THREE.Box3().setFromObject( this.mesh );
-        let size = new THREE.Vector3;
+        var box = new Box3().setFromObject( this.mesh );
+        let size = new Vector3;
         box.getSize(size);
         this.initPhysics(this.scale, this.mass, new CANNON.Box(new CANNON.Vec3(size.x*0.5, size.y*0.5, size.z*0.5)) );
       }

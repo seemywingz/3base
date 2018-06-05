@@ -1,16 +1,19 @@
 'use-strict';
 
-import * as THREE from 'three';
+import {
+  PlaneGeometry,
+  RepeatWrapping,
+} from 'three';
 import * as CANNON from 'cannon';
 import SceneObject from './SceneObject';
 
 export default class Ground extends SceneObject {
 
   constructor(level, x, y, z, texture, scale=1){
-    super(level, x, y, z, texture, new THREE.PlaneGeometry(scale, scale), null);
+    super(level, x, y, z, texture, new PlaneGeometry(scale, scale), null);
 
     if(texture){
-      texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
+      texture.wrapS = texture.wrapT = RepeatWrapping;
       texture.repeat.set( 30, 30 );
     }
 

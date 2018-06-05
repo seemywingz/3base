@@ -4,7 +4,7 @@ import Sky from '../Sky';
 import Box from '../Box';
 import Ball from '../Ball';
 import Level from '../Level';
-import * as THREE from 'three';
+import {Scene} from 'three';
 import Ground from '../Ground';
 import Camera from '../Camera';
 import { randNum } from '../Utils';
@@ -15,7 +15,7 @@ export default class Level1 extends Level {
 
   constructor(loader) {
     super(loader);
-    this.scene = new THREE.Scene();
+    this.scene = new Scene();
     this.camera = new Camera(0,0,10, this);
     this.load();
   }
