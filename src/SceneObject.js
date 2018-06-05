@@ -7,6 +7,7 @@ Cache,
 Vector3,
 AnimationMixer,
 MeshPhongMaterial,
+MultiMaterial
 } from 'three';
 import  Promise from 'bluebird';
 import * as CANNON from 'cannon';
@@ -53,13 +54,13 @@ export default class SceneObject {
         './assets/models/' + model + '/' + model + '.json',
         ( geometry, materials ) => {
           this.mesh = new Mesh( geometry, materials);   
-          this.configMesh(); 
           if (!!geometry.animations){
-            material.morphTargets = true;
-            material.morphNormals = true;
+            materials[0].morphTargets = true;
+            materials[0].morphNormals = true;
             this.mixer = new AnimationMixer( this.mesh );
             this.mixer.clipAction( geometry.animations[ 0 ] ).setDuration( 1 ).play();
           }
+          this.configMesh(); 
           resolve();
         }, // onLoad
         () => {}, // onProgress

@@ -40,7 +40,7 @@ export default class Level1 extends Level {
 
     new SceneObject(this, 0, 10, -20, null, null, 'buddha', 5, 1000);
     
-    // new SceneObject(this, 0, 5, 10, null, null, 'flamingo', 0.08, 0, 0.03);
+    new SceneObject(this, 0, 5, 10, null, null, 'flamingo', 0.08, 0, 0.03);
     // flamingo.addAnimation = fl_addAnimation(flamingo);
 
     // var audio = new Audio('./assets/audio/wind.wav');
