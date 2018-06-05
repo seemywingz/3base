@@ -3,7 +3,7 @@
 import * as THREE from 'three';
 import  Promise from 'bluebird';
 import * as CANNON from 'cannon';
-import {jsonLoader, objectLoader} from './LevelLoader';
+import {jsonLoader} from './LevelLoader';
 
 THREE.Cache.enabled = true;
 
