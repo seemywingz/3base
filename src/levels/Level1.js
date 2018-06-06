@@ -1,10 +1,10 @@
 'use-strict';
 
 import Sky from '../Sky';
-import Box from '../Box';
+import Cube from '../Cube';
 import Ball from '../Ball';
-import Level from '../Level';
 import {Scene} from 'three';
+import Level from '../Level';
 import Ground from '../Ground';
 import Camera from '../Camera';
 import { randNum } from '../Utils';
@@ -27,9 +27,9 @@ export default class Level1 extends Level {
     var groundTexture = textureLoader.load( 'assets/images/ground.jpg');
     new Ground(this, 0, 0, 0, groundTexture, 1000);
     
-    var boxTexture = textureLoader.load( 'assets/images/box/0.jpg');
+    var cubeTexture = textureLoader.load( 'assets/images/box/0.jpg');
     for (let index = 0; index < 50; index++) {
-      new Box(this, randNum(-50,50), randNum(0.5, 200), randNum(-50,50), boxTexture, 1, 200);
+      new Cube(this, randNum(-50,50), randNum(0.5, 200), randNum(-50,50), cubeTexture, 1, 200);
     }
 
     this.cannonBallTexture = textureLoader.load( 'assets/images/ball.jpg');
@@ -40,16 +40,19 @@ export default class Level1 extends Level {
 
     new SceneObject(this, 0, 10, -20, null, null, 'buddha', 5, 1000);
     
-    new SceneObject(this, 0, 5, 10, null, null, 'flamingo', 0.08, 0, 0.03);
+    // new SceneObject(this, 0, 5, 10, null, null, 'flamingo', 0.08, 0, 0.03);
     // flamingo.addAnimation = fl_addAnimation(flamingo);
 
-    // var audio = new Audio('./assets/audio/wind.wav');
-    // audio.volume = 0.5;
-    // audio.play();
+  }
 
-    // audio = new Audio('./assets/audio/mem.mp3');
-    // audio.volume = 0.8;
-    // audio.play();
+  playAudio(){
+    var audio = new Audio('./assets/audio/wind.wav');
+    audio.volume = 0.5;
+    audio.play();
+
+    audio = new Audio('./assets/audio/mem.mp3');
+    audio.volume = 0.8;
+    audio.play();
   }
 
   click(){

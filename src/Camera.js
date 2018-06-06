@@ -4,7 +4,7 @@ import {
   Euler,
   Vector3,
   Object3D,
-  PerspectiveCamera,
+  PerspectiveCamera 
 } from 'three';
 
 export default class Camera{

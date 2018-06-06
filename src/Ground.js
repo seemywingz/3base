@@ -2,9 +2,13 @@
 
 import {
   PlaneGeometry,
-  RepeatWrapping,
+  RepeatWrapping 
 } from 'three';
-import * as CANNON from 'cannon';
+import {
+  Body, 
+  Plane,
+  Vec3
+} from 'cannon';
 import SceneObject from './SceneObject';
 
 export default class Ground extends SceneObject {
@@ -25,12 +29,12 @@ export default class Ground extends SceneObject {
   }
 
   initPhysics(scale){
-    this.body = new CANNON.Body({
+    this.body = new Body({
         mass: 0 // mass == 0 makes the body static
     });
-    let groundShape = new CANNON.Plane();
+    let groundShape = new Plane();
     this.body.addShape(groundShape);
-    this.body.quaternion.setFromAxisAngle(new CANNON.Vec3(1,0,0),-Math.PI/2);
+    this.body.quaternion.setFromAxisAngle(new Vec3(1,0,0),-Math.PI/2);
     this.body.position.set(0, 0, 0);
     this.level.world.addBody(this.body);
   }

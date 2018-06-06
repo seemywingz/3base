@@ -1,22 +1,22 @@
 'use-strict';
 
-import {
-  JSONLoader, 
-  TextureLoader,
-  LoadingManager,
-  WebGLRenderer} from 'three';
+import * as THREE from 'three';
 import Level1 from './levels/Level1';
+import OBJLoader from 'three-obj-loader';
+import MTLLoader from 'three-mtl-loader';
 import { randNum, loadingMsgs, fade } from './Utils';
+OBJLoader(THREE);
 
-export let
-  manager = new LoadingManager(),
-  jsonLoader = new JSONLoader(manager),
-  textureLoader = new TextureLoader(manager);
-
+export const 
+  manager = new THREE.LoadingManager(),
+  jsonLoader = new THREE.JSONLoader(manager),
+  textureLoader = new THREE.TextureLoader(manager),
+  objLoader = new THREE.OBJLoader(manager),
+  mtlLoader = new MTLLoader(manager);
 export default class LevelLoader {
   constructor() {
 
-    this.manageLoaders();
+    this.initManager();
     this.initRenderer();
 
     this.paused = false;
@@ -31,7 +31,7 @@ export default class LevelLoader {
     // this.currentLevel.load();
   }
 
-  manageLoaders(){
+  initManager(){
     console.log("Loading...");
     manager.onProgress = (/*item, loaded*/) => {
       if(!this.loading){
@@ -75,7 +75,7 @@ export default class LevelLoader {
   }
 
   initRenderer(){
-    this.renderer = new WebGLRenderer({ alpha: true, antialias: true });
+    this.renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
     this.renderer.setPixelRatio( window.devicePixelRatio );
     this.renderer.setSize( window.innerWidth, window.innerHeight );
     this.renderer.shadowMap.enabled = true;

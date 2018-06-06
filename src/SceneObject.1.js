@@ -15,8 +15,7 @@ import {
 } from 'cannon';
 import {
   jsonLoader, 
-  objLoader,
-  mtlLoader
+  objectLoader
 } from './LevelLoader';
 
 Cache.enabled = true;
@@ -34,6 +33,7 @@ export default class SceneObject {
     this.level = level;
     this.animationSpeed = animationSpeed;
 
+    // console.log(typeof obj)
     if(obj){
       // this.loadModel(obj);
       this.loadObject(obj);
@@ -56,43 +56,23 @@ export default class SceneObject {
   }
 
   loadObject(obj){
-    new Promise((resolve, reject)=>{
-      mtlLoader()
-			  .setPath( './assets/models/' + obj )
-			  .load( obj+'.mtl', ( materials ) => {
-			  	materials.preload();
-			  	objLoader()
-			  		.setMaterials( materials )
-			  		.setPath( './assets/models/' + obj )
-			  		.load( obj+'.obj', ( object ) => {
-			  			object.position.set(this.x, this.y, this.z);
-			  			this.mesh = object;
-              this.configMesh();
-			  		}, ()=>{}, (e)=>{reject(e)} );
-			  }, ()=>{}, (e)=>{reject(e)} );
-    }).then(()=>{ // model is loaded
-      if(this.level.physicsEnabled && this.mass >= 0){
-        var box = new Box3().setFromObject( this.mesh );
-        let size = new Vector3;
-        box.getSize(size);
-        this.initPhysics(this.scale, this.mass, new Box(new Vec3(size.x*0.5, size.y*0.5, size.z*0.5)) );
-      }});
-    // new Promise((resolve, reject) => {
-    // objLoader.load(
-    // 	'./assets/models/' + obj + '/' + obj + '.obj',
-    //   ( object ) => {// called when resource is loaded
-    //     object.position.set(this.x, this.y, this.z);
-    //     this.mesh = object;
-    //     this.configMesh();
-    //     // this.level.scene.add( object );
-    //     resolve();
-    // 	},
-    // 	() => {},// called when loading is in progresses
-    // 	(e) => {reject(e);} // onError) { // called when loading has errors
-    // )});
+    new Promise((resolve, reject) => {
+    objectLoader.load(
+    	'./assets/models/' + obj + '/' + obj + '.obj',
+    	( object ) => {// called when resource is loaded
+    		this.level.scene.add( object );
+    	},
+    	( xhr ) => {	// called when loading is in progresses
+    		console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
+    	},
+    	(e) => {
+        reject(e); // onError) { // called when loading has errors
+        console.log( 'An error happened' );
+       }
+    )});
 }
 
-  loadJSON(model){
+  loadModel(model){
     new Promise((resolve, reject) => {
       jsonLoader.load(
         './assets/models/' + model + '/' + model + '.json',
@@ -153,10 +133,10 @@ export default class SceneObject {
     if( this.mixer !== null)
       this.mixer.update( this.animationSpeed );
 
-    this.animation();
+    this.addAnimation();
   }
 
-  animation(){}
+  addAnimation(){}
 
   setPosition(x, y, z){
     this.mesh.position.set(this.x = x, this.y = y, this.z = z);
