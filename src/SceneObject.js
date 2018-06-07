@@ -42,7 +42,7 @@ export default class SceneObject {
         map: texture,
       });
       this.mesh = new Mesh(geometry, material);
-      this.configMesh();
+      this.configMesh(this.mesh);
     }
 
   }
@@ -56,40 +56,30 @@ export default class SceneObject {
   }
 
   loadObject(obj){
-    new Promise((resolve, reject)=>{
-      mtlLoader()
-			  .setPath( './assets/models/' + obj )
-			  .load( obj+'.mtl', ( materials ) => {
-			  	materials.preload();
-			  	objLoader()
-			  		.setMaterials( materials )
-			  		.setPath( './assets/models/' + obj )
-			  		.load( obj+'.obj', ( object ) => {
-			  			object.position.set(this.x, this.y, this.z);
-			  			this.mesh = object;
-              this.configMesh();
-			  		}, ()=>{}, (e)=>{reject(e)} );
-			  }, ()=>{}, (e)=>{reject(e)} );
-    }).then(()=>{ // model is loaded
-      if(this.level.physicsEnabled && this.mass >= 0){
-        var box = new Box3().setFromObject( this.mesh );
-        let size = new Vector3;
-        box.getSize(size);
-        this.initPhysics(this.scale, this.mass, new Box(new Vec3(size.x*0.5, size.y*0.5, size.z*0.5)) );
-      }});
-    // new Promise((resolve, reject) => {
-    // objLoader.load(
-    // 	'./assets/models/' + obj + '/' + obj + '.obj',
-    //   ( object ) => {// called when resource is loaded
-    //     object.position.set(this.x, this.y, this.z);
-    //     this.mesh = object;
-    //     this.configMesh();
-    //     // this.level.scene.add( object );
-    //     resolve();
-    // 	},
-    // 	() => {},// called when loading is in progresses
-    // 	(e) => {reject(e);} // onError) { // called when loading has errors
-    // )});
+    let objPath = './assets/models/'+obj+'/';
+    {objLoader.setPath(objPath);
+    objLoader.load(
+    	obj+'.obj',
+      ( object ) => {// called when resource is loaded
+        object.position.set(this.x, this.y, this.z);
+        let m;
+        object.traverse( ( child ) => {
+          if ( child instanceof Mesh ) {
+            m = child;
+          }
+        });
+        this.mesh = m;
+        this.configMesh();
+        if(this.level.physicsEnabled && this.mass >= 0){
+          var box = new Box3().setFromObject( this.mesh );
+          let size = new Vector3;
+          box.getSize(size);
+          this.initPhysics(this.scale, this.mass, new Box(new Vec3(size.x*0.5, size.y*0.5, size.z*0.5)) );
+        }
+    	},
+    	() => {},// called when loading is in progresses
+    	(e) => {reject(e);} // onError) { // called when loading has errors
+    );}
 }
 
   loadJSON(model){
@@ -146,8 +136,10 @@ export default class SceneObject {
   animate(){
     if(this.level.physicsEnabled){
       // console.log("anmimating object");
-      this.mesh.position.copy(this.body.position);
-      this.mesh.quaternion.copy(this.body.quaternion);
+      if(this.mesh !== null){
+        this.mesh.position.copy(this.body.position);
+        this.mesh.quaternion.copy(this.body.quaternion);
+      }
     }
 
     if( this.mixer !== null)
