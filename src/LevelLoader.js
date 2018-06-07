@@ -6,8 +6,9 @@ import { randNum, loadingMsgs, fade } from './Utils';
 
 export const 
   manager = new THREE.LoadingManager(),
+  glTFLoader = new THREE.glTFLoader(manager),
   jsonLoader = new THREE.JSONLoader(manager),
-  textureLoader = new THREE.TextureLoader(manager);;
+  textureLoader = new THREE.TextureLoader(manager);
 export default class LevelLoader {
   constructor() {
 

@@ -15,8 +15,7 @@ import {
 } from 'cannon';
 import {
   jsonLoader, 
-  objLoader,
-  mtlLoader
+  glTFLoader
 } from './LevelLoader';
 
 Cache.enabled = true;
@@ -52,6 +51,10 @@ export default class SceneObject {
     this.mesh.position.set(this.x, this.y, this.z);
     this.mesh.scale.set(this.scale, this.scale, this.scale);
     this.level.scene.add(this.mesh);
+  }
+
+  loadGLTF(){
+    
   }
 
   loadJSON(model){
