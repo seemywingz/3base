@@ -84,6 +84,8 @@ export default class LevelLoader {
     this.renderer.shadowMapDarkness = 0.02;
     this.renderer.shadowMapWidth = 1024;
     this.renderer.shadowMapHeight = 1024;
+    this.renderer.gammaOutput = true;
+    this.renderer.gammaInput = true;
   }
 
   onWindowResize() {

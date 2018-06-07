@@ -28,17 +28,18 @@ export default class Level1 extends Level {
     var groundTexture = textureLoader.load( 'assets/images/ground.jpg');
     new Ground(this, 0, 0, 0, groundTexture, 1000);
     
-    var cubeTexture = textureLoader.load( 'assets/images/box/0.jpg');
-    for (let index = 0; index < 50; index++) {
-      new Cube(this, randNum(-50,50), randNum(0.5, 200), randNum(-50,50), cubeTexture, 1, 200);
-    }
-
-    // var ballTexture = textureLoader.load( 'assets/images/beachBall.jpg');
-    // for (let index = 0; index < 200; index++) {
-    //   new Ball(this, randNum(-50,50), randNum(0.5, 200), randNum(-50,50), ballTexture, 1, 0.1);
+    // var cubeTexture = textureLoader.load( 'assets/images/box/0.jpg');
+    // for (let index = 0; index < 50; index++) {
+    //   new Cube(this, randNum(-50,50), randNum(0.5, 200), randNum(-50,50), cubeTexture, 1, 200);
     // }
 
-    new SceneObject(this, 10, 1, -20, null, null, 'ptolemaic_woman', 0.1, 0);
+    var ballTexture = textureLoader.load( 'assets/images/beachBall.jpg');
+    for (let index = 0; index < 200; index++) {
+      new Ball(this, randNum(-50,50), randNum(0.5, 200), randNum(-50,50), ballTexture, 1, 0.1);
+    }
+
+    // new SceneObject(this, 10, 1, -20, null, null, 'ptolemaic_woman', 0.1, 0);
+    new SceneObject(this, 10, 1, -20, null, null, 'deadpool', 3, 0);
 
   }
 

@@ -4,6 +4,7 @@ import {
   PointLight,
   HemisphereLight,
   PointLightHelper,
+  AmbientLight
 } from 'three';
 import * as CANNON from 'cannon';
 
@@ -60,9 +61,7 @@ export default class Level {
   }
 
   createLights(){
-    // console.log("Let There Be Light!")
     let light = new PointLight( 0xc9c9c9, 1, 5000, 10);
-    // let light = new DirectionalLight( 0xc9c9c9,1);
     light.position.set(0, 400, 100);
     light.castShadow = true;
     // light.shadowMapBias = 0.01;
@@ -74,10 +73,12 @@ export default class Level {
     let pointLightHelper = new PointLightHelper( light, 20 );
     this.scene.add( pointLightHelper );
 
-    let skyColor = 0xe5efff;
-    let groundColor = 0xe2f9de;
-    light = new HemisphereLight( skyColor, groundColor, 1 );
-    this.scene.add( light );
+    this.scene.add(new AmbientLight(0x9b9b9b, 0.2));
+
+    // let skyColor = 0xe5efff;
+    // let groundColor = 0xe2f9de;
+    // light = new HemisphereLight( skyColor, groundColor, 1 );
+    // this.scene.add( light );
   }
 
   click(){

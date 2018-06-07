@@ -35,11 +35,9 @@ export default class SceneObject {
     if(model){
       this.loadGLTF(model);
     }else {
-      let material = new MeshPhongMaterial({
-        map: texture,
-      });
+      let material = new MeshPhongMaterial({ map: texture });
       this.mesh = new Mesh(geometry, material);
-      this.configMesh(this.mesh);
+      this.configMesh();
     }
 
   }
@@ -55,15 +53,16 @@ export default class SceneObject {
   loadGLTF(model){
     glTFLoader.load(
       './assets/models/' + model + '/' + model + '.gltf',
+      // './assets/models/' + model + '/scene.gltf',
       ( gltf ) => {
         this.mesh = gltf.scene.children[ 0 ];
+        this.configMesh();
         if(this.level.physicsEnabled && this.mass >= 0){
           var box = new Box3().setFromObject( this.mesh );
           let size = new Vector3;
           box.getSize(size);
           this.initPhysics(this.scale, this.mass, new Box(new Vec3(size.x*0.5, size.y*0.5, size.z*0.5)) );
         }
-        this.configMesh();
         this.level.scene.add( gltf.scene );
       }
     );
