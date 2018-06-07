@@ -35,8 +35,7 @@ export default class SceneObject {
     this.animationSpeed = animationSpeed;
 
     if(obj){
-      // this.loadModel(obj);
-      this.loadObject(obj);
+      this.loadJSON(obj);
     }else {
       let material = new MeshPhongMaterial({
         map: texture,
@@ -54,33 +53,6 @@ export default class SceneObject {
     this.mesh.scale.set(this.scale, this.scale, this.scale);
     this.level.scene.add(this.mesh);
   }
-
-  loadObject(obj){
-    let objPath = './assets/models/'+obj+'/';
-    {objLoader.setPath(objPath);
-    objLoader.load(
-    	obj+'.obj',
-      ( object ) => {// called when resource is loaded
-        object.position.set(this.x, this.y, this.z);
-        let m;
-        object.traverse( ( child ) => {
-          if ( child instanceof Mesh ) {
-            m = child;
-          }
-        });
-        this.mesh = m;
-        this.configMesh();
-        if(this.level.physicsEnabled && this.mass >= 0){
-          var box = new Box3().setFromObject( this.mesh );
-          let size = new Vector3;
-          box.getSize(size);
-          this.initPhysics(this.scale, this.mass, new Box(new Vec3(size.x*0.5, size.y*0.5, size.z*0.5)) );
-        }
-    	},
-    	() => {},// called when loading is in progresses
-    	(e) => {reject(e);} // onError) { // called when loading has errors
-    );}
-}
 
   loadJSON(model){
     new Promise((resolve, reject) => {

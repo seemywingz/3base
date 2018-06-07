@@ -2,17 +2,12 @@
 
 import * as THREE from 'three';
 import Level1 from './levels/Level1';
-import OBJLoader from 'three-obj-loader';
-import MTLLoader from 'three-mtl-loader';
 import { randNum, loadingMsgs, fade } from './Utils';
-OBJLoader(THREE);
 
 export const 
   manager = new THREE.LoadingManager(),
   jsonLoader = new THREE.JSONLoader(manager),
-  textureLoader = new THREE.TextureLoader(manager),
-  objLoader = new THREE.OBJLoader(manager),
-  mtlLoader = new MTLLoader(manager);
+  textureLoader = new THREE.TextureLoader(manager);;
 export default class LevelLoader {
   constructor() {
 
