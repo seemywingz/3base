@@ -22,7 +22,7 @@ Cache.enabled = true;
 
 export default class SceneObject {
 
-  constructor(level, x, y, z, texture, geometry, obj, scale=1, mass=0, animationSpeed=0.01){
+  constructor(level, x, y, z, texture, geometry, model, scale=1, mass=0, animationSpeed=0.01){
     this.x = x;
     this.y = y;
     this.z = z;
@@ -33,8 +33,9 @@ export default class SceneObject {
     this.level = level;
     this.animationSpeed = animationSpeed;
 
-    if(obj){
-      this.loadJSON(obj);
+    if(model){
+      // this.loadJSON(obj);
+      this.loadGLTF(model);
     }else {
       let material = new MeshPhongMaterial({
         map: texture,
@@ -53,8 +54,21 @@ export default class SceneObject {
     this.level.scene.add(this.mesh);
   }
 
-  loadGLTF(){
+  loadGLTF(model){
+    glTFLoader.load(
+      './assets/models/' + model + '/' + model + '.gltf',
+      ( gltf ) => {
+
+        this.level.scene.add( gltf.scene );
     
+        gltf.animations; // Array<THREE.AnimationClip>
+        gltf.scene; // THREE.Scene
+        gltf.scenes; // Array<THREE.Scene>
+        gltf.cameras; // Array<THREE.Camera>
+        gltf.asset; // Object
+    
+      }
+    );
   }
 
   loadJSON(model){

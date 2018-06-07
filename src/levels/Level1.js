@@ -38,7 +38,8 @@ export default class Level1 extends Level {
       new Ball(this, randNum(-50,50), randNum(0.5, 200), randNum(-50,50), ballTexture, 1, 0.1);
     }
 
-    new SceneObject(this, 0, 10, -20, null, null, 'buddha', 5, 1000);
+    // new SceneObject(this, 0, 10, -20, null, null, 'buddha', 5, 1000);
+    new SceneObject(this, 0, 10, -20, null, null, 'DamagedHelmet', 1, 1000);
     
     // new SceneObject(this, 0, 5, 10, null, null, 'flamingo', 0.08, 0, 0.03);
     // flamingo.addAnimation = fl_addAnimation(flamingo);

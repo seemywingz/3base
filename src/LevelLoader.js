@@ -1,14 +1,16 @@
 'use-strict';
 
 import * as THREE from 'three';
+import 'three-examples/loaders/GLTFLoader';
 import Level1 from './levels/Level1';
 import { randNum, loadingMsgs, fade } from './Utils';
 
 export const 
   manager = new THREE.LoadingManager(),
-  glTFLoader = new THREE.glTFLoader(manager),
+  glTFLoader = new THREE.GLTFLoader(manager),
   jsonLoader = new THREE.JSONLoader(manager),
   textureLoader = new THREE.TextureLoader(manager);
+
 export default class LevelLoader {
   constructor() {
 
