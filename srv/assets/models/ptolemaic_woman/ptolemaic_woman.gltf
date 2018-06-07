@@ -1,0 +1,197 @@
+{
+    "accessors" : [
+        {
+            "bufferView" : 0,
+            "componentType" : 5125,
+            "count" : 1499958,
+            "max" : [
+                286177
+            ],
+            "min" : [
+                0
+            ],
+            "type" : "SCALAR"
+        },
+        {
+            "bufferView" : 1,
+            "componentType" : 5126,
+            "count" : 286178,
+            "max" : [
+                5.211148262023926,
+                44.643192291259766,
+                12.14932918548584
+            ],
+            "min" : [
+                -6.744949817657471,
+                -0.11004900932312012,
+                -5.285853862762451
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 2,
+            "componentType" : 5126,
+            "count" : 286178,
+            "max" : [
+                0.999969482421875,
+                0.999969482421875,
+                0.999969482421875
+            ],
+            "min" : [
+                -0.999969482421875,
+                -1.0,
+                -1.0
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 3,
+            "componentType" : 5126,
+            "count" : 286178,
+            "max" : [
+                1.0,
+                1.0,
+                0.9936666488647461,
+                1.0
+            ],
+            "min" : [
+                -1.0,
+                -1.0,
+                -0.9996424913406372,
+                -1.0
+            ],
+            "type" : "VEC4"
+        },
+        {
+            "bufferView" : 4,
+            "componentType" : 5126,
+            "count" : 286178,
+            "max" : [
+                0.9997559785842896,
+                0.9997560000047088
+            ],
+            "min" : [
+                0.00024399999529123306,
+                0.5617679953575134
+            ],
+            "type" : "VEC2"
+        }
+    ],
+    "asset" : {
+        "generator" : "Khronos Blender glTF 2.0 exporter",
+        "version" : "2.0"
+    },
+    "bufferViews" : [
+        {
+            "buffer" : 0,
+            "byteLength" : 5999832,
+            "byteOffset" : 0,
+            "target" : 34963
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 3434136,
+            "byteOffset" : 5999832,
+            "target" : 34962
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 3434136,
+            "byteOffset" : 9433968,
+            "target" : 34962
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 4578848,
+            "byteOffset" : 12868104,
+            "target" : 34962
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 2289424,
+            "byteOffset" : 17446952,
+            "target" : 34962
+        }
+    ],
+    "buffers" : [
+        {
+            "byteLength" : 19736376,
+            "uri" : "ptolemaic_woman.bin"
+        }
+    ],
+    "images" : [
+        {
+            "name" : "femme_ptolemaique_-_LowPoly_u1_v1",
+            "uri" : "femme_ptolemaique_-_LowPoly_u1_v1.jpg"
+        }
+    ],
+    "materials" : [
+        {
+            "alphaMode" : "BLEND",
+            "name" : "femme_ptolemaique_-_LowPoly_Material_u1_v1",
+            "pbrMetallicRoughness" : {
+                "baseColorTexture" : {
+                    "index" : 0
+                },
+                "metallicFactor" : 0.0
+            }
+        }
+    ],
+    "meshes" : [
+        {
+            "name" : "default",
+            "primitives" : [
+                {
+                    "attributes" : {
+                        "NORMAL" : 2,
+                        "POSITION" : 1,
+                        "TANGENT" : 3,
+                        "TEXCOORD_0" : 4
+                    },
+                    "indices" : 0,
+                    "material" : 0
+                }
+            ]
+        }
+    ],
+    "nodes" : [
+        {
+            "mesh" : 0,
+            "name" : "default",
+            "rotation" : [
+                -0.0025749709457159042,
+                0.11937489360570908,
+                -0.0003096047730650753,
+                0.992845892906189
+            ],
+            "scale" : [
+                0.02616804838180542,
+                0.02616804838180542,
+                0.02616804838180542
+            ],
+            "translation" : [
+                2.0608792450360625e-12,
+                3.725290298461914e-09,
+                -2.9103830456733704e-11
+            ]
+        }
+    ],
+    "samplers" : [
+        {}
+    ],
+    "scene" : 0,
+    "scenes" : [
+        {
+            "name" : "Scene",
+            "nodes" : [
+                0
+            ]
+        }
+    ],
+    "textures" : [
+        {
+            "sampler" : 0,
+            "source" : 0
+        }
+    ]
+}

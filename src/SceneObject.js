@@ -14,7 +14,6 @@ import {
   Vec3,
 } from 'cannon';
 import {
-  jsonLoader, 
   glTFLoader
 } from './LevelLoader';
 
@@ -34,7 +33,6 @@ export default class SceneObject {
     this.animationSpeed = animationSpeed;
 
     if(model){
-      // this.loadJSON(obj);
       this.loadGLTF(model);
     }else {
       let material = new MeshPhongMaterial({
@@ -58,45 +56,17 @@ export default class SceneObject {
     glTFLoader.load(
       './assets/models/' + model + '/' + model + '.gltf',
       ( gltf ) => {
-
+        this.mesh = gltf.scene.children[ 0 ];
+        if(this.level.physicsEnabled && this.mass >= 0){
+          var box = new Box3().setFromObject( this.mesh );
+          let size = new Vector3;
+          box.getSize(size);
+          this.initPhysics(this.scale, this.mass, new Box(new Vec3(size.x*0.5, size.y*0.5, size.z*0.5)) );
+        }
+        this.configMesh();
         this.level.scene.add( gltf.scene );
-    
-        gltf.animations; // Array<THREE.AnimationClip>
-        gltf.scene; // THREE.Scene
-        gltf.scenes; // Array<THREE.Scene>
-        gltf.cameras; // Array<THREE.Camera>
-        gltf.asset; // Object
-    
       }
     );
-  }
-
-  loadJSON(model){
-    new Promise((resolve, reject) => {
-      jsonLoader.load(
-        './assets/models/' + model + '/' + model + '.json',
-        ( geometry, materials ) => {
-          this.mesh = new Mesh( geometry, materials);   
-          if (!!geometry.animations){
-            materials[0].morphTargets = true;
-            materials[0].morphNormals = true;
-            this.mixer = new AnimationMixer( this.mesh );
-            this.mixer.clipAction( geometry.animations[ 0 ] ).setDuration( 1 ).play();
-          }
-          this.configMesh(); 
-          resolve();
-        }, // onLoad
-        () => {}, // onProgress
-        (e) => {reject(e);} // onError
-      );
-    }).then(()=>{ // model is loaded
-      if(this.level.physicsEnabled && this.mass >= 0){
-        var box = new Box3().setFromObject( this.mesh );
-        let size = new Vector3;
-        box.getSize(size);
-        this.initPhysics(this.scale, this.mass, new Box(new Vec3(size.x*0.5, size.y*0.5, size.z*0.5)) );
-      }
-    });
   }
 
   initPhysics(scale, mass, shape){

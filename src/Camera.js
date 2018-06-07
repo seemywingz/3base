@@ -48,6 +48,13 @@ export default class Camera{
       this.velocity.x -= this.velocity.x * 10 * delta;
       this.velocity.z -= this.velocity.z * 10 * delta;
       // this.velocity.y -= 9.8 * 100.0 * delta; // 100.0 = mass
+
+      if(this.moveUp){
+        this.controls.position.y += 0.2;
+      }
+      if(this.moveDown){
+        this.controls.position.y -= 0.2;
+      }
       
       this.direction.z = Number( this.moveForward ) - Number( this.moveBackward );
 			this.direction.x = Number( this.moveLeft ) - Number( this.moveRight );
@@ -155,7 +162,6 @@ export default class Camera{
     let v = new Vector3();
     let direction = new Vector3( 0, 0, -1 );
     let rotation = new Euler( 0, 0, 0, "YXZ" );
-    // console.log(this.controls.children[0]);
     rotation.set( this.controls.children[0].rotation.x, this.controls.rotation.y, 0 );
 		v.copy( direction ).applyEuler( rotation );
 		return v;
@@ -181,6 +187,8 @@ export default class Camera{
         this.moveRight = false;
         break;
       case 32: // space
+        this.moveDown = false;
+        this.moveUp = false;
         break;
       case 80:/* p */
         this.printPosition();
@@ -198,7 +206,7 @@ export default class Camera{
   }
 
   keyDown(event){
-    this.running = event.shiftKey;
+    this.shiftDown = event.shiftKey;
     switch(event.keyCode){
       case 38: // up
       case 87: // w
@@ -217,8 +225,10 @@ export default class Camera{
         this.moveRight = true;
         break;
       case 32: // space
-        if ( !this.jumping && this.standing ){
-          this.jumping = true;
+        if (this.shiftDown) {
+          this.moveDown = true;
+        }else{
+          this.moveUp = true;
         }
         break;
     }

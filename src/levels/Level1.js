@@ -21,6 +21,7 @@ export default class Level1 extends Level {
   }
 
   createScene(){
+    this.cannonBallTexture = textureLoader.load( 'assets/images/ball.jpg');
     var skyTexture = textureLoader.load( 'assets/images/sky.jpg');
     new Sky(this, 0, 0, 0, skyTexture);
 
@@ -32,17 +33,12 @@ export default class Level1 extends Level {
       new Cube(this, randNum(-50,50), randNum(0.5, 200), randNum(-50,50), cubeTexture, 1, 200);
     }
 
-    this.cannonBallTexture = textureLoader.load( 'assets/images/ball.jpg');
-    var ballTexture = textureLoader.load( 'assets/images/beachBall.jpg');
-    for (let index = 0; index < 200; index++) {
-      new Ball(this, randNum(-50,50), randNum(0.5, 200), randNum(-50,50), ballTexture, 1, 0.1);
-    }
+    // var ballTexture = textureLoader.load( 'assets/images/beachBall.jpg');
+    // for (let index = 0; index < 200; index++) {
+    //   new Ball(this, randNum(-50,50), randNum(0.5, 200), randNum(-50,50), ballTexture, 1, 0.1);
+    // }
 
-    // new SceneObject(this, 0, 10, -20, null, null, 'buddha', 5, 1000);
-    new SceneObject(this, 0, 10, -20, null, null, 'DamagedHelmet', 1, 1000);
-    
-    // new SceneObject(this, 0, 5, 10, null, null, 'flamingo', 0.08, 0, 0.03);
-    // flamingo.addAnimation = fl_addAnimation(flamingo);
+    new SceneObject(this, 10, 1, -20, null, null, 'ptolemaic_woman', 0.1, 0);
 
   }
 
