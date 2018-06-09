@@ -16,7 +16,7 @@ export default class Level {
     this.physicsEnabled = true;
 
     this.removeBodies = [];
-    this.animatedObjects = [];
+    this.sceneObjects = [];
 
     this.lastTime = performance.now();
     this.fixedTime = 0.015;
@@ -46,8 +46,8 @@ export default class Level {
         });
       }
       
-      this.animatedObjects.map((animatedObject)=>{
-        animatedObject.animate();
+      this.sceneObjects.map((sceneObject)=>{
+        sceneObject.animate();
       });
       
       this.loader.renderer.render( this.scene, this.camera.lens );

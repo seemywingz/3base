@@ -1,6 +1,7 @@
 'use-strict';
 
 import {
+  Mesh,
   BackSide,
   SphereGeometry,
   MeshBasicMaterial
@@ -9,14 +10,13 @@ import SceneObject from './SceneObject';
 
 export default class Sky extends SceneObject {
 
-  constructor(level, x, y, z, texturesrc, scale=1000){
-    super(level, x, y, z, texturesrc, new SphereGeometry( scale, 32, 32 ), null, scale);
-    this.mesh.material =  new MeshBasicMaterial({
-      map: this.mesh.material.map
-    });
-    this.mesh.material.side = BackSide;
-    this.mesh.castShadow = false;
-    this.mesh.receiveShadow = false;
+  constructor(level, texture, scale=1000){
+    let material = new MeshBasicMaterial({ map: texture });
+    let mesh = new Mesh(new SphereGeometry( scale, 32, 32 ), material);
+    mesh.material.side = BackSide;
+    mesh.castShadow = false;
+    mesh.receiveShadow = false;
+    super(level, 0,0,0, mesh, scale, -1);
   }
 
 }

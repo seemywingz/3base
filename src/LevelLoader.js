@@ -4,6 +4,8 @@ import * as THREE from 'three';
 import 'three-examples/loaders/GLTFLoader';
 import Level1 from './levels/Level1';
 import { randNum, loadingMsgs, fade } from './Utils';
+THREE.Cache.enabled = true;
+
 
 export const 
   manager = new THREE.LoadingManager(),
@@ -26,6 +28,17 @@ export default class LevelLoader {
 
     this.currentLevel = new Level1(this);
     // this.currentLevel.load();
+  }
+
+  loadGLTF(model){
+    let loadedgltf;
+    glTFLoader.load(
+      './assets/models/' + model + '/' + model + '.gltf',
+      ( gltf ) => {
+        loadedgltf = gltf;
+      }
+    );
+    return loadedgltf;
   }
 
   initManager(){
@@ -107,4 +120,5 @@ export default class LevelLoader {
   changeLevel(levelNumber){
     this.currentLevel = this.levels[levelNumber];
   }
+
 }

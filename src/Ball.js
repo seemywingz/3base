@@ -1,13 +1,19 @@
 'use-strict';
 
-import {SphereGeometry} from 'three';
+import {
+  Mesh,
+  SphereGeometry,
+  MeshPhongMaterial
+} from 'three';
 import {Sphere} from 'cannon';
 import SceneObject from './SceneObject';
 
 export default class Ball extends SceneObject {
 
   constructor(level, x, y, z, texture, scale=1, mass=1){
-    super(level, x, y, z, texture, new SphereGeometry( scale, 32, 32 ), null, scale, mass);
+    let material = new MeshPhongMaterial({ map: texture });
+    let mesh = new Mesh(new SphereGeometry( scale, 32, 32 ), material);
+    super(level, x, y, z, mesh, scale, mass);
     if(this.level.physicsEnabled)
       this.initPhysics(this.scale, this.mass, new Sphere(scale) );
   }
