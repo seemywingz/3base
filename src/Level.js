@@ -61,7 +61,7 @@ export default class Level {
   }
 
   createLights(){
-    let light = new PointLight( 0xc9c9c9, 1, 5000, 10);
+    let light = new PointLight( 0xc9c9c9, 1, 50000, -1);
     light.position.set(0, 400, 100);
     light.castShadow = true;
     // light.shadowMapBias = 0.01;

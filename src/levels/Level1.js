@@ -39,7 +39,8 @@ export default class Level1 extends Level {
     }
 
     // new SceneObject(this, 10, 1, -20, null, null, 'ptolemaic_woman', 0.1, 0);
-    new SceneObject(this, 10, 1, -20, null, null, 'deadpool', 3, 0);
+    new SceneObject(this, 10, 1, -20, null, null, 'deadpool', 3, 20);
+    new SceneObject(this, 0, 1, -20, null, null, 'ptolemaic_woman', .3, 0);
 
   }
 
