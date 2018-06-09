@@ -8,8 +8,8 @@ import Level from '../Level';
 import Ground from '../Ground';
 import Camera from '../Camera';
 import { randNum } from '../Utils';
-import SceneObject from '../SceneObject';
-import {textureLoader} from '../LevelLoader';
+import { textureLoader } from '../LevelLoader';
+import GLTFModel from '../GLTFModel';
 
 export default class Level1 extends Level {
 
@@ -32,11 +32,11 @@ export default class Level1 extends Level {
 
     var ballTexture = textureLoader.load( 'assets/images/beachBall.jpg');
     for (let index = 0; index < 200; index++) {
-      new Ball(this, randNum(-50,50), randNum(0.5, 200), randNum(-50,50), ballTexture, 1, 0.1);
+      let ball = new Ball(this, randNum(-50,50), randNum(0.5, 200), randNum(-50,50), ballTexture, 1, 0.1);
+      ball.mesh.shinyness = 100;
     }
 
-    // new SceneObject(this, 10, 1, -20, null, null, 'deadpool', 3, 20);
-    // new SceneObject(this, 0, 1, -20, null, null, 'ptolemaic_woman', .3, 0);
+    new GLTFModel(this, 10, 1, -20, 'deadpool', 3, 20);
 
   }
 

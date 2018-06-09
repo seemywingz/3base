@@ -1,19 +1,8 @@
 'use-strict';
 
-import {
-  Mesh,
-  Box3,
-  Vector3,
-  AnimationMixer,
-} from 'three';
-
-import {
-  Box,
-  Body,
-  Vec3,
-} from 'cannon';
-
-import  Promise from 'bluebird';
+import { Mesh } from 'three';
+import { Body } from 'cannon';
+import Promise from 'bluebird';
 
 export default class SceneObject {
 
@@ -29,16 +18,10 @@ export default class SceneObject {
     this.body = null;
     this.mixer = null;
     this.configMesh();
-
-    // if(this.mass >= 0){
-    //   var box = new Box3().setFromObject( this.mesh );
-    //   let size = new Vector3;
-    //   box.getSize(size);
-    //   this.initPhysics(this.scale, this.mass, new Box(new Vec3(size.x*0.5, size.y*0.5, size.z*0.5)) );
-    // }
   }
 
   configMesh(){
+    if (this.mesh === null) { return }
     this.mesh.castShadow = true;
     this.mesh.receiveShadow = true;
     this.mesh.position.set(this.x, this.y, this.z);

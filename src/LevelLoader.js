@@ -30,17 +30,6 @@ export default class LevelLoader {
     // this.currentLevel.load();
   }
 
-  loadGLTF(model){
-    let loadedgltf;
-    glTFLoader.load(
-      './assets/models/' + model + '/' + model + '.gltf',
-      ( gltf ) => {
-        loadedgltf = gltf;
-      }
-    );
-    return loadedgltf;
-  }
-
   initManager(){
     console.log("Loading...");
     manager.onProgress = (/*item, loaded*/) => {
