@@ -4,9 +4,8 @@ import {
   PointLight,
   HemisphereLight,
   PointLightHelper,
-  AmbientLight
 } from 'three';
-import * as CANNON from 'cannon';
+import {World} from 'cannon';
 
 export default class Level {
 
@@ -23,7 +22,7 @@ export default class Level {
 
     if(this.physicsEnabled){
       console.log("Level Physics Enabled")
-      this.world = new CANNON.World();
+      this.world = new World();
       this.world.gravity.set(0,-9.82,0);
       // this.world.broadphase = new CANNON.NaiveBroadphase();
       this.world.solver.iterations = 10;
