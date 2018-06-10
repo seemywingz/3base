@@ -16,7 +16,7 @@ export default class Level1 extends Level {
   constructor(loader) {
     super(loader);
     this.scene = new Scene();
-    this.camera = new Camera(0,0,10, this);
+    this.camera = new Camera(0,5,10, this);
     this.load();
   }
 
@@ -36,10 +36,9 @@ export default class Level1 extends Level {
       ball.mesh.shinyness = 100;
     }
 
-    new GLTFModel(this, 10, 10, -20, 'raptor', 0.3, 0);
     new GLTFModel(this, 0, 0.8, -20, 'deadpool', 3.5, 0);
     
-    this.playAudio();
+    // this.playAudio();
   }
 
   playAudio(){

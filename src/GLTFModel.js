@@ -20,8 +20,8 @@ export default class GLTFModel extends SceneObject {
     glTFLoader.load(
       './assets/models/' + model + '/scene.gltf',
       ( gltf ) => {
+        // console.log(gltf);
         this.gltf = gltf;
-        console.log(gltf);
         this.mesh = gltf.scene;
         this.configMesh();
         if(this.level.physicsEnabled) {

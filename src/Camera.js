@@ -14,7 +14,7 @@ export default class Camera{
     this.x = x;
     this.y = y;
     this.z = z;
-    this.height = 2;
+    this.height = y;
     this.speed = 400;
     this.velocity = new Vector3();
     this.direction = new Vector3();
@@ -33,11 +33,10 @@ export default class Camera{
     this.initPointerLock();
     this.addEventListeners();
 
-     // Easter Eggs
-     this.konamiCode = [38, 38, 40, 40, 37, 39, 37, 39, 66, 65];
-     this.konamiIndex = 0;
-
-     this.pTime = performance.now();
+    // Easter Eggs
+    this.konamiCode = [38, 38, 40, 40, 37, 39, 37, 39, 66, 65];
+    this.konamiIndex = 0;
+    this.pTime = performance.now();
   }
 
   update(){
