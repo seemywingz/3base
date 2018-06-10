@@ -35,10 +35,11 @@ export default class Level {
     this.animationRequest = requestAnimationFrame( this.animate.bind(this) );
     if(document.hasFocus() && !this.loader.paused){
       this.camera.update();
-      
+
+      let time = performance.now();
+      let deltaTime = (time - this.lastTime);
+
       if(this.physicsEnabled ){
-        let time = performance.now();
-        let deltaTime = (time - this.lastTime);
         this.world.step(this.fixedTime, deltaTime, 5);
         this.lastTime = time;
         this.removeBodies.map((body)=>{
@@ -47,7 +48,7 @@ export default class Level {
       }
       
       this.sceneObjects.map((sceneObject)=>{
-        sceneObject.animate();
+        sceneObject.animate(deltaTime/1000);
       });
       
       this.loader.renderer.render( this.scene, this.camera.lens );
@@ -73,12 +74,12 @@ export default class Level {
     let pointLightHelper = new PointLightHelper( light, 20 );
     this.scene.add( pointLightHelper );
 
-    this.scene.add(new AmbientLight(0x9b9b9b, 0.2));
+    // this.scene.add(new AmbientLight(0x9b9b9b, 0.2));
 
-    // let skyColor = 0xe5efff;
-    // let groundColor = 0xe2f9de;
-    // light = new HemisphereLight( skyColor, groundColor, 1 );
-    // this.scene.add( light );
+    let skyColor = 0xe5efff;
+    let groundColor = 0xecffd1;
+    light = new HemisphereLight( skyColor, groundColor, 0.2 );
+    this.scene.add( light );
   }
 
   click(){

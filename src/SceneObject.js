@@ -53,7 +53,7 @@ export default class SceneObject {
     });
   }
 
-  animate(){
+  animate(tick=0.5){
     if(this.level.physicsEnabled){
       // console.log("anmimating object");
       if(this.body !== null){
@@ -63,7 +63,7 @@ export default class SceneObject {
     }
 
     if( this.mixer !== null)
-      this.mixer.update( this.animationSpeed );
+      this.mixer.update( tick );
 
     this.animation();
   }

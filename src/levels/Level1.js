@@ -36,16 +36,20 @@ export default class Level1 extends Level {
       ball.mesh.shinyness = 100;
     }
 
-    new GLTFModel(this, 10, 1, -20, 'deadpool', 3, 20);
-
+    // new GLTFModel(this, 10, 10, -20, 'raptor', 0.3, 0);
+    new GLTFModel(this, 0, 0.8, -20, 'deadpool', 3.5, 0);
+    new GLTFModel(this, 0, 10, 0, 'battleaxe', 0.03, 5);
+    
+    this.playAudio();
   }
 
   playAudio(){
     var audio = new Audio('./assets/audio/wind.wav');
     audio.volume = 0.5;
     audio.play();
-
-    audio = new Audio('./assets/audio/mem.mp3');
+    
+    // audio = new Audio('./assets/audio/mem.mp3');
+    var audio = new Audio('./assets/audio/rickRoll.mp3');
     audio.volume = 0.8;
     audio.play();
   }

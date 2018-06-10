@@ -2,7 +2,8 @@
 
 import { 
   Box3,
-  Vector3
+  Vector3,
+  AnimationMixer
 } from 'three';
 import {Box, Vec3} from 'cannon';
 import SceneObject from './SceneObject';
@@ -17,17 +18,21 @@ export default class GLTFModel extends SceneObject {
 
   loadGLTF(model){
     glTFLoader.load(
-      './assets/models/' + model + '/' + model + '.gltf',
+      './assets/models/' + model + '/scene.gltf',
       ( gltf ) => {
         this.gltf = gltf;
         console.log(gltf);
-        this.mesh = gltf.scene.children[0];
+        this.mesh = gltf.scene;
         this.configMesh();
         if(this.level.physicsEnabled) {
            var box = new Box3().setFromObject( this.mesh );
            let size = new Vector3;
            box.getSize(size);
            this.initPhysics(this.scale, this.mass, new Box(new Vec3(size.x*0.5, size.y*0.5, size.z*0.5)) );
+        }
+        if( this.gltf.animations.length > 0){
+          this.mixer = new AnimationMixer(this.mesh);
+          this.mixer.clipAction(gltf.animations[0]).play();
         }
         this.level.scene.add(gltf.scene);
       }

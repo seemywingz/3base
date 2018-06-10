@@ -55,7 +55,7 @@ export default class LevelLoader {
     if(this.loading){
       var num = ~~randNum(0, loadingMsgs.length - 1);
       document.getElementById('overlay').innerHTML = loadingMsgs[num];
-      setTimeout(this.loadingAnimation, 1000);
+      setTimeout(this.loadingAnimation, 100);
     }
   }
 
@@ -79,7 +79,7 @@ export default class LevelLoader {
     this.renderer.setSize( window.innerWidth, window.innerHeight );
     this.renderer.shadowMap.enabled = true;
     this.renderer.shadowMapSoft = true;
-    this.renderer.shadowCameraNear = 0.1;
+    this.renderer.shadowCameraNear = 0.01;
     this.renderer.shadowCameraFar = 1000;
     this.renderer.shadowCameraFov = 45;
     this.renderer.shadowMapBias = 0.0001;
