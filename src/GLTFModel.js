@@ -3,6 +3,7 @@
 import { 
   Box3,
   Vector3,
+  DoubleSide,
   AnimationMixer
 } from 'three';
 import {Box, Vec3} from 'cannon';
@@ -24,7 +25,8 @@ export default class GLTFModel extends SceneObject {
         this.gltf = gltf;
         this.mesh = gltf.scene;
         this.configMesh();
-        if(this.level.physicsEnabled) {
+        this.mesh.side = DoubleSide;
+        if(this.level.physicsEnabled && this.mass >= 0) {
            var box = new Box3().setFromObject( this.mesh );
            let size = new Vector3;
            box.getSize(size);
@@ -35,7 +37,9 @@ export default class GLTFModel extends SceneObject {
           this.mixer.clipAction(gltf.animations[0]).play();
         }
         this.level.scene.add(gltf.scene);
-      }
+      },
+      () => {},
+      (e) => {console.log(e)}
     );
   }
 }

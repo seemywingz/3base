@@ -7,10 +7,10 @@ import { randNum, loadingMsgs, fade } from './Utils';
 THREE.Cache.enabled = true;
 
 
-export const 
-  manager = new THREE.LoadingManager(),
-  glTFLoader = new THREE.GLTFLoader(manager),
-  textureLoader = new THREE.TextureLoader(manager);
+export let 
+  manager,
+  glTFLoader,
+  textureLoader;
 
 export default class LevelLoader {
   constructor() {
@@ -32,6 +32,7 @@ export default class LevelLoader {
 
   initManager(){
     console.log("Loading...");
+    manager = new THREE.LoadingManager();
     manager.onProgress = (/*item, loaded*/) => {
       if(!this.loading){
         this.loading = true;
@@ -49,10 +50,14 @@ export default class LevelLoader {
     manager.onError = function () {
       console.log('there has been an error');
     };
+
+    glTFLoader = new THREE.GLTFLoader(manager);
+    textureLoader = new THREE.TextureLoader(manager);
   }
 
   loadingAnimation(){
     if(this.loading){
+      console.log('loading animation');
       var num = ~~randNum(0, loadingMsgs.length - 1);
       document.getElementById('overlay').innerHTML = loadingMsgs[num];
       setTimeout(this.loadingAnimation, 100);

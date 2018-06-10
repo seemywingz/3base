@@ -189,15 +189,6 @@ export default class Camera{
         this.moveDown = false;
         this.moveUp = false;
         break;
-      case 80:/* p */
-        this.printPosition();
-        break;
-      case 70:/* f */
-        this.level.extra();
-        break;
-      case 71:/* g */
-        this.level.next();
-        break;
       case 27:/* escape */
         this.releasePointerLock();
         break;
@@ -238,7 +229,8 @@ export default class Camera{
       this.konamiIndex += 1;
       if(this.konamiIndex === this.konamiCode.length){
         this.konamiIndex = 0;
-        alert('Konami Code of HONOR!');
+        // alert('Konami Code of HONOR!');
+        this.level.extra();
       }
     }else{
       this.konamiIndex = 0;
