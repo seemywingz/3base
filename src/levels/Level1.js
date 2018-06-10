@@ -36,9 +36,8 @@ export default class Level1 extends Level {
       ball.mesh.shinyness = 100;
     }
 
-    // new GLTFModel(this, 10, 10, -20, 'raptor', 0.3, 0);
+    new GLTFModel(this, 10, 10, -20, 'raptor', 0.3, 0);
     new GLTFModel(this, 0, 0.8, -20, 'deadpool', 3.5, 0);
-    new GLTFModel(this, 0, 10, 0, 'battleaxe', 0.03, 5);
     
     this.playAudio();
   }
