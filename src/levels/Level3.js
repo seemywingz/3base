@@ -25,20 +25,10 @@ export default class Level1 extends Level {
     new Sky(this, textureLoader.load('assets/images/sky.jpg'));
     new Ground(this, textureLoader.load( 'assets/images/ground.jpg'));
     
-    // var cubeTexture = textureLoader.load( 'assets/images/box/0.jpg');
-    // for (let index = 0; index < 50; index++) {
-    //   new Cube(this, randNum(-50,50), randNum(0.5, 200), randNum(-50,50), cubeTexture, 1, 200);
-    // }
-
-    var ballTexture = textureLoader.load( 'assets/images/beachBall.jpg');
-    for (let index = 0; index < 300; index++) {
-      let ball = new Ball(this, randNum(-50,50), randNum(0.5, 200), randNum(-50,50), ballTexture, 1, 0.05);
-      ball.mesh.shinyness = 100;
-    }
-
-    // let audio = new Audio('./assets/audio/wind.wav');
-    // audio.volume = 0.5;
-    // audio.play();
+    new GLTFModel(this, 0, 9, 0, 'warehouse', 10, -1);
+    new GLTFModel(this, 0, 0.8, -10, 'deadpool', 3.5, 0);
+    
+    this.loader.loading = false;
   }
 
   extra(){

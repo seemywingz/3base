@@ -1,7 +1,6 @@
 'use-strict';
 
 import Sky from '../Sky';
-import Cube from '../Cube';
 import Ball from '../Ball';
 import {Scene} from 'three';
 import Level from '../Level';
@@ -24,11 +23,22 @@ export default class Level1 extends Level {
     this.cannonBallTexture = textureLoader.load( 'assets/images/ball.jpg');
     new Sky(this, textureLoader.load('assets/images/sky.jpg'));
     new Ground(this, textureLoader.load( 'assets/images/ground.jpg'));
-    
-    new GLTFModel(this, 0, 9, 0, 'warehouse', 10, -1);
-    new GLTFModel(this, 0, 0.8, -10, 'deadpool', 3.5, 0);
-    
-    this.loader.loading = false;
+
+    var ballTexture = textureLoader.load( 'assets/images/beachBall.jpg');
+    for (let index = 0; index < 300; index++) {
+      let ball = new Ball(this, randNum(-50,50), randNum(0.5, 200), randNum(-50,50), ballTexture, 1, 0.05);
+      ball.mesh.shinyness = 100;
+    }
+
+    new Promise(resolve=>{
+      setTimeout(resolve, 20000)
+    }).then(()=>{
+      this.extra()
+    })
+
+    let audio = new Audio('./assets/audio/wind.wav');
+    audio.volume = 0.5;
+    audio.play();
   }
 
   extra(){
