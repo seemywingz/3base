@@ -22,17 +22,21 @@ export default class Level1 extends Level {
     this.camera = new Camera(0,5,10, this);
     this.rolled = false;
     this.load();
+    this.deadpool = new GLTFModel(this, 0, 0.8, -20, 'deadpool', 3.5, 0);
+    this.deadpool.loadGLTF();
+
   }
 
   createScene(){
     this.cannonBallTexture = textureLoader.load( 'assets/images/ball.jpg');
-    new Sky(this, textureLoader.load('assets/images/sky.jpg'));
-    new Ground(this, textureLoader.load( 'assets/images/ground.jpg'));
+    new Sky(this, textureLoader.load('assets/images/sky.jpg')).addToScene();
+    new Ground(this, textureLoader.load( 'assets/images/ground.jpg')).addToScene();
 
     var ballTexture = textureLoader.load( 'assets/images/beachBall.jpg');
     for (let index = 0; index < 300; index++) {
       let ball = new Ball(this, randNum(-50,50), randNum(0.5, 200), randNum(-50,50), ballTexture, 1, 0.05);
       ball.mesh.shinyness = 100;
+      ball.addToScene();
     }
 
     this.scene.fog = new THREE.FogExp2( 0xe5edf9, 0.025 );
@@ -40,9 +44,10 @@ export default class Level1 extends Level {
   }
 
   roll(){
-    new GLTFModel(this, 0, 0.8, -20, 'deadpool', 3.5, 0);
-    this.playPositionalAudio('./assets/audio/rickRoll.ogg', 0.8);
     this.rolled = true;
+    this.deadpool.addToScene();
+    this.deadpool.playAnimation();
+    this.deadpool.mesh.add(this.playPositionalAudio('./assets/audio/rickRoll.ogg', 10));
   }
 
   playAudio(fileName = "", volume = 1){
@@ -51,18 +56,17 @@ export default class Level1 extends Level {
     audio.play();
   }
 
-  playPositionalAudio(fileName = ""){
-    // create an AudioListener and add it to the camera
+  playPositionalAudio(fileName = "", dist = 1){
     let listener = new THREE.AudioListener();
     this.camera.lens.add( listener );
-    // create the PositionalAudio object (passing in the listener)
+
     let sound = new THREE.PositionalAudio( listener );
-    // load a sound and set it as the PositionalAudio object's buffer
     audioLoader.load( fileName, function( buffer ) {
     	sound.setBuffer( buffer );
-      sound.setRefDistance( 20 );
+      sound.setRefDistance( dist );
     	sound.play();
     });
+    return sound;
   }
 
   click(){
@@ -74,6 +78,7 @@ export default class Level1 extends Level {
     ball.body.angularVelocity.set(0, 0, 0);
     ball.body.velocity.set(direction.x * spd, direction.y * spd, direction.z * spd);
     ball.body.addEventListener("sleep",(event)=>{ball.die();});
+    ball.addToScene();
 
     if (!this.rolled) {
       this.roll();

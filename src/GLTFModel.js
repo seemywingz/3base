@@ -14,14 +14,14 @@ export default class GLTFModel extends SceneObject {
 
   constructor(level, x, y, z, model, scale=1, mass=1){
     super(level, x, y, z, null, scale, mass);
-    this.loadGLTF(model);
+    this.model = model;
+    // this.loadGLTF(model);
   }
 
-  loadGLTF(model){
-    glTFLoader.load(
-      './assets/models/' + model + '/scene.gltf',
+  loadGLTF(addToScene = false){
+    return glTFLoader.load(
+      './assets/models/' + this.model + '/scene.gltf',
       ( gltf ) => {
-        // console.log(gltf);
         this.gltf = gltf;
         this.mesh = gltf.scene;
         this.configMesh();
@@ -32,14 +32,20 @@ export default class GLTFModel extends SceneObject {
            box.getSize(size);
            this.initPhysics(this.scale, this.mass, new Box(new Vec3(size.x*0.5, size.y*0.5, size.z*0.5)) );
         }
-        if( this.gltf.animations.length > 0){
-          this.mixer = new AnimationMixer(this.mesh);
-          this.mixer.clipAction(gltf.animations[0]).play();
-        }
-        this.level.scene.add(gltf.scene);
       },
-      () => {},
+      () => {
+        if (addToScene){
+          this.level.scene.add(this.mesh);
+        }
+      },
       (e) => {console.log(e)}
     );
+  }
+
+  playAnimation(aNum = 0){
+    if( this.gltf.animations.length > 0){
+      this.mixer = new AnimationMixer(this.mesh);
+      this.mixer.clipAction(this.gltf.animations[aNum]).play();
+    }
   }
 }
