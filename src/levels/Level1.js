@@ -2,19 +2,23 @@
 
 import Sky from '../Sky';
 import Ball from '../Ball';
-import {Scene} from 'three';
 import Level from '../Level';
 import Ground from '../Ground';
 import Camera from '../Camera';
 import { randNum } from '../Utils';
-import { textureLoader } from '../LevelLoader';
 import GLTFModel from '../GLTFModel';
+import * as THREE from 'three';
+
+import { 
+  textureLoader, 
+  audioLoader 
+} from '../LevelLoader';
 
 export default class Level1 extends Level {
 
   constructor(loader) {
     super(loader);
-    this.scene = new Scene();
+    this.scene = new THREE.Scene();
     this.camera = new Camera(0,5,10, this);
     this.rolled = false;
     this.load();
@@ -31,27 +35,34 @@ export default class Level1 extends Level {
       ball.mesh.shinyness = 100;
     }
 
-    // new Promise(resolve=>{
-    //   while (this.camera.) {
-        
-    //   }
-    // }).then(()=>{
-    //   this.roll()
-    // })
-
-    this.playAudio('./assets/audio/wind.wav', 0.5)
+    this.scene.fog = new THREE.FogExp2( 0xe5edf9, 0.025 );
+    // this.playAudio('./assets/audio/wind.wav', 0.5)
   }
 
   roll(){
     new GLTFModel(this, 0, 0.8, -20, 'deadpool', 3.5, 0);
-    this.playAudio('./assets/audio/rickRoll.mp3', 0.8);
+    this.playPositionalAudio('./assets/audio/rickRoll.ogg', 0.8);
     this.rolled = true;
   }
 
   playAudio(fileName = "", volume = 1){
-    var audio = new Audio(fileName);
+    let audio = new Audio(fileName);
     audio.volume = volume;
     audio.play();
+  }
+
+  playPositionalAudio(fileName = ""){
+    // create an AudioListener and add it to the camera
+    let listener = new THREE.AudioListener();
+    this.camera.lens.add( listener );
+    // create the PositionalAudio object (passing in the listener)
+    let sound = new THREE.PositionalAudio( listener );
+    // load a sound and set it as the PositionalAudio object's buffer
+    audioLoader.load( fileName, function( buffer ) {
+    	sound.setBuffer( buffer );
+      sound.setRefDistance( 20 );
+    	sound.play();
+    });
   }
 
   click(){
