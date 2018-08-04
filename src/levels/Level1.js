@@ -16,6 +16,7 @@ export default class Level1 extends Level {
     super(loader);
     this.scene = new Scene();
     this.camera = new Camera(0,5,10, this);
+    this.rolled = false;
     this.load();
   }
 
@@ -30,21 +31,26 @@ export default class Level1 extends Level {
       ball.mesh.shinyness = 100;
     }
 
-    new Promise(resolve=>{
-      setTimeout(resolve, 20000)
-    }).then(()=>{
-      this.extra()
-    })
+    // new Promise(resolve=>{
+    //   while (this.camera.) {
+        
+    //   }
+    // }).then(()=>{
+    //   this.roll()
+    // })
 
-    let audio = new Audio('./assets/audio/wind.wav');
-    audio.volume = 0.5;
-    audio.play();
+    this.playAudio('./assets/audio/wind.wav', 0.5)
   }
 
-  extra(){
+  roll(){
     new GLTFModel(this, 0, 0.8, -20, 'deadpool', 3.5, 0);
-    var audio = new Audio('./assets/audio/rickRoll.mp3');
-    audio.volume = 0.8;
+    this.playAudio('./assets/audio/rickRoll.mp3', 0.8);
+    this.rolled = true;
+  }
+
+  playAudio(fileName = "", volume = 1){
+    var audio = new Audio(fileName);
+    audio.volume = volume;
     audio.play();
   }
 
@@ -57,5 +63,10 @@ export default class Level1 extends Level {
     ball.body.angularVelocity.set(0, 0, 0);
     ball.body.velocity.set(direction.x * spd, direction.y * spd, direction.z * spd);
     ball.body.addEventListener("sleep",(event)=>{ball.die();});
+
+    if (!this.rolled) {
+      this.roll();
+    }
+
   }
 }

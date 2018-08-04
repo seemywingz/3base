@@ -6,6 +6,7 @@
   "scripts": {
     "test": "echo \"PASS\" && exit 0",
     "dev": "ELECTRON_DISABLE_SECURITY_WARNINGS=true electron . & webpack --progress --colors --watch --mode development",
+    "watch": "webpack --progress --colors --watch --mode development",
     "dev-server": "webpack-dev-server --content-base srv/",
     "app": "webpack --progress --colors;electron .",
     "pack": "build --dir",
