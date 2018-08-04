@@ -1,6 +1,6 @@
 {
   "name": "game_base",
-  "version": "1.0.0",
+  "version": "0.0001",
   "description": "THREE.js 3d Application Boilerplate",
   "main": "./src/main.js",
   "scripts": {
@@ -10,7 +10,7 @@
     "dev-server": "webpack-dev-server --content-base srv/",
     "app": "webpack --progress --colors;electron .",
     "pack": "build --dir",
-    "dist": "webpack --mode production; build"
+    "dist": "webpack --mode production"
   },
   "repository": {
     "type": "git",
@@ -21,14 +21,11 @@
   "bugs": {
     "url": "https://github.com/seemywingz/game_base/issues"
   },
-  "homepage": "https://github.com/seemywingz/game_base#readme",
+  "homepage": "https://Torch.Cloud",
   "build": {
     "appId": "game.base",
     "mac": {
       "category": "public.app-category.utilities"
-    },
-    "win": {
-      "iconUrl": "(windows-only) https link to icon"
     }
   },
   "devDependencies": {
