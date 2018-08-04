@@ -85,6 +85,10 @@ export default class Level {
     console.log("Level CLICK!")
   }
 
+  unPause(){
+    
+  }
+
   die(){
     this.camera.removeEventListeners();
     window.cancelAnimationFrame(this.animationRequest);

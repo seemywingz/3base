@@ -111,6 +111,7 @@ export default class LevelLoader {
   unPause(){
     console.log("UNPAUSING!!");
     this.paused = false;
+    this.currentLevel.unPause()
   }
 
   changeLevel(levelNumber){

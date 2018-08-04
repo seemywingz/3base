@@ -22,25 +22,30 @@ export default class Level1 extends Level {
     this.camera = new Camera(0,5,10, this);
     this.rolled = false;
     this.load();
-    this.deadpool = new GLTFModel(this, 0, 0.8, -20, 'deadpool', 3.5, 0);
-    this.deadpool.loadGLTF();
-
+    
   }
-
+  
   createScene(){
     this.cannonBallTexture = textureLoader.load( 'assets/images/ball.jpg');
     new Sky(this, textureLoader.load('assets/images/sky.jpg')).addToScene();
     new Ground(this, textureLoader.load( 'assets/images/ground.jpg')).addToScene();
-
+    
     var ballTexture = textureLoader.load( 'assets/images/beachBall.jpg');
     for (let index = 0; index < 300; index++) {
       let ball = new Ball(this, randNum(-50,50), randNum(0.5, 200), randNum(-50,50), ballTexture, 1, 0.05);
       ball.mesh.shinyness = 100;
       ball.addToScene();
     }
+    
+    this.deadpool = new GLTFModel(this, 0, 0.8, -20, 'deadpool', 3.5, 0);
+    this.deadpool.loadGLTF();
 
+    this.wind = this.getAudio('./assets/audio/wind.wav', 0.5);
     this.scene.fog = new THREE.FogExp2( 0xe5edf9, 0.025 );
-    this.playAudio('./assets/audio/wind.wav', 0.5)
+  }
+  
+  unPause(){
+    this.wind.play();
   }
 
   roll(){
@@ -50,10 +55,10 @@ export default class Level1 extends Level {
     this.deadpool.mesh.add(this.playPositionalAudio('./assets/audio/rickRoll.ogg', 10));
   }
 
-  playAudio(fileName = "", volume = 1){
+  getAudio(fileName = "", volume = 1){
     let audio = new Audio(fileName);
     audio.volume = volume;
-    audio.play();
+    return audio;
   }
 
   playPositionalAudio(fileName = "", dist = 1){
