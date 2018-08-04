@@ -40,7 +40,7 @@ export default class Level1 extends Level {
     }
 
     this.scene.fog = new THREE.FogExp2( 0xe5edf9, 0.025 );
-    // this.playAudio('./assets/audio/wind.wav', 0.5)
+    this.playAudio('./assets/audio/wind.wav', 0.5)
   }
 
   roll(){
