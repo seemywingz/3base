@@ -85,8 +85,8 @@ export default class Level {
     console.log("Level CLICK!")
   }
 
-  extra(){
-    console.log("Level EXTRA!")
+  unPause(){
+    
   }
 
   die(){

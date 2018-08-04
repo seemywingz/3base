@@ -22,12 +22,14 @@ export default class Camera{
     this.moveBackward = false;
     this.moveLeft = false;
     this.moveRight = false;
+    this.near = 0.5;
+    this.far = 1000000;
 
     this.lens = new PerspectiveCamera(
       45,
       window.innerWidth / window.innerHeight,
-      0.5,
-      1000000
+      this.near,
+      this.far
     );
     
     this.initPointerLock();

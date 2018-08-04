@@ -26,8 +26,11 @@ export default class SceneObject {
     this.mesh.receiveShadow = true;
     this.mesh.position.set(this.x, this.y, this.z);
     this.mesh.scale.set(this.scale, this.scale, this.scale);
-    this.level.scene.add(this.mesh);
     this.level.sceneObjects.push(this);
+  }
+
+  addToScene(){
+    this.level.scene.add(this.mesh);
   }
 
   initPhysics(scale, mass, shape){

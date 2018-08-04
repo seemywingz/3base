@@ -10,7 +10,8 @@ THREE.Cache.enabled = true;
 export let 
   manager,
   glTFLoader,
-  textureLoader;
+  textureLoader,
+  audioLoader;
 
 export default class LevelLoader {
   constructor() {
@@ -53,6 +54,7 @@ export default class LevelLoader {
 
     glTFLoader = new THREE.GLTFLoader(manager);
     textureLoader = new THREE.TextureLoader(manager);
+    audioLoader = new THREE.AudioLoader();
   }
 
   loadingAnimation(){
@@ -109,6 +111,7 @@ export default class LevelLoader {
   unPause(){
     console.log("UNPAUSING!!");
     this.paused = false;
+    this.currentLevel.unPause()
   }
 
   changeLevel(levelNumber){
