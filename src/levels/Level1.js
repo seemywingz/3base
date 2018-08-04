@@ -38,21 +38,19 @@ export default class Level1 extends Level {
     }
     
     this.deadpool = new GLTFModel(this, 0, 0.8, -20, 'deadpool', 3.5, 0);
-    this.deadpool.loadGLTF();
 
-    this.wind = this.getAudio('./assets/audio/wind.wav', 0.5);
+    this.wind = this.getAudio('./assets/audio/wind.wav', 0.3).play();
     this.scene.fog = new THREE.FogExp2( 0xe5edf9, 0.025 );
   }
   
   unPause(){
-    this.wind.play();
   }
-
+  
   roll(){
     this.rolled = true;
     this.deadpool.addToScene();
     this.deadpool.playAnimation();
-    this.deadpool.mesh.add(this.playPositionalAudio('./assets/audio/rickRoll.ogg', 10));
+    this.deadpool.mesh.add(this.getPositionalAudio('./assets/audio/rickRoll.ogg', 5));
   }
 
   getAudio(fileName = "", volume = 1){
@@ -61,7 +59,7 @@ export default class Level1 extends Level {
     return audio;
   }
 
-  playPositionalAudio(fileName = "", dist = 1){
+  getPositionalAudio(fileName = "", dist = 1){
     let listener = new THREE.AudioListener();
     this.camera.lens.add( listener );
 

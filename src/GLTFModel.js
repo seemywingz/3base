@@ -15,7 +15,7 @@ export default class GLTFModel extends SceneObject {
   constructor(level, x, y, z, model, scale=1, mass=1){
     super(level, x, y, z, null, scale, mass);
     this.model = model;
-    // this.loadGLTF(model);
+    this.loadGLTF();
   }
 
   loadGLTF(addToScene = false){
