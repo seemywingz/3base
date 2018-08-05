@@ -1,12 +1,7 @@
 'use-strict';
 
-import { 
-  Box3,
-  Vector3,
-  DoubleSide,
-  AnimationMixer
-} from 'three';
-import {Box, Vec3} from 'cannon';
+import * as THREE from 'three';
+import * as CANNON from 'cannon';
 import SceneObject from './SceneObject';
 import { glTFLoader } from './LevelLoader';
 
@@ -27,10 +22,10 @@ export default class GLTFModel extends SceneObject {
         this.configMesh();
         this.mesh.side = DoubleSide;
         if(this.level.physicsEnabled && this.mass >= 0) {
-           var box = new Box3().setFromObject( this.mesh );
-           let size = new Vector3;
+           var box = new CANNON.Box3().setFromObject( this.mesh );
+           let size = new THREE.Vector3;
            box.getSize(size);
-           this.initPhysics(this.scale, this.mass, new Box(new Vec3(size.x*0.5, size.y*0.5, size.z*0.5)) );
+           this.initPhysics(this.scale, this.mass, new CANNON.Box(new CANNON.Vec3(size.x*0.5, size.y*0.5, size.z*0.5)) );
         }
       },
       () => {
@@ -44,7 +39,7 @@ export default class GLTFModel extends SceneObject {
 
   playAnimation(aNum = 0){
     if( this.gltf.animations.length > 0){
-      this.mixer = new AnimationMixer(this.mesh);
+      this.mixer = new THREE.AnimationMixer(this.mesh);
       this.mixer.clipAction(this.gltf.animations[aNum]).play();
     }
   }

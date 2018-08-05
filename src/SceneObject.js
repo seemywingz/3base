@@ -1,12 +1,12 @@
 'use-strict';
 
-import { Mesh } from 'three';
-import { Body } from 'cannon';
+import * as THREE from 'three';
+import * as CANNON from 'cannon';
 import Promise from 'bluebird';
 
 export default class SceneObject {
 
-  constructor(level, x=0, y=0, z=0, mesh=new Mesh(), scale=1, mass=0, animationSpeed=0.01){
+  constructor(level, x=0, y=0, z=0, mesh=new THREE.Mesh(), scale=1, mass=0, animationSpeed=0.01){
     this.x = x;
     this.y = y;
     this.z = z;
@@ -37,7 +37,7 @@ export default class SceneObject {
     if (!this.level.physicsEnabled) { return };
     new Promise ((resolve, reject) => {
       try{
-        this.body = new Body({
+        this.body = new CANNON.Body({
           mass: mass
         });
         // console.log("Init Physics");
