@@ -37,6 +37,15 @@ export default class Camera{
     this.pTime = performance.now();
   }
 
+  setPOS(x, y, z){
+    this.x = x;
+    this.y = y;
+    this.z = z;
+    this.controls.position.x = x
+    this.controls.position.y = y
+    this.controls.position.z = z
+  }
+
   update(){
     if(this.controls.enabled){
       let time = performance.now();

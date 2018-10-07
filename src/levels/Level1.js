@@ -4,8 +4,7 @@ import Sky from '../Sky';
 import Ball from '../Ball';
 import Level from '../Level';
 import Ground from '../Ground';
-import Camera from '../Camera';
-import { randNum } from '../Utils';
+// import { randNum } from '../Utils';
 import GLTFModel from '../GLTFModel';
 import * as THREE from 'three';
 
@@ -13,26 +12,17 @@ export default class Level1 extends Level {
 
   constructor(loader) {
     super(loader);
-    this.scene = new THREE.Scene();
-    this.camera = new Camera(0,5,10, this);
+    // this.camera.setPOS(0,50,10);
     this.rolled = false;
-    this.load();
-    
   }
   
   createScene(){
     this.cannonBallTexture = this.loadTexture( 'assets/images/ball.jpg');
+
     new Sky(this, this.loadTexture('assets/images/sky.jpg')).addToScene();
     new Ground(this, this.loadTexture( 'assets/images/ground.jpg')).addToScene();
     
-    var ballTexture = this.loadTexture( 'assets/images/beachBall.jpg');
-    for (let index = 0; index < 300; index++) {
-      let ball = new Ball(this, randNum(-50,50), randNum(0.5, 200), randNum(-50,50), ballTexture, 1, 0.05);
-      ball.mesh.shinyness = 100;
-      ball.addToScene();
-    }
-    
-    this.deadpool = new GLTFModel(this, 0, 0.8, -20, 'deadpool', 3.5, 0);
+    this.ankh = new GLTFModel(this, 0, 0.8, -2, 'ankh', .25, 0).addToScene();
 
     // this.wind = this.getAudio('./assets/audio/wind.wav', 0.3).play();
     this.scene.fog = new THREE.FogExp2( 0xe5edf9, 0.025 );
@@ -43,9 +33,9 @@ export default class Level1 extends Level {
   
   roll(){
     this.rolled = true;
-    this.deadpool.addToScene();
-    this.deadpool.playAnimation();
-    this.deadpool.mesh.add(this.getPositionalAudio('./assets/audio/rickRoll.ogg', 5));
+    this.ankh.addToScene();
+    this.ankh.playAnimation();
+    this.ankh.mesh.add(this.getPositionalAudio('./assets/audio/rickRoll.ogg', 5));
   }
 
   click(){
@@ -59,9 +49,9 @@ export default class Level1 extends Level {
     ball.body.addEventListener("sleep",(event)=>{ball.die();});
     ball.addToScene();
 
-    if (!this.rolled) {
-      this.roll();
-    }
+    // if (!this.rolled) {
+    //   this.roll();
+    // }
 
   }
 }
