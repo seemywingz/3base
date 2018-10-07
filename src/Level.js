@@ -5,8 +5,8 @@ import * as CANNON from 'cannon';
 
 export default class Level {
 
-  constructor(loader) {
-    this.loader = loader;
+  constructor(loaders) {
+    this.loaders = loaders;
     this.loading = false;
     this.physicsEnabled = true;
 
@@ -28,7 +28,7 @@ export default class Level {
 
   animate() {
     this.animationRequest = requestAnimationFrame( this.animate.bind(this) );
-    if(document.hasFocus() && !this.loader.paused){
+    if(document.hasFocus() && !this.loaders.paused){
       this.camera.update();
 
       let time = performance.now();
@@ -46,7 +46,7 @@ export default class Level {
         sceneObject.animate(deltaTime/1000);
       });
       
-      this.loader.renderer.render( this.scene, this.camera.lens );
+      this.loaders.renderer.render( this.scene, this.camera.lens );
     }
   }
 
