@@ -9,11 +9,6 @@ import { randNum } from '../Utils';
 import GLTFModel from '../GLTFModel';
 import * as THREE from 'three';
 
-import { 
-  textureLoader, 
-  audioLoader 
-} from '../Loaders';
-
 export default class Level1 extends Level {
 
   constructor(loader) {
@@ -26,11 +21,11 @@ export default class Level1 extends Level {
   }
   
   createScene(){
-    this.cannonBallTexture = textureLoader.load( 'assets/images/ball.jpg');
-    new Sky(this, textureLoader.load('assets/images/sky.jpg')).addToScene();
-    new Ground(this, textureLoader.load( 'assets/images/ground.jpg')).addToScene();
+    this.cannonBallTexture = this.loadTexture( 'assets/images/ball.jpg');
+    new Sky(this, this.loadTexture('assets/images/sky.jpg')).addToScene();
+    new Ground(this, this.loadTexture( 'assets/images/ground.jpg')).addToScene();
     
-    var ballTexture = textureLoader.load( 'assets/images/beachBall.jpg');
+    var ballTexture = this.loadTexture( 'assets/images/beachBall.jpg');
     for (let index = 0; index < 300; index++) {
       let ball = new Ball(this, randNum(-50,50), randNum(0.5, 200), randNum(-50,50), ballTexture, 1, 0.05);
       ball.mesh.shinyness = 100;
@@ -39,7 +34,7 @@ export default class Level1 extends Level {
     
     this.deadpool = new GLTFModel(this, 0, 0.8, -20, 'deadpool', 3.5, 0);
 
-    this.wind = this.getAudio('./assets/audio/wind.wav', 0.3).play();
+    // this.wind = this.getAudio('./assets/audio/wind.wav', 0.3).play();
     this.scene.fog = new THREE.FogExp2( 0xe5edf9, 0.025 );
   }
   
@@ -51,25 +46,6 @@ export default class Level1 extends Level {
     this.deadpool.addToScene();
     this.deadpool.playAnimation();
     this.deadpool.mesh.add(this.getPositionalAudio('./assets/audio/rickRoll.ogg', 5));
-  }
-
-  getAudio(fileName = "", volume = 1){
-    let audio = new Audio(fileName);
-    audio.volume = volume;
-    return audio;
-  }
-
-  getPositionalAudio(fileName = "", dist = 1){
-    let listener = new THREE.AudioListener();
-    this.camera.lens.add( listener );
-
-    let sound = new THREE.PositionalAudio( listener );
-    audioLoader.load( fileName, function( buffer ) {
-    	sound.setBuffer( buffer );
-      sound.setRefDistance( dist );
-    	sound.play();
-    });
-    return sound;
   }
 
   click(){

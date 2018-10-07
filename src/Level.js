@@ -3,6 +3,11 @@
 import * as THREE from 'three';
 import * as CANNON from 'cannon';
 
+import { 
+  textureLoader, 
+  audioLoader 
+} from './Loaders';
+
 export default class Level {
 
   constructor(loaders) {
@@ -56,6 +61,10 @@ export default class Level {
     this.animate();
   }
 
+  loadTexture(textureFile){
+    return textureLoader.load(textureFile)
+  }
+
   createLights(){
     let light = new THREE.PointLight( 0xc9c9c9, 1, 50000, -1);
     light.position.set(0, 400, 100);
@@ -88,6 +97,24 @@ export default class Level {
   die(){
     this.camera.removeEventListeners();
     window.cancelAnimationFrame(this.animationRequest);
+  }
+
+  getAudio(fileName = "", volume = 1){
+    let audio = new Audio(fileName);
+    audio.volume = volume;
+    return audio;
+  }
+
+  getPositionalAudio(fileName = "", dist = 1){
+    let listener = new THREE.AudioListener();
+    this.camera.lens.add( listener );  
+    let sound = new THREE.PositionalAudio( listener );
+    audioLoader.load( fileName, function( buffer ) {
+    	sound.setBuffer( buffer );
+      sound.setRefDistance( dist );
+    	sound.play();
+    });
+    return sound;
   }
 
   createScene(){}
