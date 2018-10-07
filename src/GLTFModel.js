@@ -9,33 +9,39 @@ export default class GLTFModel extends SceneObject {
   constructor(level, x, y, z, model, scale=1, mass=1, addToScene=false){
     super(level, x, y, z, null, scale, mass);
     this.model = model;
-    return this.loadGLTF(addToScene);
+    return this.loadGLTF(addToScene)
   }
 
   loadGLTF(addToScene){
-    return this.level.loaders.glTFLoader.load(
-      this.model + '/scene.gltf',
-      ( gltf ) => {
-        this.gltf = gltf;
-        this.mesh = gltf.scene;
-        this.configMesh();
-        this.mesh.side = THREE.DoubleSide;
-        if(this.level.physicsEnabled && this.mass >= 0) {
-           var box = new CANNON.Box3().setFromObject( this.mesh );
-           let size = new THREE.Vector3;
-           box.getSize(size);
-           this.initPhysics(this.scale, this.mass, new CANNON.Box(new CANNON.Vec3(size.x*0.5, size.y*0.5, size.z*0.5)) );
+    return new Promise((resolve, reject) => {
+      this.level.loaders.glTFLoader.load(
+        this.model + '/scene.gltf',
+        ( gltf ) => {
+          this.gltf = gltf;
+          this.mesh = gltf.scene;
+          this.configMesh();
+          this.mesh.side = THREE.DoubleSide;
+          if(this.level.physicsEnabled && this.mass >= 0) {
+             var box = new CANNON.Box3().setFromObject( this.mesh );
+             let size = new THREE.Vector3;
+             box.getSize(size);
+             this.initPhysics(this.scale, this.mass, new CANNON.Box(new CANNON.Vec3(size.x*0.5, size.y*0.5, size.z*0.5)) );
+          }
+          if (addToScene) {
+            this.level.scene.add(this.mesh);
+          }
+          resolve(this);
+        },
+        (xhr) => {// on Load
+          let percentLoaded = ( xhr.loaded / xhr.total * 100 )
+          console.log( this.model + " " + percentLoaded + '% loaded' );
+        },
+        (e) => {// on Error
+          console.log(e);
+          reject();
         }
-        if (addToScene) {
-          this.level.scene.add(this.mesh);
-        }
-      },
-      (xhr) => {
-        let percentLoaded = ( xhr.loaded / xhr.total * 100 )
-        console.log( this.model + " " + percentLoaded + '% loaded' );
-      },
-      (e) => {console.log(e)}
-    );
+      )
+    });
   }
 
   playAnimation(aNum = 0){

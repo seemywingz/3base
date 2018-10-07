@@ -1,12 +1,9 @@
 'use-strict';
 
 import Sky from '../Sky';
-import Ball from '../Ball';
 import Level from '../Level';
 import Ground from '../Ground';
-// import { randNum } from '../Utils';
 import GLTFModel from '../GLTFModel';
-import * as THREE from 'three';
 
 export default class Level1 extends Level {
 
@@ -18,8 +15,11 @@ export default class Level1 extends Level {
     new Sky(this, this.loadTexture('assets/images/sky.jpg')).addToScene();
     new Ground(this, this.loadTexture( 'assets/images/ground.jpg')).addToScene();
     
-    this.ankh = new GLTFModel(this, 0, 0.018, -20, 'assets/models/ankh', .25, 0, true);
-    // this.ankh.mesh.rotation.x = Math.PI / 2;
+    this.ankh = new GLTFModel(this, 0, 0.018, -20, 'assets/models/ankh', .25, 0, true)
+    .then( (ankh) => {
+      ankh.mesh.rotation.y = Math.PI / 2;
+    });
+
     // this.ankh.playAnimation();
     // this.ankh.mesh.add(this.getPositionalAudio('./assets/audio/rickRoll.ogg', 5));
 
