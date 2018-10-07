@@ -6,15 +6,15 @@ import SceneObject from './SceneObject';
 
 export default class GLTFModel extends SceneObject {
 
-  constructor(level, x, y, z, model, scale=1, mass=1){
+  constructor(level, x, y, z, model, scale=1, mass=1, addToScene=false){
     super(level, x, y, z, null, scale, mass);
     this.model = model;
-    this.loadGLTF();
+    return this.loadGLTF(addToScene);
   }
 
-  loadGLTF(addToScene = false){
+  loadGLTF(addToScene){
     return this.level.loaders.glTFLoader.load(
-      './assets/models/' + this.model + '/scene.gltf',
+      this.model + '/scene.gltf',
       ( gltf ) => {
         this.gltf = gltf;
         this.mesh = gltf.scene;
@@ -26,11 +26,13 @@ export default class GLTFModel extends SceneObject {
            box.getSize(size);
            this.initPhysics(this.scale, this.mass, new CANNON.Box(new CANNON.Vec3(size.x*0.5, size.y*0.5, size.z*0.5)) );
         }
-      },
-      () => {
-        if (addToScene){
+        if (addToScene) {
           this.level.scene.add(this.mesh);
         }
+      },
+      (xhr) => {
+        let percentLoaded = ( xhr.loaded / xhr.total * 100 )
+        console.log( this.model + " " + percentLoaded + '% loaded' );
       },
       (e) => {console.log(e)}
     );

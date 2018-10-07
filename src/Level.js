@@ -7,11 +7,11 @@ import * as CANNON from 'cannon';
 export default class Level {
 
   constructor(loaders) {
-    this.scene = new THREE.Scene();
-    this.camera = new Camera(0,2,0, this);
-    this.physicsEnabled = true;
+    this.physicsEnabled = false;
     this.loaders = loaders;
     this.loading = false;
+    this.scene = new THREE.Scene();
+    this.camera = new Camera(0,2,0, this);
 
     this.removeBodies = [];
     this.sceneObjects = [];
