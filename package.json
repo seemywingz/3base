@@ -1,6 +1,6 @@
 {
-  "name": "game_base",
-  "version": "0.0001",
+  "name": "3base",
+  "version": "0.1.0",
   "description": "THREE.js 3d Application Boilerplate",
   "main": "./src/main.js",
   "scripts": {
@@ -11,7 +11,7 @@
     "app": "webpack --progress --colors;electron .",
     "pack": "build --dir",
     "dist": "webpack --mode production",
-    "prepublish": "node_modules/babel-cli/bin/babel.js src --out-dir lib"
+    "prepare": "node_modules/babel-cli/bin/babel.js src --out-dir lib"
   },
   "babel": {
     "presets": [
@@ -20,16 +20,16 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com:seemywingz/game_base.git"
+    "url": "git+ssh://git@github.com:seemywingz/3base.git"
   },
   "author": "Kevin Jayne",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/seemywingz/game_base/issues"
+    "url": "https://github.com/seemywingz/3base/issues"
   },
   "homepage": "https://Torch.Cloud",
   "build": {
-    "appId": "game.base",
+    "appId": "3base",
     "mac": {
       "category": "public.app-category.utilities"
     }
