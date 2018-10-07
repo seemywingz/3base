@@ -1,5 +1,6 @@
+.git/
 src/
 srv/bundle.js
-assets/audio/*
-assets/images/*
-assets/models/*
+srv/assets/audio/*
+srv/assets/images/*
+srv/assets/models/*
