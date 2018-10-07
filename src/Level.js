@@ -107,13 +107,13 @@ export default class Level {
   getPositionalAudio(fileName = "", dist = 1){
     let listener = new THREE.AudioListener();
     this.camera.lens.add( listener );  
-    let sound = new THREE.PositionalAudio( listener );
+    let audio = new THREE.PositionalAudio( listener );
     this.loaders.audioLoader.load( fileName, function( buffer ) {
-    	sound.setBuffer( buffer );
-      sound.setRefDistance( dist );
-    	sound.play();
+    	audio.setBuffer( buffer );
+      audio.setRefDistance( dist );
+    	audio.play();
     });
-    return sound;
+    return audio;
   }
 
   createScene(){}

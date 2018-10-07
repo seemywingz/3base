@@ -18,10 +18,8 @@ export default class Level1 extends Level {
     this.ankh = new GLTFModel(this, 0, 0.018, -20, 'assets/models/ankh', .25, 0, true)
     .then( (ankh) => {
       ankh.mesh.rotation.y = Math.PI / 2;
+      ankh.addPositionalAudio('assets/audio/rickRoll.ogg', 5);
     });
-
-    // this.ankh.playAnimation();
-    // this.ankh.mesh.add(this.getPositionalAudio('./assets/audio/rickRoll.ogg', 5));
 
     // this.wind = this.getAudio('./assets/audio/wind.wav', 0.3).play();
     // this.scene.fog = new THREE.FogExp2( 0xe5edf9, 0.025 );

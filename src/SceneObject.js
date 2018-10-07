@@ -80,7 +80,12 @@ export default class SceneObject {
   die(){
     this.level.scene.remove(this.mesh);
     this.level.removeBodies.push(this.body);
-    // this.level.world.removeBody(this.body)
+    this.level.world.removeBody(this.body)
+  }
+
+  addPositionalAudio(fileName = "", dist = 1){
+    let audio = this.level.getPositionalAudio(fileName, dist)
+    this.mesh.add(audio);
   }
 
 }
