@@ -6,15 +6,13 @@ import Level1 from './levels/Level1';
 import { randNum, loadingMsgs, fade } from './Utils';
 THREE.Cache.enabled = true;
 
-
-export let 
-  manager,
-  glTFLoader,
-  textureLoader,
-  audioLoader;
-
 export default class LevelLoader {
   constructor() {
+
+    this.manager
+    this.glTFLoader
+    this.textureLoader
+    this.audioLoader
 
     this.initManager();
     this.initRenderer();
@@ -33,28 +31,28 @@ export default class LevelLoader {
 
   initManager(){
     console.log("Loading...");
-    manager = new THREE.LoadingManager();
-    manager.onProgress = (/*item, loaded*/) => {
+    this.manager = new THREE.LoadingManager();
+    this.manager.onProgress = (/*item, loaded*/) => {
       if(!this.loading){
         this.loading = true;
         this.loadingAnimation();
       }
     };
     
-    manager.onLoad = () => {// Completion
+    this.manager.onLoad = () => {// Completion
       console.log("...Loaded");
       this.loading = false;
       document.body.appendChild( this.renderer.domElement );
       fade( document.getElementById('loadingScreen'));
     };
 
-    manager.onError = function () {
+    this.manager.onError = function () {
       console.log('there has been an error');
     };
 
-    glTFLoader = new THREE.GLTFLoader(manager);
-    textureLoader = new THREE.TextureLoader(manager);
-    audioLoader = new THREE.AudioLoader();
+    this.glTFLoader = new THREE.GLTFLoader(this.manager);
+    this.textureLoader = new THREE.TextureLoader(this.manager);
+    this.audioLoader = new THREE.AudioLoader();
   }
 
   loadingAnimation(){

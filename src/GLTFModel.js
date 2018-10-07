@@ -3,7 +3,6 @@
 import * as THREE from 'three';
 import * as CANNON from 'cannon';
 import SceneObject from './SceneObject';
-import { glTFLoader } from './Loaders';
 
 export default class GLTFModel extends SceneObject {
 
@@ -14,7 +13,7 @@ export default class GLTFModel extends SceneObject {
   }
 
   loadGLTF(addToScene = false){
-    return glTFLoader.load(
+    return this.level.loaders.glTFLoader.load(
       './assets/models/' + this.model + '/scene.gltf',
       ( gltf ) => {
         this.gltf = gltf;
