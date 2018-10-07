@@ -1,0 +1,5 @@
+src/
+srv/bundle.js
+assets/audio/*
+assets/images/*
+assets/models/*

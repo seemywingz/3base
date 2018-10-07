@@ -1,50 +1,52 @@
 'use-strict';
 
-import { 
-  Box3,
-  Vector3,
-  DoubleSide,
-  AnimationMixer
-} from 'three';
-import {Box, Vec3} from 'cannon';
+import * as THREE from 'three';
+import * as CANNON from 'cannon';
 import SceneObject from './SceneObject';
-import { glTFLoader } from './LevelLoader';
 
 export default class GLTFModel extends SceneObject {
 
-  constructor(level, x, y, z, model, scale=1, mass=1){
+  constructor(level, x, y, z, model, scale=1, mass=1, addToScene=false){
     super(level, x, y, z, null, scale, mass);
     this.model = model;
-    this.loadGLTF();
+    return this.loadGLTF(addToScene)
   }
 
-  loadGLTF(addToScene = false){
-    return glTFLoader.load(
-      './assets/models/' + this.model + '/scene.gltf',
-      ( gltf ) => {
-        this.gltf = gltf;
-        this.mesh = gltf.scene;
-        this.configMesh();
-        this.mesh.side = DoubleSide;
-        if(this.level.physicsEnabled && this.mass >= 0) {
-           var box = new Box3().setFromObject( this.mesh );
-           let size = new Vector3;
-           box.getSize(size);
-           this.initPhysics(this.scale, this.mass, new Box(new Vec3(size.x*0.5, size.y*0.5, size.z*0.5)) );
+  loadGLTF(addToScene){
+    return new Promise((resolve, reject) => {
+      this.level.loaders.glTFLoader.load(
+        this.model + '/scene.gltf',
+        ( gltf ) => {
+          this.gltf = gltf;
+          this.mesh = gltf.scene;
+          this.configMesh();
+          this.mesh.side = THREE.DoubleSide;
+          if(this.level.physicsEnabled && this.mass >= 0) {
+             var box = new CANNON.Box3().setFromObject( this.mesh );
+             let size = new THREE.Vector3;
+             box.getSize(size);
+             this.initPhysics(this.scale, this.mass, new CANNON.Box(new CANNON.Vec3(size.x*0.5, size.y*0.5, size.z*0.5)) );
+          }
+          if (addToScene) {
+            this.level.scene.add(this.mesh);
+          }
+          resolve(this);
+        },
+        (xhr) => {// on Load
+          let percentLoaded = ( xhr.loaded / xhr.total * 100 )
+          console.log( this.model + " " + percentLoaded + '% loaded' );
+        },
+        (e) => {// on Error
+          console.log(e);
+          reject();
         }
-      },
-      () => {
-        if (addToScene){
-          this.level.scene.add(this.mesh);
-        }
-      },
-      (e) => {console.log(e)}
-    );
+      )
+    });
   }
 
   playAnimation(aNum = 0){
     if( this.gltf.animations.length > 0){
-      this.mixer = new AnimationMixer(this.mesh);
+      this.mixer = new THREE.AnimationMixer(this.mesh);
       this.mixer.clipAction(this.gltf.animations[aNum]).play();
     }
   }

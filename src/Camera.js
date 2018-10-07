@@ -1,11 +1,7 @@
 'use-strict';
 
-import {
-  Euler,
-  Vector3,
-  Object3D,
-  PerspectiveCamera 
-} from 'three';
+
+import * as THREE from 'three';
 
 export default class Camera{
 
@@ -16,8 +12,8 @@ export default class Camera{
     this.z = z;
     this.height = y;
     this.speed = 400;
-    this.velocity = new Vector3();
-    this.direction = new Vector3();
+    this.velocity = new THREE.Vector3();
+    this.direction = new THREE.Vector3();
     this.moveForward = false;
     this.moveBackward = false;
     this.moveLeft = false;
@@ -25,7 +21,7 @@ export default class Camera{
     this.near = 0.5;
     this.far = 1000000;
 
-    this.lens = new PerspectiveCamera(
+    this.lens = new THREE.PerspectiveCamera(
       45,
       window.innerWidth / window.innerHeight,
       this.near,
@@ -39,6 +35,15 @@ export default class Camera{
     this.konamiCode = [38, 38, 40, 40, 37, 39, 37, 39, 66, 65];
     this.konamiIndex = 0;
     this.pTime = performance.now();
+  }
+
+  setPOS(x, y, z){
+    this.x = x;
+    this.y = y;
+    this.z = z;
+    this.controls.position.x = x
+    this.controls.position.y = y
+    this.controls.position.z = z
   }
 
   update(){
@@ -75,10 +80,10 @@ export default class Camera{
   pointerLockControls(){
 	  this.lens.rotation.set( 0, 0, 0 );
 
-	  let pitchObject = new Object3D();
+	  let pitchObject = new THREE.Object3D();
 	  pitchObject.add( this.lens );
   
-	  let yawObject = new Object3D();
+	  let yawObject = new THREE.Object3D();
 	  yawObject.position.x = this.x;
 	  yawObject.position.y = this.height;
 	  yawObject.position.z = this.z;
@@ -160,9 +165,9 @@ export default class Camera{
   }
 
   getDirection () {
-    let v = new Vector3();
-    let direction = new Vector3( 0, 0, -1 );
-    let rotation = new Euler( 0, 0, 0, "YXZ" );
+    let v = new THREE.Vector3();
+    let direction = new THREE.Vector3( 0, 0, -1 );
+    let rotation = new THREE.Euler( 0, 0, 0, "YXZ" );
     rotation.set( this.controls.children[0].rotation.x, this.controls.rotation.y, 0 );
 		v.copy( direction ).applyEuler( rotation );
 		return v;
