@@ -1,4 +1,4 @@
 'use-strict';
 
-import LevelLoader from './LevelLoader';
+import LevelLoader from './Loaders';
 new LevelLoader();

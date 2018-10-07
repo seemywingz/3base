@@ -12,7 +12,7 @@ import * as THREE from 'three';
 import { 
   textureLoader, 
   audioLoader 
-} from '../LevelLoader';
+} from '../Loaders';
 
 export default class Level1 extends Level {
 

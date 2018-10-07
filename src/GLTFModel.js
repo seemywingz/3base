@@ -3,7 +3,7 @@
 import * as THREE from 'three';
 import * as CANNON from 'cannon';
 import SceneObject from './SceneObject';
-import { glTFLoader } from './LevelLoader';
+import { glTFLoader } from './Loaders';
 
 export default class GLTFModel extends SceneObject {
 
