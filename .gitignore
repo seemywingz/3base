@@ -1,5 +1,9 @@
-node_modules
+# Files
 .DS_Store
 *.log
 srv/bundle.js
+
+# Directories
 log/
+lib/
+node_modules/
