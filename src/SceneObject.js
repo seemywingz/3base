@@ -2,7 +2,6 @@
 
 import * as THREE from 'three';
 import * as CANNON from 'cannon';
-import Promise from 'bluebird';
 
 export default class SceneObject {
 
