@@ -20,7 +20,7 @@ export default class GLTFModel extends SceneObject {
         this.gltf = gltf;
         this.mesh = gltf.scene;
         this.configMesh();
-        this.mesh.side = DoubleSide;
+        this.mesh.side = THREE.DoubleSide;
         if(this.level.physicsEnabled && this.mass >= 0) {
            var box = new CANNON.Box3().setFromObject( this.mesh );
            let size = new THREE.Vector3;

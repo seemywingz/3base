@@ -24,7 +24,6 @@ export default class Level {
       this.world.solver.iterations = 10;
       this.world.allowSleep = true;
     }
-    this.camera.position.set();
   }
 
   animate() {

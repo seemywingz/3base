@@ -45,7 +45,7 @@ export default class LevelLoader {
       console.log("...Loaded");
       this.loading = false;
       document.body.appendChild( this.renderer.domElement );
-      fade( document.getElementById('overlay'));
+      fade( document.getElementById('loadingScreen'));
     };
 
     manager.onError = function () {
@@ -61,7 +61,7 @@ export default class LevelLoader {
     if(this.loading){
       console.log('loading animation');
       var num = ~~randNum(0, loadingMsgs.length - 1);
-      document.getElementById('overlay').innerHTML = loadingMsgs[num];
+      document.getElementById('loadingScreen').innerHTML = loadingMsgs[num];
       setTimeout(this.loadingAnimation, 100);
     }
   }
