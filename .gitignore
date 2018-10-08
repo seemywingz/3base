@@ -1,6 +1,7 @@
 # Files
-.DS_Store
 *.log
+*.tgz
+.DS_Store
 srv/bundle.js
 
 # Directories
