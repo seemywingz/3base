@@ -1,6 +1,6 @@
 3Base
 -------------
-###### THREE.js CANNON.js 3d Application Boilerplate
+###### 3d Web Application Engine
 
 ### Install
 `yarn add 3base`
