@@ -2,12 +2,11 @@
 
 import * as THREE from 'three';
 import 'three-examples/loaders/GLTFLoader';
-import Level1 from './levels/Level1';
 import { randNum, loadingMsgs, fade } from './Utils';
 THREE.Cache.enabled = true;
 
-export default class LevelLoader {
-  constructor() {
+export default class Loaders {
+  constructor(level) {
 
     this.manager
     this.glTFLoader
@@ -25,8 +24,7 @@ export default class LevelLoader {
     window.addEventListener( 'focus', this.unPause.bind(this));
     window.focus();
 
-    this.currentLevel = new Level1(this);
-    // this.currentLevel.load();
+    this.currentLevel = level;
   }
 
   initManager(){
@@ -64,13 +62,6 @@ export default class LevelLoader {
     }
   }
 
-  next(nextLevel){
-    // this.clear();
-    this.currentLevel = null;
-    this.currentLevel = nextLevel;
-    this.currentLevel.load();
-  }
-
   clear(){
     let scene = this.currentLevel.scene;
     scene.children.forEach(function(object){
@@ -96,8 +87,10 @@ export default class LevelLoader {
   }
 
   onWindowResize() {
-    this.currentLevel.camera.lens.aspect = window.innerWidth / window.innerHeight;
-		this.currentLevel.camera.lens.updateProjectionMatrix();
+    if (this.currentLevel !== undefined){
+      this.currentLevel.camera.lens.aspect = window.innerWidth / window.innerHeight;
+      this.currentLevel.camera.lens.updateProjectionMatrix();
+    }
 		this.renderer.setSize( window.innerWidth, window.innerHeight );
   }
 
@@ -109,11 +102,13 @@ export default class LevelLoader {
   unPause(){
     console.log("UNPAUSING!!");
     this.paused = false;
-    this.currentLevel.unPause()
+    if (this.currentLevel !== undefined){
+      this.currentLevel.unPause()
+    }
   }
 
-  changeLevel(levelNumber){
-    this.currentLevel = this.levels[levelNumber];
+  loadLevel(level){
+    this.currentLevel = new level(this);
   }
 
 }

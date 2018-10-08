@@ -4,7 +4,7 @@ console.log(path.join( __dirname + "/srv"));
 
 module.exports = {
   entry: {
-    app: './src/index.js',
+    app: './src/examples/index.js',
   },
 
   output: {

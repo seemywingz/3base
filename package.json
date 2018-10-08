@@ -2,7 +2,7 @@
   "name": "3base",
   "version": "0.1.1",
   "description": "THREE.js CANNON.js 3d Application Boilerplate",
-  "main": "./src/main.js",
+  "main": "./src/examples/main.js",
   "scripts": {
     "test": "echo \"PASS\" && exit 0",
     "dev": "ELECTRON_DISABLE_SECURITY_WARNINGS=true electron . & webpack --progress --colors --watch --mode development",
