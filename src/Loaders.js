@@ -1,7 +1,7 @@
 'use-strict';
 
 import * as THREE from 'three';
-import 'three-loaders/GLTFLoader';
+import GLTFLoader from 'three-gltf-loader';
 import { randNum, loadingMsgs, fade } from './Utils';
 THREE.Cache.enabled = true;
 
@@ -46,7 +46,7 @@ export default class Loaders {
       console.log('there has been an error');
     };
 
-    this.glTFLoader = new THREE.GLTFLoader(this.manager);
+    this.glTFLoader = new GLTFLoader(this.manager);
     this.textureLoader = new THREE.TextureLoader(this.manager);
     this.audioLoader = new THREE.AudioLoader();
   }

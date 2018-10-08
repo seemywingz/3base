@@ -4573,6 +4573,11 @@ tar@^4:
     safe-buffer "^5.1.2"
     yallist "^3.0.2"
 
+three-gltf-loader@^1.97.0:
+  version "1.97.0"
+  resolved "https://registry.yarnpkg.com/three-gltf-loader/-/three-gltf-loader-1.97.0.tgz#5bfb17b5e5817276b65855a86286f98c51efb415"
+  integrity sha512-TVjBeuOQSlmZOXXFhrQplxuNQQjmk2HAY+IfMGh0I2uqy0bR/dfrU/ioNeigJ4IyZre62eeW7eUhSvqU6K7kIg==
+
 three@^0.93.0:
   version "0.93.0"
   resolved "https://registry.yarnpkg.com/three/-/three-0.93.0.tgz#3fd6c367ef4554abbb6e16ad69936283e895c123"
