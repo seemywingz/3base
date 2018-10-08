@@ -6,7 +6,7 @@ import { randNum, loadingMsgs, fade } from './Utils';
 THREE.Cache.enabled = true;
 
 export default class Loaders {
-  constructor(level) {
+  constructor() {
 
     this.manager
     this.glTFLoader
@@ -23,8 +23,6 @@ export default class Loaders {
     window.addEventListener( 'blur', this.pause.bind(this));
     window.addEventListener( 'focus', this.unPause.bind(this));
     window.focus();
-
-    this.currentLevel = level;
   }
 
   initManager(){
