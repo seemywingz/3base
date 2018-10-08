@@ -1,6 +1,6 @@
 {
   "name": "3base",
-  "version": "0.1.2",
+  "version": "0.1.4",
   "description": "THREE.js CANNON.js 3d Application Boilerplate",
   "scripts": {
     "test": "echo \"PASS\" && exit 0",

@@ -2,7 +2,7 @@ node_modules/
 .git/
 
 # src/
-# srv/bundle.js
-# srv/assets/audio/*
-# srv/assets/images/*
-# srv/assets/models/*
+srv/bundle.js
+srv/assets/audio/*
+srv/assets/images/*
+srv/assets/models/*
