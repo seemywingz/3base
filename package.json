@@ -1,6 +1,6 @@
 {
   "name": "3base",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "3d Wb Application Engine",
   "scripts": {
     "test": "echo \"PASS\" && exit 0",
