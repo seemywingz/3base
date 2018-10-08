@@ -20,7 +20,7 @@ export default class Scene {
     this.fixedTime = 0.015;
 
     if(this.physicsEnabled){
-      console.log("Level Physics Enabled")
+      console.log("Scene Physics Enabled")
       this.world = new CANNON.World();
       this.world.gravity.set(0,-9.82,0);
       // this.world.broadphase = new CANNON.NaiveBroadphase();

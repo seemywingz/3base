@@ -5,14 +5,14 @@ import * as CANNON from 'cannon';
 
 export default class SceneObject {
 
-  constructor(level, x=0, y=0, z=0, mesh=new THREE.Mesh(), scale=1, mass=0, animationSpeed=0.01){
+  constructor(scene, x=0, y=0, z=0, mesh=new THREE.Mesh(), scale=1, mass=0, animationSpeed=0.01){
     this.x = x;
     this.y = y;
     this.z = z;
     this.mass = mass;
     this.mesh = mesh;
     this.scale = scale;
-    this.level = level;
+    this.scene = scene;
     this.animationSpeed = animationSpeed;
     this.body = null;
     this.mixer = null;
@@ -25,15 +25,15 @@ export default class SceneObject {
     this.mesh.receiveShadow = true;
     this.mesh.position.set(this.x, this.y, this.z);
     this.mesh.scale.set(this.scale, this.scale, this.scale);
-    this.level.sceneObjects.push(this);
+    this.scene.sceneObjects.push(this);
   }
 
   addToScene(){
-    this.level.scene.add(this.mesh);
+    this.scene.scene.add(this.mesh);
   }
 
   initPhysics(scale, mass, shape){
-    if (!this.level.physicsEnabled) { return };
+    if (!this.scene.physicsEnabled) { return };
     new Promise ((resolve, reject) => {
       try{
         this.body = new CANNON.Body({
@@ -47,7 +47,7 @@ export default class SceneObject {
         this.body.allowSleep = true;
         this.body.sleepSpeedLimit = 0.01; // Body will feel sleepy if speed < n (speed == norm of velocity)
         this.body.sleepTimeLimit = 0.5; // Body falls asleep after n seconds of sleepiness
-        this.level.world.addBody(this.body);
+        this.scene.world.addBody(this.body);
         resolve();
       }catch (e) {
         reject(e);
@@ -56,7 +56,7 @@ export default class SceneObject {
   }
 
   animate(tick=0.5){
-    if(this.level.physicsEnabled){
+    if(this.scene.physicsEnabled){
       // console.log("anmimating object");
       if(this.body !== null){
         this.mesh.position.copy(this.body.position);
@@ -77,13 +77,13 @@ export default class SceneObject {
   }
 
   die(){
-    this.level.scene.remove(this.mesh);
-    this.level.removeBodies.push(this.body);
-    this.level.world.removeBody(this.body)
+    this.scene.scene.remove(this.mesh);
+    this.scene.removeBodies.push(this.body);
+    this.scene.world.removeBody(this.body)
   }
 
   addPositionalAudio(fileName = "", dist = 1){
-    let audio = this.level.getPositionalAudio(fileName, dist)
+    let audio = this.scene.getPositionalAudio(fileName, dist)
     this.mesh.add(audio);
   }
 

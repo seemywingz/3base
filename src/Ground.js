@@ -10,7 +10,7 @@ import SceneObject from './SceneObject';
 
 export default class Ground extends SceneObject {
 
-  constructor(level, texture, scale=1000){
+  constructor(scene, texture, scale=1000){
     if(texture){
       texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
       texture.repeat.set( 30, 30 );
@@ -21,8 +21,8 @@ export default class Ground extends SceneObject {
     mesh.material.shininess = 0;
     mesh.castShadow = false;
 
-    super(level, 0,0,0, mesh);
-    if(this.level.physicsEnabled)
+    super(scene, 0,0,0, mesh);
+    if(this.scene.physicsEnabled)
       this.initPhysics();
   }
 
@@ -32,7 +32,7 @@ export default class Ground extends SceneObject {
     this.body.addShape(groundShape);
     this.body.quaternion.setFromAxisAngle(new Vec3(1,0,0),-Math.PI/2);
     this.body.position.set(0, 0, 0);
-    this.level.world.addBody(this.body);
+    this.scene.world.addBody(this.body);
   }
 
 }

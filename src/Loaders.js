@@ -6,7 +6,7 @@ import { randNum, loadingMsgs, fade } from './Utils';
 THREE.Cache.enabled = true;
 
 export default class Loaders {
-  constructor() {
+  constructor(canvas) {
 
     this.manager
     this.glTFLoader
@@ -14,7 +14,7 @@ export default class Loaders {
     this.audioLoader
 
     this.initManager();
-    this.initRenderer();
+    this.initRenderer(canvas);
 
     this.paused = false;
 
@@ -67,8 +67,12 @@ export default class Loaders {
     });
   }
 
-  initRenderer(){
-    this.renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+  initRenderer(canvas){
+    this.renderer = new THREE.WebGLRenderer({ 
+      alpha: true, 
+      antialias: true,
+      canvas: canvas 
+    });
     this.renderer.setPixelRatio( window.devicePixelRatio );
     this.renderer.setSize( window.innerWidth, window.innerHeight );
     this.renderer.shadowMap.enabled = true;
