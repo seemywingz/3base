@@ -28,7 +28,7 @@ module.exports = {
 
   resolve: {
     alias: {
-      'three-examples': path.join(__dirname, '/node_modules/three/examples/js')
+      'three-loaders': path.join(__dirname, '/node_modules/three/examples/js/loaders')
     },
     extensions: ['*', '.js', '.jsx']
   },

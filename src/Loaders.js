@@ -1,7 +1,7 @@
 'use-strict';
 
 import * as THREE from 'three';
-import 'three-examples/loaders/GLTFLoader';
+import 'three-loaders/GLTFLoader';
 import { randNum, loadingMsgs, fade } from './Utils';
 THREE.Cache.enabled = true;
 
