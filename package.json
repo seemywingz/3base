@@ -1,7 +1,7 @@
 {
   "name": "3base",
   "version": "0.1.5",
-  "description": "THREE.js CANNON.js 3d Application Boilerplate",
+  "description": "3d Wb Application Engine",
   "scripts": {
     "test": "echo \"PASS\" && exit 0",
     "dev": "webpack-dev-server --mode development --content-base srv/",
