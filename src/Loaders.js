@@ -61,7 +61,7 @@ export default class Loaders {
   }
 
   clear(){
-    let scene = this.currentLevel.scene;
+    let scene = this.currentScene.scene;
     scene.children.forEach(function(object){
       scene.remove(object);
     });
@@ -85,9 +85,9 @@ export default class Loaders {
   }
 
   onWindowResize() {
-    if (this.currentLevel !== undefined){
-      this.currentLevel.camera.lens.aspect = window.innerWidth / window.innerHeight;
-      this.currentLevel.camera.lens.updateProjectionMatrix();
+    if (this.currentScene !== undefined){
+      this.currentScene.camera.lens.aspect = window.innerWidth / window.innerHeight;
+      this.currentScene.camera.lens.updateProjectionMatrix();
     }
 		this.renderer.setSize( window.innerWidth, window.innerHeight );
   }
@@ -100,13 +100,13 @@ export default class Loaders {
   unPause(){
     console.log("UNPAUSING!!");
     this.paused = false;
-    if (this.currentLevel !== undefined){
-      this.currentLevel.unPause()
+    if (this.currentScene !== undefined){
+      this.currentScene.unPause()
     }
   }
 
-  loadLevel(level){
-    this.currentLevel = new level(this);
+  loadScene(scene){
+    this.currentScene = new scene(this);
   }
 
 }

@@ -4,7 +4,7 @@ import * as THREE from 'three';
 import Camera from './Camera';
 import * as CANNON from 'cannon';
 
-export default class Level {
+export default class Scene {
 
   constructor(loaders) {
     this.physicsEnabled = false;

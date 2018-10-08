@@ -1,11 +1,11 @@
 'use-strict';
 
 import Sky from '../Sky';
-import Level from '../Level';
+import Scene from '../Scene';
 import Ground from '../Ground';
 import GLTFModel from '../GLTFModel';
 
-export default class Level1 extends Level {
+export default class Scene1 extends Scene {
 
   constructor(loader) {
     super(loader);
