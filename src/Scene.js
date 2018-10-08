@@ -1,7 +1,7 @@
 'use-strict';
 
-import * as THREE from 'three';
 import Camera from './Camera';
+import * as THREE from 'three';
 import * as CANNON from 'cannon';
 
 export default class Scene {

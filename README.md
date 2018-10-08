@@ -6,7 +6,6 @@
 `yarn add 3base`
 
 ### Example webpack.config.js
-##### sets a webpack alias for 3base when using ES6 syntax
 ```js
 const path = require('path');
 console.log(path.join( __dirname + "/srv"));
@@ -31,13 +30,6 @@ module.exports = {
     ]
   },
 
-  resolve: {
-    alias: {
-      '3base': path.join(__dirname,'/node_modules/3base/lib'),
-    },
-    extensions: ['*', '.js', '.jsx']
-  },
-  
   devServer: {
     port: 10001
   }
@@ -49,34 +41,33 @@ index.js
 ```js
 'use-strict';
 
-import Loaders from '3base/Loaders';
+import * as tb from '3base';
 import Scene1 from './Scene1';
 
-let loaders = new Loaders();
+let loaders = new tb.Loaders();
 loaders.loadScene(Scene1);
 ```  
 Scene1.js
 ```js
 'use-strict';
 
-import Sky from '3base/Sky';
-import Scene from '3base/Scene';
-import Ground from '3base/Ground';
+import * as tb from '3base';
 
-export default class Scene1 extends Scene {
+export default class Scene1 extends tb.Scene {
 
   constructor(loader) {
     super(loader);
   }
   
   createScene(){
-    new Sky(this, this.loadTexture('assets/images/sky.jpg')).addToScene();
-    new Ground(this, this.loadTexture( 'assets/images/ground.jpg')).addToScene();
-  }
-
-  click(){
-    // do clicky things
+    new tb.Sky(this, this.loadTexture('assets/images/sky.jpg')).addToScene();
+    new tb.Ground(this, this.loadTexture( 'assets/images/ground.jpg')).addToScene();
+    
+    this.ankh = new tb.GLTFModel(this, 0, 0.018, -20, 'assets/models/ankh', .25, 0, true)
+    .then( (ankh) => {
+      ankh.mesh.rotation.y = Math.PI / 2;
+      ankh.addPositionalAudio('assets/audio/rickRoll.ogg', 5);
+    });
   }
 }
-
 ```

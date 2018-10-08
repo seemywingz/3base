@@ -53,7 +53,7 @@ export default class Loaders {
 
   loadingAnimation(){
     if(this.loading){
-      console.log('loading animation');
+      console.log('loading animation started...');
       var num = ~~randNum(0, loadingMsgs.length - 1);
       document.getElementById('loadingScreen').innerHTML = loadingMsgs[num];
       setTimeout(this.loadingAnimation, 100);

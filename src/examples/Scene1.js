@@ -1,21 +1,18 @@
 'use-strict';
 
-import Sky from '../Sky';
-import Scene from '../Scene';
-import Ground from '../Ground';
-import GLTFModel from '../GLTFModel';
+import * as tb from '../3base';
 
-export default class Scene1 extends Scene {
+export default class Scene1 extends tb.Scene {
 
   constructor(loader) {
     super(loader);
   }
   
   createScene(){
-    new Sky(this, this.loadTexture('assets/images/sky.jpg')).addToScene();
-    new Ground(this, this.loadTexture( 'assets/images/ground.jpg')).addToScene();
+    new tb.Sky(this, this.loadTexture('assets/images/sky.jpg')).addToScene();
+    new tb.Ground(this, this.loadTexture( 'assets/images/ground.jpg')).addToScene();
     
-    this.ankh = new GLTFModel(this, 0, 0.018, -20, 'assets/models/ankh', .25, 0, true)
+    this.ankh = new tb.GLTFModel(this, 0, 0.018, -20, 'assets/models/ankh', .25, 0, true)
     .then( (ankh) => {
       ankh.mesh.rotation.y = Math.PI / 2;
       ankh.addPositionalAudio('assets/audio/rickRoll.ogg', 5);

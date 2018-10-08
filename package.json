@@ -1,6 +1,7 @@
 {
   "name": "3base",
   "version": "0.1.6",
+  "main": "lib/3base.js",
   "description": "3d Wb Application Engine",
   "scripts": {
     "test": "echo \"PASS\" && exit 0",

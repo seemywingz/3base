@@ -1,6 +1,6 @@
-node_modules/
 .git/
-
+node_modules/
+*.tgz
 src/
 srv/bundle.js
 srv/assets/audio/*
