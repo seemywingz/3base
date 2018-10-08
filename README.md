@@ -5,9 +5,8 @@
 ### Install
 `yarn add 3base`
 
-Example webpack.config.js
----
-#### sets a webpack alias for 3base
+### Example webpack.config.js
+##### sets a webpack alias for 3base when using ES6 syntax
 ```js
 const path = require('path');
 console.log(path.join( __dirname + "/srv"));
@@ -45,8 +44,7 @@ module.exports = {
 };
 ```
 
-Usage  
-----
+### Usage  
 index.js
 ```js
 'use-strict';
