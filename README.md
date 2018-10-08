@@ -64,7 +64,6 @@ Scene1.js
 import Sky from '3base/Sky';
 import Scene from '3base/Scene';
 import Ground from '3base/Ground';
-import GLTFModel from '../node_modules/3base/src/GLTFModel';
 
 export default class Scene1 extends Scene {
 
