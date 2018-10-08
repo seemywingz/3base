@@ -1,3 +1,3 @@
 3Base
 -------------
-###### THREE.js 3d Application Boilerplate
+###### THREE.js CANNON.js 3d Application Boilerplate
