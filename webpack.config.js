@@ -1,5 +1,5 @@
 const path = require('path');
-const webpack = require('webpack');
+// const webpack = require('webpack');
 console.log(path.join( __dirname + "/srv"));
 
 module.exports = {
