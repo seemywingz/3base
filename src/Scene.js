@@ -8,6 +8,7 @@ export default class Scene {
 
   constructor(manager) {
     this.loading = false;
+    this.fixedTime = 0.015;
     this.manager = manager;
     this.removeBodies = [];
     this.sceneObjects = [];
@@ -27,7 +28,6 @@ export default class Scene {
 
       if(this.physicsEnabled ){
         this.world.step(this.fixedTime, deltaTime, 5);
-        this.lastTime = time;
         this.removeBodies.map((body)=>{
           this.world.remove(body);
         });
@@ -57,10 +57,6 @@ export default class Scene {
     this.createLights();
     this.createScene();
     this.animate();
-  }
-
-  loadTexture(textureFile){
-    return this.manager.textureLoader.load(textureFile)
   }
 
   createLights(){

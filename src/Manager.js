@@ -3,7 +3,6 @@
 import * as THREE from 'three';
 import GLTFLoader from 'three-gltf-loader';
 // import 'three-loaders/GLTFLoader';
-// import { randNum, loadingMsgs, fade } from './Utils';
 THREE.Cache.enabled = true;
 
 export default class Manager {
@@ -98,6 +97,10 @@ export default class Manager {
     if (this.currentScene !== undefined){
       this.currentScene.unPause()
     }
+  }
+
+  loadTexture(textureFile){
+    return this.textureLoader.load(textureFile)
   }
 
   loadScene(scene){
