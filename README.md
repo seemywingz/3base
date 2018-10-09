@@ -32,10 +32,15 @@ export default class Scene1 extends tb.Scene {
     new tb.Sky(this, this.manager.loadTexture('assets/images/sky.jpg')).addToScene();
     new tb.Ground(this, this.manager.loadTexture( 'assets/images/ground.jpg')).addToScene();
     
-    this.ankh = new tb.GLTFModel(this, 0, 0.018, -20, 'assets/models/ankh', .25, 0, true)
-    .then( (ankh) => {
-      ankh.mesh.rotation.y = Math.PI / 2;
+    new tb.GLTFModel(this, 0, 0.018, -20, 'assets/models/myGLTFModel', .25, 0, true)
+    .then( (model) => {
+      model.mesh.rotation.y = Math.PI / 2;
+      model.playAnimation();
     });
+  }
+
+  click(){
+    // do stuff on click
   }
 }
 ```
