@@ -6,15 +6,15 @@ import { randNum, loadingMsgs, fade } from './Utils';
 THREE.Cache.enabled = true;
 
 export default class Loaders {
-  constructor(canvas) {
+  constructor(rendererOptions, onLoad, onProgress) {
 
     this.manager
     this.glTFLoader
     this.textureLoader
     this.audioLoader
 
-    this.initManager();
-    this.initRenderer(canvas);
+    this.initManager(onLoad, onProgress);
+    this.initRenderer(rendererOptions);
 
     this.paused = false;
 
@@ -25,21 +25,15 @@ export default class Loaders {
     window.focus();
   }
 
-  initManager(){
+  initManager(onLoad, onProgress){
     console.log("Loading...");
     this.manager = new THREE.LoadingManager();
-    this.manager.onProgress = (/*item, loaded*/) => {
-      if(!this.loading){
-        this.loading = true;
-        this.loadingAnimation();
-      }
-    };
-    
+    this.manager.onProgress = onProgress;
+
     this.manager.onLoad = () => {// Completion
       console.log("...Loaded");
-      this.loading = false;
+      if (onLoad !== undefined){onLoad()};
       document.body.appendChild( this.renderer.domElement );
-      fade( document.getElementById('loadingScreen'));
     };
 
     this.manager.onError = function () {
@@ -49,6 +43,23 @@ export default class Loaders {
     this.glTFLoader = new GLTFLoader(this.manager);
     this.textureLoader = new THREE.TextureLoader(this.manager);
     this.audioLoader = new THREE.AudioLoader();
+  }
+
+  initRenderer(rendererOptions){
+    rendererOptions = (rendererOptions === null) ? { alpha: true, antialias: true}:rendererOptions;
+    this.renderer = new THREE.WebGLRenderer(rendererOptions);
+    this.renderer.setPixelRatio( window.devicePixelRatio );
+    this.renderer.shadowMap.enabled = true;
+    this.renderer.shadowMapSoft = true;
+    this.renderer.shadowCameraNear = 0.01;
+    this.renderer.shadowCameraFar = 1000;
+    this.renderer.shadowCameraFov = 45;
+    this.renderer.shadowMapBias = 0.0001;
+    this.renderer.shadowMapDarkness = 0.02;
+    this.renderer.shadowMapWidth = 1024;
+    this.renderer.shadowMapHeight = 1024;
+    this.renderer.gammaOutput = true;
+    this.renderer.gammaInput = true;
   }
 
   loadingAnimation(){
@@ -65,27 +76,6 @@ export default class Loaders {
     scene.children.forEach(function(object){
       scene.remove(object);
     });
-  }
-
-  initRenderer(canvas){
-    this.renderer = new THREE.WebGLRenderer({ 
-      alpha: true, 
-      antialias: true,
-      canvas: canvas 
-    });
-    this.renderer.setPixelRatio( window.devicePixelRatio );
-    this.renderer.setSize( window.innerWidth, window.innerHeight );
-    this.renderer.shadowMap.enabled = true;
-    this.renderer.shadowMapSoft = true;
-    this.renderer.shadowCameraNear = 0.01;
-    this.renderer.shadowCameraFar = 1000;
-    this.renderer.shadowCameraFov = 45;
-    this.renderer.shadowMapBias = 0.0001;
-    this.renderer.shadowMapDarkness = 0.02;
-    this.renderer.shadowMapWidth = 1024;
-    this.renderer.shadowMapHeight = 1024;
-    this.renderer.gammaOutput = true;
-    this.renderer.gammaInput = true;
   }
 
   onWindowResize() {

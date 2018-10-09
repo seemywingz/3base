@@ -15,7 +15,7 @@ export default class Scene1 extends tb.Scene {
     this.ankh = new tb.GLTFModel(this, 0, 0.018, -20, 'assets/models/ankh', .25, 0, true)
     .then( (ankh) => {
       ankh.mesh.rotation.y = Math.PI / 2;
-      ankh.addPositionalAudio('assets/audio/rickRoll.ogg', 5);
+      // ankh.addPositionalAudio('assets/audio/rickRoll.ogg', 5);
     });
 
     // this.wind = this.getAudio('./assets/audio/wind.wav', 0.3).play();
