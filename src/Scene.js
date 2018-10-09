@@ -6,10 +6,10 @@ import * as CANNON from 'cannon';
 
 export default class Scene {
 
-  constructor(loaders) {
-    this.physicsEnabled = false;
-    this.loaders = loaders;
+  constructor(manager) {
     this.loading = false;
+    this.manager = manager;
+    this.physicsEnabled = false;
     this.scene = new THREE.Scene();
     this.camera = new Camera(0,2,0, this);
 
@@ -19,20 +19,12 @@ export default class Scene {
     this.lastTime = performance.now();
     this.fixedTime = 0.015;
 
-    if(this.physicsEnabled){
-      console.log("Scene Physics Enabled")
-      this.world = new CANNON.World();
-      this.world.gravity.set(0,-9.82,0);
-      // this.world.broadphase = new CANNON.NaiveBroadphase();
-      this.world.solver.iterations = 10;
-      this.world.allowSleep = true;
-    }
     this.load();
   }
 
   animate() {
     this.animationRequest = requestAnimationFrame( this.animate.bind(this) );
-    if(document.hasFocus() && !this.loaders.paused){
+    if(document.hasFocus() && !this.manager.paused){
       this.camera.update();
 
       let time = performance.now();
@@ -50,7 +42,19 @@ export default class Scene {
         sceneObject.animate(deltaTime/1000);
       });
       
-      this.loaders.renderer.render( this.scene, this.camera.lens );
+      this.manager.renderer.render( this.scene, this.camera.lens );
+    }
+  }
+
+  enablePhysics(){
+    if(!this.physicsEnabled){
+      this.physicsEnabled = true;
+      this.world = new CANNON.World();
+      this.world.gravity.set(0,-9.82,0);
+      // this.world.broadphase = new CANNON.NaiveBroadphase();
+      this.world.solver.iterations = 10;
+      this.world.allowSleep = true;
+      console.log("Scene Physics Enabled")
     }
   }
 
@@ -61,7 +65,7 @@ export default class Scene {
   }
 
   loadTexture(textureFile){
-    return this.loaders.textureLoader.load(textureFile)
+    return this.manager.textureLoader.load(textureFile)
   }
 
   createLights(){
@@ -108,7 +112,7 @@ export default class Scene {
     let listener = new THREE.AudioListener();
     this.camera.lens.add( listener );  
     let audio = new THREE.PositionalAudio( listener );
-    this.loaders.audioLoader.load( fileName, function( buffer ) {
+    this.manager.audioLoader.load( fileName, function( buffer ) {
     	audio.setBuffer( buffer );
       audio.setRefDistance( dist );
     	audio.play();

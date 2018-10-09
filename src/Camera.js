@@ -5,8 +5,8 @@ import * as THREE from 'three';
 
 export default class Camera{
 
-  constructor(x=0, y=0, z=0, level){
-    this.level = level;
+  constructor(x=0, y=0, z=0, scene){
+    this.scene = scene;
     this.x = x;
     this.y = y;
     this.z = z;
@@ -23,7 +23,7 @@ export default class Camera{
 
     this.lens = new THREE.PerspectiveCamera(
       45,
-      window.innerWidth / window.innerHeight,
+      this.scene.manager.renderer.domElement.width / this.scene.manager.renderer.domElement.height,
       this.near,
       this.far
     );
@@ -104,7 +104,7 @@ export default class Camera{
 	  	pitchObject.rotation.x = Math.max( - PI_2, Math.min( PI_2, pitchObject.rotation.x ) );
     }
     document.addEventListener( 'mousemove', onMouseMove, false );
-    this.level.scene.add(yawObject);
+    this.scene.scene.add(yawObject);
     return yawObject;
   }
 
@@ -160,7 +160,7 @@ export default class Camera{
       this.pointerLockElement.requestPointerLock();
       this.controls.enabled = true;
     }else{
-      this.level.click();
+      this.scene.click();
     }
   }
 
@@ -237,7 +237,7 @@ export default class Camera{
       if(this.konamiIndex === this.konamiCode.length){
         this.konamiIndex = 0;
         // alert('Konami Code of HONOR!');
-        this.level.extra();
+        this.scene.extra();
       }
     }else{
       this.konamiIndex = 0;

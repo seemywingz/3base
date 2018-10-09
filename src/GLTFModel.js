@@ -14,15 +14,17 @@ export default class GLTFModel extends SceneObject {
 
   loadGLTF(addToScene){
     return new Promise((resolve, reject) => {
-      this.scene.loaders.glTFLoader.load(
+      this.scene.manager.glTFLoader.load(
         this.model + '/scene.gltf',
         ( gltf ) => {
+          try{
           this.gltf = gltf;
           this.mesh = gltf.scene;
           this.configMesh();
           this.mesh.side = THREE.DoubleSide;
           if(this.scene.physicsEnabled && this.mass >= 0) {
-             var box = new CANNON.Box3().setFromObject( this.mesh );
+            console.log(CANNON)
+             var box = new CANNON.Box().setFromObject( this.mesh );
              let size = new THREE.Vector3;
              box.getSize(size);
              this.initPhysics(this.scale, this.mass, new CANNON.Box(new CANNON.Vec3(size.x*0.5, size.y*0.5, size.z*0.5)) );
@@ -31,6 +33,9 @@ export default class GLTFModel extends SceneObject {
             this.scene.scene.add(this.mesh);
           }
           resolve(this);
+         }catch(e){
+          reject(e);
+         }
         },
         (xhr) => {// on Load
           let percentLoaded = ( xhr.loaded / xhr.total * 100 )
@@ -38,7 +43,6 @@ export default class GLTFModel extends SceneObject {
         },
         (e) => {// on Error
           console.log(e);
-          reject();
         }
       )
     });
