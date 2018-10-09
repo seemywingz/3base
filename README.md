@@ -29,8 +29,8 @@ export default class Scene1 extends tb.Scene {
   }
   
   createScene(){
-    new tb.Sky(this, this.loadTexture('assets/images/sky.jpg')).addToScene();
-    new tb.Ground(this, this.loadTexture( 'assets/images/ground.jpg')).addToScene();
+    new tb.Sky(this, this.manager.loadTexture('assets/images/sky.jpg')).addToScene();
+    new tb.Ground(this, this.manager.loadTexture( 'assets/images/ground.jpg')).addToScene();
     
     this.ankh = new tb.GLTFModel(this, 0, 0.018, -20, 'assets/models/ankh', .25, 0, true)
     .then( (ankh) => {
