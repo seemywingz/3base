@@ -9,16 +9,12 @@ export default class Scene {
   constructor(manager) {
     this.loading = false;
     this.manager = manager;
-    this.physicsEnabled = false;
-    this.scene = new THREE.Scene();
-    this.camera = new Camera(0,2,0, this);
-
     this.removeBodies = [];
     this.sceneObjects = [];
-
-    this.lastTime = performance.now();
-    this.fixedTime = 0.015;
-
+    this.physicsEnabled = false;
+    this.clock = new THREE.Clock();
+    this.scene = new THREE.Scene();
+    this.camera = new Camera(0,2,0, this);
     this.load();
   }
 
@@ -27,8 +23,7 @@ export default class Scene {
     if(document.hasFocus() && !this.manager.paused){
       this.camera.update();
 
-      let time = performance.now();
-      let deltaTime = (time - this.lastTime);
+      let deltaTime = this.clock.getDelta();
 
       if(this.physicsEnabled ){
         this.world.step(this.fixedTime, deltaTime, 5);
@@ -39,7 +34,7 @@ export default class Scene {
       }
       
       this.sceneObjects.map((sceneObject)=>{
-        sceneObject.animate(deltaTime/1000);
+        sceneObject.animate(deltaTime);
       });
       
       this.manager.renderer.render( this.scene, this.camera.lens );

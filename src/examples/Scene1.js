@@ -15,12 +15,10 @@ export default class Scene1 extends tb.Scene {
     
     new tb.GLTFModel(this, 0, 0, -10, 'assets/models/deadpool', 1.25, 0, true)
     .then(deadpool=>{
-      console.log(deadpool);
-      this.deadpool = deadpool;
+      deadpool.playAnimation(0);
     })
   }
 
   click(){
-    this.deadpool.playAnimation(0);
   }
 }
