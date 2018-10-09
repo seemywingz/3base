@@ -24,8 +24,8 @@ import * as tb from '3base';
 
 export default class Scene1 extends tb.Scene {
 
-  constructor(loader) {
-    super(loader);
+  constructor(manager) {
+    super(manager);
   }
   
   createScene(){
