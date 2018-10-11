@@ -20,6 +20,7 @@ export default class Camera{
     this.moveRight = false;
     this.near = 0.5;
     this.far = 1000000;
+    this.clock = new THREE.Clock();
 
     this.lens = new THREE.PerspectiveCamera(
       45,
@@ -34,7 +35,6 @@ export default class Camera{
     // Easter Eggs
     this.konamiCode = [38, 38, 40, 40, 37, 39, 37, 39, 66, 65];
     this.konamiIndex = 0;
-    this.pTime = performance.now();
   }
 
   setPOS(x, y, z){
@@ -46,13 +46,12 @@ export default class Camera{
     this.controls.position.z = z
   }
 
-  update(){
+  update(deltaTime){
     if(this.controls.enabled){
       let time = performance.now();
-      let delta = ( time - this.pTime ) / 1000;
       
-      this.velocity.x -= this.velocity.x * 10 * delta;
-      this.velocity.z -= this.velocity.z * 10 * delta;
+      this.velocity.x -= this.velocity.x * 10 * deltaTime;
+      this.velocity.z -= this.velocity.z * 10 * deltaTime;
       // this.velocity.y -= 9.8 * 100.0 * delta; // 100.0 = mass
 
       if(this.moveUp){
@@ -66,14 +65,12 @@ export default class Camera{
 			this.direction.x = Number( this.moveLeft ) - Number( this.moveRight );
       this.direction.normalize(); // this ensures consistent movements in all direction
       
-			if ( this.moveForward || this.moveBackward ) this.velocity.z -= this.direction.z * this.speed * delta;
-			if ( this.moveLeft || this.moveRight ) this.velocity.x -= this.direction.x * (this.speed * 0.5) * delta;
+			if ( this.moveForward || this.moveBackward ) this.velocity.z -= this.direction.z * this.speed * deltaTime;
+			if ( this.moveLeft || this.moveRight ) this.velocity.x -= this.direction.x * (this.speed * 0.5) * deltaTime;
       
-      this.controls.translateX( this.velocity.x * delta );
+      this.controls.translateX( this.velocity.x * deltaTime );
 			// this.controls.translateY( this.velocity.y * delta );
-			this.controls.translateZ( this.velocity.z * delta );
-      
-      this.pTime = time;
+			this.controls.translateZ( this.velocity.z * deltaTime );
     }
   }
 

@@ -22,10 +22,10 @@ export default class Scene {
   animate() {
     this.animationRequest = requestAnimationFrame( this.animate.bind(this) );
     if(document.hasFocus() && !this.manager.paused){
-      this.camera.update();
-
+      
       let deltaTime = this.clock.getDelta();
-
+      this.camera.update(deltaTime);
+      
       if(this.physicsEnabled ){
         this.world.step(this.fixedTime, deltaTime, 5);
         this.removeBodies.map((body)=>{
