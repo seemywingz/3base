@@ -6,9 +6,9 @@ import {
   BoxGeometry,
   MeshPhongMaterial
  } from 'three';
-import SceneObject from './SceneObject';
+import MeshObject from './MeshObject';
 
-export default class Cube extends SceneObject {
+export default class Cube extends MeshObject {
 
   constructor(scene, x, y, z, texture, scale=1, mass=1){
     let material = new MeshPhongMaterial({ map: texture });

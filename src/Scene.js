@@ -1,6 +1,7 @@
 'use-strict';
 
 import Camera from './Camera';
+import Light from './Light';
 import * as THREE from 'three';
 import * as CANNON from 'cannon';
 
@@ -15,7 +16,7 @@ export default class Scene {
     this.physicsEnabled = false;
     this.clock = new THREE.Clock();
     this.scene = new THREE.Scene();
-    this.camera = new Camera(0,2,0, this);
+    this.camera = new Camera(this,0,2,0);
     this.load();
   }
 
@@ -60,19 +61,21 @@ export default class Scene {
   }
 
   createLights(){
-    let light = new THREE.PointLight( 0xc9c9c9, 1, 50000, -1);
-    light.position.set(0, 400, 100);
-    light.castShadow = true;
-    // light.shadowMapBias = 0.01;
-    // light.shadowMapDarkness = 0.00001;
-    // light.shadow.mapSize.width = 1024;
-    // light.shadow.mapSize.height = 1024;
-    this.scene.add( light );
+    // let light = new THREE.PointLight( 0xc9c9c9, 1, 50000, -1);
+    // light.position.set(0, 400, 100);
+    // light.castShadow = true;
+    // // light.shadowMapBias = 0.01;
+    // // light.shadowMapDarkness = 0.00001;
+    // // light.shadow.mapSize.width = 1024;
+    // // light.shadow.mapSize.height = 1024;
+    // this.scene.add( light );
 
-    let pointLightHelper = new THREE.PointLightHelper( light, 20 );
-    this.scene.add( pointLightHelper );
+    // let pointLightHelper = new THREE.PointLightHelper( light, 20 );
+    // this.scene.add( pointLightHelper );
 
     // this.scene.add(new AmbientLight(0x9b9b9b, 0.2));
+
+    let light = new Light(this, 1, 1, 1).addToScene();
 
     let skyColor = 0xe5efff;
     let groundColor = 0xecffd1;
@@ -81,11 +84,11 @@ export default class Scene {
   }
 
   click(){
-    console.log("Level CLICK!")
+    console.log("CLICK!")
   }
 
   unPause(){
-    
+    console.log("Scene Unpausing!")
   }
 
   die(){

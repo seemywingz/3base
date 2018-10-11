@@ -13,7 +13,6 @@ export default class Scene1 extends tb.Scene {
     this.cannonBallTexture = this.manager.loadTexture( 'assets/images/ball.jpg');
     new tb.Sky(this, this.manager.loadTexture('assets/images/sky.jpg')).addToScene();
     new tb.Ground(this, this.manager.loadTexture( 'assets/images/ground.jpg')).addToScene();
-    console.log(tb)
     var ballTexture = this.manager.loadTexture( 'assets/images/beachBall.jpg');
     for (let index = 0; index < 30; index++) {
       let ball = new tb.Ball(this, tb.Utils.randNum(-50,50), tb.Utils.randNum(0.5, 200), tb.Utils.randNum(-50,50), ballTexture, 1, 0.05);

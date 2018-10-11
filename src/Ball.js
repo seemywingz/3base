@@ -6,9 +6,9 @@ import {
   MeshPhongMaterial
 } from 'three';
 import {Sphere} from 'cannon';
-import SceneObject from './SceneObject';
+import MeshObject from './MeshObject';
 
-export default class Ball extends SceneObject {
+export default class Ball extends MeshObject {
 
   constructor(scene, x, y, z, texture, scale=1, mass=1){
     let material = new MeshPhongMaterial({ map: texture });

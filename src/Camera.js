@@ -2,14 +2,12 @@
 
 
 import * as THREE from 'three';
+import SceneObject from './SceneObject';
 
-export default class Camera{
+export default class Camera extends SceneObject{
 
-  constructor(x=0, y=0, z=0, scene){
-    this.scene = scene;
-    this.x = x;
-    this.y = y;
-    this.z = z;
+  constructor(scene,x=0, y=0, z=0){
+    super(scene, x, y, z)
     this.height = y;
     this.speed = 400;
     this.velocity = new THREE.Vector3();

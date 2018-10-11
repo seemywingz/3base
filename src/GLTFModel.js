@@ -1,10 +1,10 @@
 'use-strict';
 
 import * as THREE from 'three';
-import * as CANNON from 'cannon';
-import SceneObject from './SceneObject';
+// import * as CANNON from 'cannon';
+import MeshObject from './MeshObject';
 
-export default class GLTFModel extends SceneObject {
+export default class GLTFModel extends MeshObject {
 
   constructor(scene, x, y, z, model, scale=1, mass=1, addToScene=false){
     super(scene, x, y, z, null, scale, mass);
@@ -22,6 +22,7 @@ export default class GLTFModel extends SceneObject {
           this.mesh = gltf.scene;
           this.configMesh();
           this.mesh.side = THREE.DoubleSide;
+          this.threeObject = this.mesh;
           // if(this.scene.physicsEnabled && this.mass >= 0) {
           //   console.log(CANNON)
           //    var box = new CANNON.Box().setFromObject( this.mesh );
@@ -30,7 +31,7 @@ export default class GLTFModel extends SceneObject {
           //    this.initPhysics(this.scale, this.mass, new CANNON.Box(new CANNON.Vec3(size.x*0.5, size.y*0.5, size.z*0.5)) );
           // }
           if (addToScene) {
-            this.scene.scene.add(this.mesh);
+            this.addToScene();
           }
           resolve(this);
          }catch(e){
