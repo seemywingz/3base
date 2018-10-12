@@ -5,7 +5,6 @@ export let Camera = require("./Camera").default;
 export let Cube = require("./Cube").default;
 export let GLTFModel = require("./GLTFModel").default;
 export let Ground = require("./Ground").default;
-export let Light = require("./Light").default;
 export let Manager = require("./Manager").default;
 export let Scene = require("./Scene").default;
 export let SceneObject = require("./SceneObject").default;

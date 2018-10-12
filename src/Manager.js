@@ -49,17 +49,18 @@ export default class Manager {
     rendererOptions = (rendererOptions === null) ? { alpha: true, antialias: true}:rendererOptions;
     this.renderer = new THREE.WebGLRenderer(rendererOptions);
     this.renderer.setPixelRatio( window.devicePixelRatio );
-    this.renderer.shadowMap.enabled = true;
-    this.renderer.shadowMapSoft = true;
-    this.renderer.shadowCameraNear = 0.01;
-    this.renderer.shadowCameraFar = 1000;
-    this.renderer.shadowCameraFov = 45;
-    this.renderer.shadowMapBias = 0.0001;
-    this.renderer.shadowMapDarkness = 0.02;
-    this.renderer.shadowMapWidth = 1024;
-    this.renderer.shadowMapHeight = 1024;
     this.renderer.gammaOutput = true;
     this.renderer.gammaInput = true;
+    this.renderer.shadowMap.enabled = true;
+    this.renderer.shadowMap.type = THREE.PCFSoftShadowMap; // default THREE.PCFShadowMap
+    // this.renderer.shadowMapSoft = true;
+    // this.renderer.shadowCameraNear = 0.01;
+    // this.renderer.shadowCameraFar = 1000;
+    // this.renderer.shadowCameraFov = 45;
+    // this.renderer.shadowMapBias = 0.0001;
+    // this.renderer.shadowMapDarkness = 0.02;
+    // this.renderer.shadowMapWidth = 1024;
+    // this.renderer.shadowMapHeight = 1024;
   }
 
   // loadingAnimation(){
@@ -80,7 +81,6 @@ export default class Manager {
 
   onWindowResize() {
     if (this.currentScene !== undefined){
-      console.log(this.renderer);
       this.currentScene.camera.lens.aspect = this.renderer.domElement.width / this.renderer.domElement.height;
       this.currentScene.camera.lens.updateProjectionMatrix();
     }

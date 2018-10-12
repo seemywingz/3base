@@ -1,7 +1,6 @@
 'use-strict';
 
 import * as THREE from 'three';
-import * as CANNON from 'cannon';
 
 export default class SceneObject {
 

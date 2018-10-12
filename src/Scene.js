@@ -1,7 +1,10 @@
 'use-strict';
 
 import Camera from './Camera';
-import Light from './Light';
+import PointLight from './PointLight';
+import AmbientLight from './AmbientLight';
+import HemisphereLight from './HemisphereLight';
+import DirectionalLight from './DirectionalLight';
 import * as THREE from 'three';
 import * as CANNON from 'cannon';
 
@@ -61,26 +64,20 @@ export default class Scene {
   }
 
   createLights(){
-    // let light = new THREE.PointLight( 0xc9c9c9, 1, 50000, -1);
-    // light.position.set(0, 400, 100);
-    // light.castShadow = true;
-    // // light.shadowMapBias = 0.01;
-    // // light.shadowMapDarkness = 0.00001;
-    // // light.shadow.mapSize.width = 1024;
-    // // light.shadow.mapSize.height = 1024;
-    // this.scene.add( light );
+    // new AmbientLight(this).addToScene();
 
-    // let pointLightHelper = new THREE.PointLightHelper( light, 20 );
-    // this.scene.add( pointLightHelper );
+    // let pl = new PointLight(this, 0,40,10);
+    // pl.addHelper();
+    // pl.addToScene();
 
-    // this.scene.add(new AmbientLight(0x9b9b9b, 0.2));
+    let dl = new DirectionalLight(this, 10, 10, 0);
+    dl.addHelper();
+    dl.addShadow(1000,1000);
+    dl.addToScene()
 
-    let light = new Light(this, 1, 1, 1).addToScene();
-
-    let skyColor = 0xe5efff;
-    let groundColor = 0xecffd1;
-    light = new THREE.HemisphereLight( skyColor, groundColor, 0.2 );
-    this.scene.add( light );
+    // let skyColor = 0xe5efff;
+    // let groundColor = 0xecffd1;
+    // new HemisphereLight(this, skyColor, groundColor, 0.02).addToScene();
   }
 
   click(){
