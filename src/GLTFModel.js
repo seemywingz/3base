@@ -18,6 +18,11 @@ export default class GLTFModel extends MeshObject {
         this.model + '/scene.gltf',
         ( gltf ) => {
           try{
+          gltf.scene.traverse( node => {
+            if ( node instanceof THREE.Mesh ){
+              node.castShadow = true; 
+            }
+          });
           this.gltf = gltf;
           this.mesh = gltf.scene;
           this.configMesh();

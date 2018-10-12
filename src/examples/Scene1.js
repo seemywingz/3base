@@ -26,6 +26,17 @@ export default class Scene1 extends tb.Scene {
     })
   }
 
+  createLights(){
+    let dl = new tb.DirectionalLight(this, 1, 200, 0);
+    dl.addShadow(-30,30,30,-30);
+    dl.addHelper();
+    dl.addToScene()
+
+    let skyColor = 0xe5efff;
+    let groundColor = 0xecffd1;
+    new tb.HemisphereLight(this, skyColor, groundColor, 0.02).addToScene();
+  }
+
   click(){
     let direction = this.camera.getDirection();
     let pos = this.camera.controls.position;

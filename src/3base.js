@@ -9,6 +9,9 @@ export let Manager = require("./Manager").default;
 export let Scene = require("./Scene").default;
 export let SceneObject = require("./SceneObject").default;
 export let Sky = require("./Sky").default;
+export let DirectionalLight = require("./DirectionalLight").default;
+export let AmbientLight = require("./AmbientLight").default;
+export let HemisphereLight = require("./HemisphereLight").default;
 
 import UtilityFunctions from './UtilityFunctions';
 export let Utils = new UtilityFunctions();

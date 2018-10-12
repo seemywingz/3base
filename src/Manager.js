@@ -53,14 +53,6 @@ export default class Manager {
     this.renderer.gammaInput = true;
     this.renderer.shadowMap.enabled = true;
     this.renderer.shadowMap.type = THREE.PCFSoftShadowMap; // default THREE.PCFShadowMap
-    // this.renderer.shadowMapSoft = true;
-    // this.renderer.shadowCameraNear = 0.01;
-    // this.renderer.shadowCameraFar = 1000;
-    // this.renderer.shadowCameraFov = 45;
-    // this.renderer.shadowMapBias = 0.0001;
-    // this.renderer.shadowMapDarkness = 0.02;
-    // this.renderer.shadowMapWidth = 1024;
-    // this.renderer.shadowMapHeight = 1024;
   }
 
   // loadingAnimation(){

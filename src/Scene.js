@@ -64,12 +64,6 @@ export default class Scene {
   }
 
   createLights(){
-    // new AmbientLight(this).addToScene();
-
-    // let pl = new PointLight(this, 0,40,10);
-    // pl.addHelper();
-    // pl.addToScene();
-
     let dl = new DirectionalLight(this, 1, 200, 0);
     dl.addShadow();
     dl.addHelper();
