@@ -5,7 +5,7 @@ import SceneObject from './SceneObject';
 
 export default class DirectionalLight extends SceneObject{
 
-  constructor(scene, x=0, y=1, z=0, color=0xffffff, intensity=1) {
+  constructor(scene, x=0, y=1, z=0, color=0xffffff, intensity=1.0) {
     let source = new THREE.DirectionalLight(color, intensity);
     source.position.set( x, y, z ); 
     super(scene, x,y,z, source)

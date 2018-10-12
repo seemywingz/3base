@@ -25,14 +25,12 @@ export default class MeshObject extends SceneObject {
     this.scene.sceneObjects.push(this);
   }
 
-  initPhysics(scale, mass, shape){
-    if (!this.scene.physicsEnabled) { return };
+  initPhysics(mass, shape){
     new Promise ((resolve, reject) => {
       try{
         this.body = new CANNON.Body({
           mass: mass
         });
-        // console.log("Init Physics");
         this.body.addShape(shape);
         this.body.position.set(this.x,this.y,this.z);
         this.body.angularVelocity.set(0,0,0);
@@ -59,20 +57,20 @@ export default class MeshObject extends SceneObject {
     if( this.mixer !== null)
       this.mixer.update( tick );
 
-    this.animation();
+    this.onUpdate();
   }
 
-  animation(){}
+  onUpdate(){}
+
+  addPositionalAudio(fileName = "", dist = 1){
+    let audio = this.scene.getPositionalAudio(fileName, dist)
+    this.mesh.add(audio);
+  }
 
   die(){
     this.scene.scene.remove(this.mesh);
     this.scene.removeBodies.push(this.body);
     this.scene.world.removeBody(this.body)
-  }
-
-  addPositionalAudio(fileName = "", dist = 1){
-    let audio = this.scene.getPositionalAudio(fileName, dist)
-    this.mesh.add(audio);
   }
 
 }

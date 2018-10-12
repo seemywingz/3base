@@ -18,16 +18,16 @@ export default class GLTFModel extends MeshObject {
         this.model + '/scene.gltf',
         ( gltf ) => {
           try{
-          gltf.scene.traverse( node => {
-            if ( node instanceof THREE.Mesh ){
-              node.castShadow = true; 
-            }
-          });
-          this.gltf = gltf;
-          this.mesh = gltf.scene;
-          this.configMesh();
-          this.mesh.side = THREE.DoubleSide;
-          this.threeObject = this.mesh;
+            this.mesh = gltf.scene;
+            this.gltf = gltf;
+            gltf.scene.traverse( node => {
+              if ( node instanceof THREE.Mesh ){
+                node.castShadow = true; 
+              }
+            });
+            this.configMesh();
+            this.mesh.side = THREE.DoubleSide;
+            this.threeObject = this.mesh;
           // if(this.scene.physicsEnabled && this.mass >= 0) {
           //   console.log(CANNON)
           //    var box = new CANNON.Box().setFromObject( this.mesh );
@@ -35,10 +35,10 @@ export default class GLTFModel extends MeshObject {
           //    box.getSize(size);
           //    this.initPhysics(this.scale, this.mass, new CANNON.Box(new CANNON.Vec3(size.x*0.5, size.y*0.5, size.z*0.5)) );
           // }
-          if (addToScene) {
-            this.addToScene();
-          }
-          resolve(this);
+            if (addToScene) {
+              this.addToScene();
+            }
+            resolve(this);
          }catch(e){
           reject(e);
          }

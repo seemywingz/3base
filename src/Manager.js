@@ -10,13 +10,12 @@ export default class Manager {
 
     this.manager
     this.glTFLoader
-    this.textureLoader
     this.audioLoader
+    this.textureLoader
+    this.paused = false;
 
     this.initManager(onLoad, onProgress);
     this.initRenderer(rendererOptions);
-
-    this.paused = false;
 
     // Window Event Listeners
     window.addEventListener( 'resize', this.onWindowResize.bind(this), false );

@@ -15,7 +15,7 @@ export default class Cube extends MeshObject {
     let mesh = new Mesh(new BoxGeometry( scale, scale, scale ), material);
     super(scene, x, y, z, mesh, scale, mass);
     if(this.scene.physicsEnabled)
-      this.initPhysics(this.scale, this.mass, new Box(new Vec3(this.scale*0.5, this.scale*0.5, this.scale*0.5)) );
+      this.initPhysics(this.mass, new Box(new Vec3(this.scale*0.5, this.scale*0.5, this.scale*0.5)) );
   }
 
 }

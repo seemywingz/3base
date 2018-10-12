@@ -16,7 +16,6 @@ export default class Camera extends SceneObject{
     this.moveRight = false;
     this.moveForward = false;
     this.moveBackward = false;
-    this.controlsEnabled = false;
     this.clock = new THREE.Clock();
     this.velocity = new THREE.Vector3();
     this.direction = new THREE.Vector3();
@@ -34,13 +33,15 @@ export default class Camera extends SceneObject{
     this.konamiIndex = 0;
   }
 
-  setPOS(x, y, z){
+  setPosition(x, y, z){
     this.x = x;
     this.y = y;
     this.z = z;
-    this.controls.position.x = x;
-    this.controls.position.y = y;
-    this.controls.position.z = z;
+    if (this.controls) {
+      this.controls.position.x = x;
+      this.controls.position.y = y;
+      this.controls.position.z = z;
+    }
   }
 
   update(deltaTime){
@@ -71,13 +72,12 @@ export default class Camera extends SceneObject{
   }
 
   enablePointerLockControls(){
-    this.controlsEnabled = true;
+    this.controls = this.pointerLockControls();
     this.initPointerLock();
     this.addEventListeners();
   }
 
   initPointerLock() {
-    this.controls = this.pointerLockControls();
     this.pointerLockElement = document.body;
     let havePointerLock = 'pointerLockElement' in document || 'mozPointerLockElement' in document || 'webkitPointerLockElement' in document;
     if(havePointerLock){
@@ -90,6 +90,7 @@ export default class Camera extends SceneObject{
 
   pointerLockControls(){
 	  this.lens.rotation.set( 0, 0, 0 );
+	  this.lens.position.set( 0, 0, 0 );
 
 	  let pitchObject = new THREE.Object3D();
 	  pitchObject.add( this.lens );

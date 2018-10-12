@@ -15,7 +15,7 @@ export default class Ball extends MeshObject {
     let mesh = new Mesh(new SphereGeometry( scale, 32, 32 ), material);
     super(scene, x, y, z, mesh, scale, mass);
     if(this.scene.physicsEnabled)
-      this.initPhysics(this.scale, this.mass, new Sphere(scale) );
+      this.initPhysics(this.mass, new Sphere(scale) );
   }
 
 }
