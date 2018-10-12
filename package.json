@@ -1,6 +1,6 @@
 {
   "name": "3base",
-  "version": "0.1.16",
+  "version": "0.1.17",
   "main": "lib/3base.js",
   "description": "3d Wb Application Engine (THREE.js and CANNON.js Wrapper)",
   "scripts": {
