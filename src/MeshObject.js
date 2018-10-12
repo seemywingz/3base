@@ -48,7 +48,7 @@ export default class MeshObject extends SceneObject {
     });
   }
 
-  animate(tick=0.5){
+  update(tick=0.5){
     if(this.scene.physicsEnabled){
       if(this.body !== null){
         this.mesh.position.copy(this.body.position);

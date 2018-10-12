@@ -20,11 +20,16 @@ export default class Scene {
     this.clock = new THREE.Clock();
     this.scene = new THREE.Scene();
     this.camera = new Camera(this,0,2,0);
-    this.load();
   }
 
-  animate() {
-    this.animationRequest = requestAnimationFrame( this.animate.bind(this) );
+  load(){
+    this.createLights();
+    this.createScene();
+    this.update();
+  }
+
+  update() {
+    this.animationRequest = requestAnimationFrame( this.update.bind(this) );
     if(document.hasFocus() && !this.manager.paused){
       
       let deltaTime = this.clock.getDelta();
@@ -38,7 +43,7 @@ export default class Scene {
       }
       
       this.sceneObjects.map((sceneObject)=>{
-        sceneObject.animate(deltaTime);
+        sceneObject.update(deltaTime);
       });
       
       this.manager.renderer.render( this.scene, this.camera.lens );
@@ -46,21 +51,13 @@ export default class Scene {
   }
 
   enablePhysics(){
-    if(!this.physicsEnabled){
-      this.physicsEnabled = true;
-      this.world = new CANNON.World();
-      this.world.gravity.set(0,-9.82,0);
-      // this.world.broadphase = new CANNON.NaiveBroadphase();
-      this.world.solver.iterations = 10;
-      this.world.allowSleep = true;
-      console.log("Scene Physics Enabled")
-    }
-  }
-
-  load(){
-    this.createLights();
-    this.createScene();
-    this.animate();
+    this.physicsEnabled = true;
+    this.world = new CANNON.World();
+    this.world.gravity.set(0,-9.82,0);
+    // this.world.broadphase = new CANNON.NaiveBroadphase();
+    this.world.solver.iterations = 10;
+    this.world.allowSleep = true;
+    console.log("Scene Physics Enabled")
   }
 
   createLights(){
@@ -76,6 +73,10 @@ export default class Scene {
 
   click(){
     console.log("CLICK!")
+  }
+
+  pause(){
+    console.log("!Scene Pausing")
   }
 
   unPause(){

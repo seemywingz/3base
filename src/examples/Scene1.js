@@ -6,10 +6,12 @@ export default class Scene1 extends tb.Scene {
 
   constructor(manager) {
     super(manager);
+    this.enablePhysics();
+    // this.camera.enablePointerLockControls();
+    this.load();
   }
   
   createScene(){
-    this.enablePhysics();
     this.cannonBallTexture = this.manager.loadTexture( 'assets/images/ball.jpg');
     new tb.Sky(this, this.manager.loadTexture('assets/images/sky.jpg')).addToScene();
     new tb.Ground(this, this.manager.loadTexture( 'assets/images/ground.jpg')).addToScene();
@@ -29,7 +31,6 @@ export default class Scene1 extends tb.Scene {
   createLights(){
     let dl = new tb.DirectionalLight(this, 1, 200, 0);
     dl.addShadow(-30,30,30,-30);
-    dl.addHelper();
     dl.addToScene()
 
     let skyColor = 0xe5efff;

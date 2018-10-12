@@ -8,17 +8,18 @@ export default class Camera extends SceneObject{
 
   constructor(scene,x=0, y=0, z=0){
     super(scene, x, y, z)
-    this.height = y;
+    this.near = 0.5;
     this.speed = 400;
-    this.velocity = new THREE.Vector3();
-    this.direction = new THREE.Vector3();
-    this.moveForward = false;
-    this.moveBackward = false;
+    this.far = 1000000;
+    this.controls = false;
     this.moveLeft = false;
     this.moveRight = false;
-    this.near = 0.5;
-    this.far = 1000000;
+    this.moveForward = false;
+    this.moveBackward = false;
+    this.controlsEnabled = false;
     this.clock = new THREE.Clock();
+    this.velocity = new THREE.Vector3();
+    this.direction = new THREE.Vector3();
 
     this.lens = new THREE.PerspectiveCamera(
       45,
@@ -26,10 +27,8 @@ export default class Camera extends SceneObject{
       this.near,
       this.far
     );
-    
-    this.initPointerLock();
-    this.addEventListeners();
-
+    this.lens.position.set(x, y, z);
+  
     // Easter Eggs
     this.konamiCode = [38, 38, 40, 40, 37, 39, 37, 39, 66, 65];
     this.konamiIndex = 0;
@@ -39,14 +38,13 @@ export default class Camera extends SceneObject{
     this.x = x;
     this.y = y;
     this.z = z;
-    this.controls.position.x = x
-    this.controls.position.y = y
-    this.controls.position.z = z
+    this.controls.position.x = x;
+    this.controls.position.y = y;
+    this.controls.position.z = z;
   }
 
   update(deltaTime){
-    if(this.controls.enabled){
-      let time = performance.now();
+    if(this.controls){
       
       this.velocity.x -= this.velocity.x * 10 * deltaTime;
       this.velocity.z -= this.velocity.z * 10 * deltaTime;
@@ -72,35 +70,10 @@ export default class Camera extends SceneObject{
     }
   }
 
-  pointerLockControls(){
-	  this.lens.rotation.set( 0, 0, 0 );
-
-	  let pitchObject = new THREE.Object3D();
-	  pitchObject.add( this.lens );
-  
-	  let yawObject = new THREE.Object3D();
-	  yawObject.position.x = this.x;
-	  yawObject.position.y = this.height;
-	  yawObject.position.z = this.z;
-	  yawObject.add( pitchObject );
-    yawObject.enabled = false;
-  
-	  let PI_2 = Math.PI / 2;
-  
-	  let onMouseMove = function ( event ) {
-      // console.log("Mouse Moving");
-      if(!yawObject.enabled) return;
-	  	let movementX = event.movementX || event.mozMovementX || event.webkitMovementX || 0;
-	  	let movementY = event.movementY || event.mozMovementY || event.webkitMovementY || 0;
-  
-	  	yawObject.rotation.y -= movementX * 0.002;
-	  	pitchObject.rotation.x -= movementY * 0.002;
-  
-	  	pitchObject.rotation.x = Math.max( - PI_2, Math.min( PI_2, pitchObject.rotation.x ) );
-    }
-    document.addEventListener( 'mousemove', onMouseMove, false );
-    this.scene.scene.add(yawObject);
-    return yawObject;
+  enablePointerLockControls(){
+    this.controlsEnabled = true;
+    this.initPointerLock();
+    this.addEventListeners();
   }
 
   initPointerLock() {
@@ -113,6 +86,36 @@ export default class Camera extends SceneObject{
     }else{
       alert('Your Browser Does not Support Pointer Locking!');
     }
+  }
+
+  pointerLockControls(){
+	  this.lens.rotation.set( 0, 0, 0 );
+
+	  let pitchObject = new THREE.Object3D();
+	  pitchObject.add( this.lens );
+  
+	  let yawObject = new THREE.Object3D();
+	  yawObject.position.x = this.x;
+	  yawObject.position.y = this.y;
+	  yawObject.position.z = this.z;
+	  yawObject.add( pitchObject );
+    yawObject.enabled = false;
+  
+	  let PI_2 = Math.PI / 2;
+  
+	  let onMouseMove = function ( event ) {
+      if(!yawObject.enabled) return;
+	  	let movementX = event.movementX || event.mozMovementX || event.webkitMovementX || 0;
+	  	let movementY = event.movementY || event.mozMovementY || event.webkitMovementY || 0;
+  
+	  	yawObject.rotation.y -= movementX * 0.002;
+	  	pitchObject.rotation.x -= movementY * 0.002;
+  
+	  	pitchObject.rotation.x = Math.max( - PI_2, Math.min( PI_2, pitchObject.rotation.x ) );
+    }
+    document.addEventListener( 'mousemove', onMouseMove, false );
+    this.scene.scene.add(yawObject);
+    return yawObject;
   }
 
   pointerlockchange() {

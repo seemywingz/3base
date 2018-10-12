@@ -55,15 +55,6 @@ export default class Manager {
     this.renderer.shadowMap.type = THREE.PCFSoftShadowMap; // default THREE.PCFShadowMap
   }
 
-  // loadingAnimation(){
-  //   if(this.loading){
-  //     console.log('loading animation started...');
-  //     var num = ~~randNum(0, loadingMsgs.length - 1);
-  //     document.getElementById('loadingScreen').innerHTML = loadingMsgs[num];
-  //     setTimeout(this.loadingAnimation, 100);
-  //   }
-  // }
-
   clear(){
     let scene = this.currentScene.scene;
     scene.children.forEach(function(object){
@@ -81,6 +72,9 @@ export default class Manager {
   pause(){
     console.log("!!PAUSING");
     this.paused = true;
+    if (this.currentScene !== undefined){
+      this.currentScene.pause()
+    }
   }
 
   unPause(){
