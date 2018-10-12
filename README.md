@@ -5,7 +5,52 @@
 ### Install
 `yarn add 3base`
 
-### Usage  
+### Usage Example
+webpack.config.js
+```js
+const path = require('path');
+
+module.exports = {
+  entry: {
+    app: './src/examples/index.js',
+  },
+
+  output: {
+    path: path.join( __dirname + "/srv"),
+    filename: 'bundle.js'
+  },
+
+  module: {
+    rules: [
+      {
+        test: /\.(js|jsx)$/,
+        exclude: /node_modules/,
+        use: ['babel-loader']
+      }
+    ]
+  },
+  
+  devServer: {
+    port: 10001
+  }
+};
+```
+index.html
+```html
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Three Base Example</title>
+  <link rel="stylesheet" type="text/css" href="./assets/stylesheets/main.css">
+</head>
+<body>
+  <canvas id="myCanvas" width="500" height="300"></canvas>
+  <script src="bundle.js"></script>
+</body>
+</html>
+```
 index.js
 ```js
 'use-strict';

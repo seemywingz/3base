@@ -1,6 +1,6 @@
 {
   "name": "3base",
-  "version": "0.1.13",
+  "version": "0.1.14",
   "main": "lib/3base.js",
   "description": "3d Wb Application Engine",
   "scripts": {
