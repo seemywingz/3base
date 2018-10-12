@@ -70,14 +70,14 @@ export default class Scene {
     // pl.addHelper();
     // pl.addToScene();
 
-    let dl = new DirectionalLight(this, 10, 10, 0);
+    let dl = new DirectionalLight(this, 1, 200, 0);
+    dl.addShadow();
     dl.addHelper();
-    dl.addShadow(1000,1000);
     dl.addToScene()
 
-    // let skyColor = 0xe5efff;
-    // let groundColor = 0xecffd1;
-    // new HemisphereLight(this, skyColor, groundColor, 0.02).addToScene();
+    let skyColor = 0xe5efff;
+    let groundColor = 0xecffd1;
+    new HemisphereLight(this, skyColor, groundColor, 0.02).addToScene();
   }
 
   click(){

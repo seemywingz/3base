@@ -30,8 +30,8 @@ export default class Scene1 extends tb.Scene {
     let direction = this.camera.getDirection();
     let pos = this.camera.controls.position;
 
-    let spd = 50;
-    let ball = new tb.Ball(this, pos.x,pos.y,pos.z, this.cannonBallTexture, 0.51, 100);
+    let spd = 5;
+    let ball = new tb.Ball(this, pos.x,pos.y,pos.z, this.cannonBallTexture, 1, 100);
     ball.body.angularVelocity.set(0, 0, 0);
     ball.body.velocity.set(direction.x * spd, direction.y * spd, direction.z * spd);
     ball.body.addEventListener("sleep",(event)=>{ball.die();});
