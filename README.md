@@ -6,6 +6,26 @@
 `yarn add 3base`
 
 ### Usage Example
+Folder Scructure
+```bash
+.
+├── README.md
+├── package-lock.json
+├── package.json
+├── src
+│   ├── ExampleScene.js
+│   ├── index.js
+├── srv
+│   ├── assets
+│   │   ├── audio
+│   │   ├── images
+│   │   ├── models
+│   │   └── stylesheets
+│   ├── bundle.js
+│   └── index.html
+├── webpack.config.js
+└── yarn.lock
+```
 webpack.config.js
 ```js
 const path = require('path');
@@ -67,33 +87,19 @@ Scene1.js
 
 import * as tb from '3base';
 
-export default class Scene1 extends tb.Scene {
+export default class ExampleScene extends tb.Scene {
 
   constructor(manager) {
-    super(manager);
-    this.enablePhysics();
-    this.camera.setPosition(0,4,3)
-    this.camera.enablePointerLockControls();
-    this.load();
+    super(manager);// required
+    this.load(); // required
   }
   
   createScene(){
-    this.cannonBallTexture = this.manager.loadTexture( 'assets/images/ball.jpg');
-    
     new tb.Sky(this, this.manager.loadTexture('assets/images/sky.jpg')).addToScene();
     new tb.Ground(this, this.manager.loadTexture( 'assets/images/ground.jpg')).addToScene();
-    
-    var ballTexture = this.manager.loadTexture( 'assets/images/beachBall.jpg');
-    for (let index = 0; index < 50; index++) {
-      let ball = new tb.Ball(this, tb.Utils.randNum(-50,50), tb.Utils.randNum(0.5, 200), tb.Utils.randNum(-50,50), ballTexture, 1, 0.05);
-      ball.mesh.shinyness = 100;
-      ball.addToScene();
-    }
-
     new tb.GLTFModel(this, 0, 0, -10, 'assets/models/deadpool', 3, 0, true)
     .then(deadpool=>{
       deadpool.playAnimation(0);
-      // deadpool.addPositionalAudio("./assets/audio/theme.ogg");
     })
   }
 
@@ -106,17 +112,5 @@ export default class Scene1 extends tb.Scene {
     let groundColor = 0xecffd1;
     new tb.HemisphereLight(this, skyColor, groundColor, 0.02).addToScene();
   }
-
-  click(){
-    let spd = 1;
-    let pos = this.camera.controls.position;
-    let direction = this.camera.getDirection();
-    let ball = new tb.Ball(this, pos.x,pos.y,pos.z, this.cannonBallTexture, 1, 100);
-    ball.body.velocity.set(direction.x * spd, direction.y * spd, direction.z * spd);
-    ball.body.addEventListener("sleep",(event)=>{ball.die();});
-    ball.body.angularVelocity.set(0, 0, 0);
-    ball.addToScene();
-  }
 }
-
 ```

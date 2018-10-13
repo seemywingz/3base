@@ -9,7 +9,7 @@ export default class Scene1 extends tb.Scene {
     this.enablePhysics();
     this.camera.setPosition(0,4,3)
     this.camera.enablePointerLockControls();
-    this.load();
+    this.load(); 
   }
   
   createScene(){
