@@ -52,6 +52,13 @@ export default class Manager {
     this.renderer.gammaInput = true;
     this.renderer.shadowMap.enabled = true;
     this.renderer.shadowMap.type = THREE.PCFSoftShadowMap; // default THREE.PCFShadowMap
+    this.renderer.setSize( window.innerWidth, window.innerHeight );
+  }
+
+  onWindowResize() {
+    this.renderer.setSize( window.innerWidth, window.innerHeight );
+    this.currentScene.camera.lens.aspect = this.renderer.domElement.width / this.renderer.domElement.height;
+    this.currentScene.camera.lens.updateProjectionMatrix();
   }
 
   clear(){
@@ -59,13 +66,6 @@ export default class Manager {
     scene.children.forEach(function(object){
       scene.remove(object);
     });
-  }
-
-  onWindowResize() {
-    if (this.currentScene !== undefined){
-      this.currentScene.camera.lens.aspect = this.renderer.domElement.width / this.renderer.domElement.height;
-      this.currentScene.camera.lens.updateProjectionMatrix();
-    }
   }
 
   pause(){

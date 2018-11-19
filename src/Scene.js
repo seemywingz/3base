@@ -44,8 +44,8 @@ export default class Scene {
         sceneObject.update(deltaTime);
       });
       
-      this.manager.renderer.render( this.scene, this.camera.lens );
     }
+    this.manager.renderer.render( this.scene, this.camera.lens );
   }
 
   enablePhysics(){
