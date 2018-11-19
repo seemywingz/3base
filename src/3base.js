@@ -2,7 +2,7 @@
 
 export let Ball = require("./Ball").default;
 export let Camera = require("./Camera").default;
-export let Cube = require("./Cube").default;
+export let Box = require("./Box").default;
 export let GLTFModel = require("./GLTFModel").default;
 export let Ground = require("./Ground").default;
 export let Manager = require("./Manager").default;

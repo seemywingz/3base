@@ -1,7 +1,7 @@
 'use-strict';
 
 // import * as THREE from 'three';
-import * as CANNON from 'cannon';
+import * as AMMO from 'ammo.js';
 import SceneObject from './SceneObject';
 
 export default class MeshObject extends SceneObject {
@@ -26,32 +26,33 @@ export default class MeshObject extends SceneObject {
   }
 
   initPhysics(mass, shape){
-    new Promise ((resolve, reject) => {
-      try{
-        this.body = new CANNON.Body({
-          mass: mass
-        });
-        this.body.addShape(shape);
-        this.body.position.set(this.x,this.y,this.z);
-        this.body.angularVelocity.set(0,0,0);
-        this.body.angularDamping = 0.7;
-        this.body.allowSleep = true;
-        this.body.sleepSpeedLimit = 0.01; // Body will feel sleepy if speed < n (speed == norm of velocity)
-        this.body.sleepTimeLimit = 0.5; // Body falls asleep after n seconds of sleepiness
-        this.scene.world.addBody(this.body);
-        resolve();
-      }catch (e) {
-        reject(e);
-      }
-    });
+    this.transform = new AMMO.btTransform();
+    this.transform.setIdentity();
+    this.transform.setOrigin(new AMMO.btVector3(this.x, this.y,this.z));
+    var localInertia = new AMMO.btVector3(0, 0, 0);
+    shape.calculateLocalInertia(mass, localInertia);
+    var motionState = new AMMO.btDefaultMotionState(this.transform);
+    var rbInfo = new AMMO.btRigidBodyConstructionInfo(mass, motionState, shape, localInertia);
+    this.body = new AMMO.btRigidBody(rbInfo);
+    this.scene.dynamicsWorld.addRigidBody(this.body);
   }
 
   update(tick=0.5){
     if(this.scene.physicsEnabled){
-      if(this.body !== null){
-        this.mesh.position.copy(this.body.position);
-        this.mesh.quaternion.copy(this.body.quaternion);
-      }
+      // if(this.body !== null){
+      //   this.mesh.position.copy(this.body.position);
+      //   this.mesh.quaternion.copy(this.body.quaternion);
+      // }
+      this.body.getMotionState().getWorldTransform(this.transform);
+      var origin = this.transform.getOrigin();
+      this.mesh.position.x = origin.x();
+      this.mesh.position.y = origin.y();
+      this.mesh.position.z = origin.z();
+      var rotation = this.transform.getRotation();
+      this.mesh.quaternion.x = rotation.x();
+      this.mesh.quaternion.y = rotation.y();
+      this.mesh.quaternion.z = rotation.z();
+      this.mesh.quaternion.w = rotation.w();
     }
 
     if( this.mixer !== null)
