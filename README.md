@@ -31,6 +31,10 @@ webpack.config.js
 const path = require('path');
 
 module.exports = {
+  node: {
+    fs: "empty" // Nedded For Ammo.js, webpack does weird things with node fs module...
+  },
+
   entry: {
     app: './src/examples/index.js',
   },
