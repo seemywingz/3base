@@ -1,6 +1,6 @@
 'use-strict';
 
-import * as tb from '3base';
+import * as tb from '../3base';
 
 export default class ExampleScene extends tb.Scene {
 
