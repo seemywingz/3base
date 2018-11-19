@@ -1,10 +1,10 @@
 'use-strict';
 
 import Camera from './Camera';
-import HemisphereLight from './HemisphereLight';
-import DirectionalLight from './DirectionalLight';
 import * as THREE from 'three';
 import * as AMMO from 'ammo.js';
+import HemisphereLight from './HemisphereLight';
+import DirectionalLight from './DirectionalLight';
 
 export default class Scene {
 

@@ -19,13 +19,13 @@ export default class Scene1 extends tb.Scene {
     let ballTexture = this.manager.loadTexture( 'assets/images/beachBall.jpg');
     let boxTexture = this.manager.loadTexture( 'assets/images/box/0.jpg');
 
-    for (let w = 0; w < 5; w++) {
-      for (let h = 0; h < 10; h++) {
-        for (let d = 0; d < 5; d++) {
-          let box = new tb.Box(this,w,h,d, boxTexture, 1, 0.05).addToScene();
-        }
-      }
-    }
+    // for (let w = 0; w < 5; w++) {
+    //   for (let h = 0; h < 10; h++) {
+    //     for (let d = 0; d < 5; d++) {
+    //       let box = new tb.Box(this,w,h,d, boxTexture, 1, 0.05).addToScene();
+    //     }
+    //   }
+    // }
 
     // for (let index = 0; index < 25; index++) {
     //   let ball = new tb.Ball(this, tb.Utils.randNum(-5,5), tb.Utils.randNum(0.5, 200), tb.Utils.randNum(-5,5), ballTexture, 1, 0.05);
@@ -36,10 +36,16 @@ export default class Scene1 extends tb.Scene {
     //   ball.addToScene();
     // }
     
-    new tb.GLTFModel(this, 0, 0, -10, 'assets/models/deadpool', 3, 0, true)
+    new tb.GLTFModel(this, -5, 0, -10, 'assets/models/deadpool', 3, 0, true)
     .then(deadpool=>{
       deadpool.playAnimation(0);
       // deadpool.addPositionalAudio("./assets/audio/theme.ogg");
+    })
+
+    new tb.GLTFModel(this, -10, 0, -10, 'assets/models/radio', 0.009, 0, true)
+    .then(radio=>{
+      radio.initPhysics(1, new tb.AMMO.btBoxShape(new tb.AMMO.btVector3(1,0.5,0.25)));
+      radio.addPositionalAudio("./assets/audio/theme.ogg", 10);
     })
   }
 
@@ -54,7 +60,7 @@ export default class Scene1 extends tb.Scene {
   }
 
   click(){
-    let spd = 100;
+    let spd = 50;
     let pos = this.camera.controls.position;
     let direction = this.camera.getDirection();
     let ball = new tb.Ball(this, pos.x,pos.y,pos.z, this.cannonBallTexture, 0.5, 100);

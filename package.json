@@ -1,8 +1,8 @@
 {
   "name": "3base",
-  "version": "0.1.17",
+  "version": "0.1.18",
   "main": "lib/3base.js",
-  "description": "3d Wb Application Engine (THREE.js and CANNON.js Wrapper)",
+  "description": "3d Wb Application Engine (THREE.js and Ammo.js Wrapper)",
   "scripts": {
     "test": "echo \"PASS\" && exit 0",
     "dev": "webpack-dev-server --mode development --content-base srv/",
