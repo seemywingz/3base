@@ -27,14 +27,14 @@ export default class Scene1 extends tb.Scene {
     //   }
     // }
 
-    // for (let index = 0; index < 25; index++) {
-    //   let ball = new tb.Ball(this, tb.Utils.randNum(-5,5), tb.Utils.randNum(0.5, 200), tb.Utils.randNum(-5,5), ballTexture, 1, 0.05);
-    //   ball.mesh.shinyness = 100;
-    //   ball.body.setFriction(10);
-    //   ball.body.setRestitution(0.5);
-    //   ball.body.setDamping(0.05, 0.05);
-    //   ball.addToScene();
-    // }
+    for (let index = 0; index < 25; index++) {
+      let ball = new tb.Ball(this, tb.Utils.randNum(-10,5), tb.Utils.randNum(0.5, 200), tb.Utils.randNum(-10,5), ballTexture, 1, 0.05);
+      ball.mesh.shinyness = 100;
+      ball.body.setFriction(10);
+      ball.body.setRestitution(0.5);
+      ball.body.setDamping(0.05, 0.05);
+      ball.addToScene();
+    }
     
     new tb.GLTFModel(this, -5, 0, -10, 'assets/models/deadpool', 3, 0, true)
     .then(deadpool=>{
@@ -44,7 +44,8 @@ export default class Scene1 extends tb.Scene {
 
     new tb.GLTFModel(this, -10, 0, -10, 'assets/models/radio', 0.009, 0, true)
     .then(radio=>{
-      radio.initPhysics(1, new tb.AMMO.btBoxShape(new tb.AMMO.btVector3(1,0.5,0.25)));
+      radio.initPhysics(1, new tb.AMMO.btBoxShape(new tb.AMMO.btVector3(1,0.5,0.45)));
+      radio.setRotation(0,1,0,-1);
       radio.addPositionalAudio("./assets/audio/theme.ogg", 10);
     })
   }

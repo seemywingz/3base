@@ -59,6 +59,13 @@ export default class MeshObject extends SceneObject {
 
   onUpdate(){}
 
+  setRotation(x=0.0, y=0.0, z=0.0, w=0.0){
+    let quat = new AMMO.btQuaternion(x,y,z,w);
+    this.body.getCenterOfMassTransform(this.transform);
+    this.transform.setRotation(quat);
+    this.body.setCenterOfMassTransform(this.transform);
+  }
+
   addPositionalAudio(fileName = "", dist = 1){
     let audio = this.scene.getPositionalAudio(fileName, dist)
     this.mesh.add(audio);
@@ -67,7 +74,7 @@ export default class MeshObject extends SceneObject {
   die(){
     this.scene.scene.remove(this.mesh);
     this.scene.removeBodies.push(this.body);
-    this.scene.world.removeBody(this.body)
+    // this.scene.world.removeBody(this.body)
   }
 
 }
