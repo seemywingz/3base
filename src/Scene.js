@@ -4,7 +4,6 @@ import Camera from './Camera';
 import HemisphereLight from './HemisphereLight';
 import DirectionalLight from './DirectionalLight';
 import * as THREE from 'three';
-import * as CANNON from 'cannon';
 import * as AMMO from 'ammo.js';
 
 export default class Scene {

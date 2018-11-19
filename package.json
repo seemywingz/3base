@@ -37,7 +37,6 @@
   },
   "dependencies": {
     "ammo.js": "^0.0.10",
-    "cannon": "^0.6.2",
     "three": "^0.93.0",
     "three-gltf-loader": "^1.97.0"
   },

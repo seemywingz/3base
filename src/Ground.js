@@ -32,7 +32,8 @@ export default class Ground extends MeshObject {
     let motionState = new AMMO.btDefaultMotionState(this.transform);
     let rbInfo = new AMMO.btRigidBodyConstructionInfo(mass, motionState, groundShape, localInertia);
     this.body = new AMMO.btRigidBody(rbInfo);
-
+    this.body.setFriction(1);
+    this.body.setRestitution(1);
     this.scene.dynamicsWorld.addRigidBody(this.body);
   }
 

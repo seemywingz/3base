@@ -8,11 +8,11 @@ export default class MeshObject extends SceneObject {
 
   constructor(scene, x=0, y=0, z=0, mesh, scale=1, mass=0){
     super(scene, x, y, z, mesh)
-    this.scale = scale;
     this.mass = mass;
-    this.mesh = this.threeObject;
     this.body = null;
     this.mixer = null;
+    this.scale = scale;
+    this.mesh = this.threeObject;
     this.configMesh();
   }
 
@@ -38,11 +38,7 @@ export default class MeshObject extends SceneObject {
   }
 
   update(tick=0.5){
-    if(this.scene.physicsEnabled){
-      // if(this.body !== null){
-      //   this.mesh.position.copy(this.body.position);
-      //   this.mesh.quaternion.copy(this.body.quaternion);
-      // }
+    if(this.scene.physicsEnabled && this.body !== null){
       this.body.getMotionState().getWorldTransform(this.transform);
       var origin = this.transform.getOrigin();
       this.mesh.position.x = origin.x();
