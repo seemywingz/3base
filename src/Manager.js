@@ -92,4 +92,14 @@ export default class Manager {
     this.currentScene = new scene(this);
   }
 
+  playAudio(file="", volume=1, loop=false){
+    let audio = new Audio(file);
+    audio.volume = volume;
+    if (loop)
+    audio.addEventListener('ended', () => {
+      this.currentTime = 0;
+      this.play();
+    }, false);
+    audio.play();
+  }
 }

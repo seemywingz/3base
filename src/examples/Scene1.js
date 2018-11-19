@@ -16,14 +16,19 @@ export default class Scene1 extends tb.Scene {
     new tb.Sky(this, this.manager.loadTexture('assets/images/sky.jpg')).addToScene();
     new tb.Ground(this, this.manager.loadTexture( 'assets/images/ground.jpg')).addToScene();
     
-    // let boxTexture = this.manager.loadTexture( 'assets/images/box/0.jpg');
-    // for (let w = 0; w < 5; w++) {
-    //   for (let h = 0; h < 10; h++) {
-    //     for (let d = 0; d < 5; d++) {
-    //       let box = new tb.Box(this,w,h,d, boxTexture, 1, 0.05).addToScene();
-    //     }
-    //   }
-    // }
+    let boxTextures = [];
+    for (let i = 0; i < 5; i++) {
+      boxTextures.push(this.manager.loadTexture( `assets/images/box/${i}.jpg`));
+    }
+    for (let w = 0; w < 5; w++) {
+      for (let h = 0; h < 10; h++) {
+        for (let d = 0; d < 5; d++) {
+          let box = new tb.Box(this,w,h,d, boxTextures[~~tb.Utils.randNum(0,boxTextures.length-1)], 1, 0.05);
+          box.body.setActivationState(0);
+          box.addToScene()
+        }
+      }
+    }
     
     let ballTexture = this.manager.loadTexture( 'assets/images/beachBall.jpg');
     for (let index = 0; index < 25; index++) {
@@ -44,8 +49,10 @@ export default class Scene1 extends tb.Scene {
     .then(radio=>{
       radio.initPhysics(1, new tb.AMMO.btBoxShape(new tb.AMMO.btVector3(1,0.5,0.45)));
       radio.setRotation(0,1,0,-1);
-      // radio.addPositionalAudio("./assets/audio/theme.ogg", 10);
+      radio.addPositionalAudio("./assets/audio/theme.ogg", 10);
     })
+     
+    this.manager.playAudio('./assets/audio/wind.wav', 0.5, true);
   }
 
   createLights(){
