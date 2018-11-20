@@ -12,7 +12,7 @@ export default class MeshObject extends SceneObject {
     this.body = null;
     this.mixer = null;
     this.scale = scale;
-    this.mesh = this.threeObject;
+    this.mesh = mesh;
     this.configMesh();
   }
 
@@ -22,6 +22,10 @@ export default class MeshObject extends SceneObject {
     this.mesh.castShadow = true;
     this.mesh.side = THREE.DoubleSide;
     this.mesh.receiveShadow = true;
+  }
+
+  addToScene(){
+    super.addToScene();
     this.scene.sceneObjects.push(this);
   }
 

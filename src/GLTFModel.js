@@ -19,10 +19,20 @@ export default class GLTFModel extends MeshObject {
         ( gltf ) => {
           try{
             this.gltf = gltf;
-            this.mesh = gltf.scene;
-            // this.mesh.scale.set(this.scale,this.scale,this.scale);
-            this.configMesh();
-            this.threeObject = this.mesh;
+            this.threeObject = gltf.scene;
+            gltf.scene.position.set(this.x, this.y, this.z);
+            gltf.scene.traverse( mesh => {
+              if ( mesh instanceof THREE.Mesh ){
+                if (this.gltf.animations.length > 0) {
+                  gltf.scene.scale.set(this.scale,this.scale,this.scale);
+                }else{
+                  mesh.geometry.scale(this.scale, this.scale, this.scale)
+                }
+                mesh.castShadow = true;
+                mesh.side = THREE.DoubleSide;
+                mesh.receiveShadow = true;
+              }
+            });
             if (addToScene) {
               this.addToScene();
             }
@@ -143,7 +153,7 @@ export default class GLTFModel extends MeshObject {
 
   playAnimation(aNum = 0){
     if( this.gltf.animations.length > 0){
-      this.mixer = new THREE.AnimationMixer(this.mesh);
+      this.mixer = new THREE.AnimationMixer(this.gltf.scene);
       this.mixer.clipAction(this.gltf.animations[aNum]).play();
     }
   }
