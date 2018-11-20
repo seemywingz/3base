@@ -49,6 +49,7 @@ export default class Manager {
     this.renderer = new THREE.WebGLRenderer(rendererOptions);
     this.renderer.setPixelRatio( window.devicePixelRatio );
     this.renderer.gammaOutput = true;
+    this.renderer.gammaFactor = 2.2;
     this.renderer.gammaInput = true;
     this.renderer.shadowMap.enabled = true;
     this.renderer.shadowMap.type = THREE.PCFSoftShadowMap; // default THREE.PCFShadowMap

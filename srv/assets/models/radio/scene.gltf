@@ -2,10 +2,10 @@
     "accessors" : [
         {
             "bufferView" : 0,
-            "componentType" : 5121,
-            "count" : 36,
+            "componentType" : 5123,
+            "count" : 2526,
             "max" : [
-                23
+                1005
             ],
             "min" : [
                 0
@@ -15,23 +15,23 @@
         {
             "bufferView" : 1,
             "componentType" : 5126,
-            "count" : 24,
+            "count" : 1006,
             "max" : [
-                1.0000004768371582,
-                1.0,
-                1.0000005960464478
+                149.51568603515625,
+                80.47223663330078,
+                202.17092895507812
             ],
             "min" : [
-                -1.0000003576278687,
-                -1.0,
-                -1.0000003576278687
+                -128.43382263183594,
+                -30.093097686767578,
+                0.0
             ],
             "type" : "VEC3"
         },
         {
             "bufferView" : 2,
             "componentType" : 5126,
-            "count" : 24,
+            "count" : 1006,
             "max" : [
                 1.0,
                 1.0,
@@ -46,50 +46,6 @@
         },
         {
             "bufferView" : 3,
-            "componentType" : 5123,
-            "count" : 2526,
-            "max" : [
-                1005
-            ],
-            "min" : [
-                0
-            ],
-            "type" : "SCALAR"
-        },
-        {
-            "bufferView" : 4,
-            "componentType" : 5126,
-            "count" : 1006,
-            "max" : [
-                149.51568603515625,
-                80.47225189208984,
-                147.664794921875
-            ],
-            "min" : [
-                -128.43382263183594,
-                -30.09308624267578,
-                -54.506126403808594
-            ],
-            "type" : "VEC3"
-        },
-        {
-            "bufferView" : 5,
-            "componentType" : 5126,
-            "count" : 1006,
-            "max" : [
-                1.0,
-                1.0,
-                1.0
-            ],
-            "min" : [
-                -1.0,
-                -1.0,
-                -1.0
-            ],
-            "type" : "VEC3"
-        },
-        {
-            "bufferView" : 6,
             "componentType" : 5126,
             "count" : 1006,
             "max" : [
@@ -107,7 +63,7 @@
             "type" : "VEC4"
         },
         {
-            "bufferView" : 7,
+            "bufferView" : 4,
             "componentType" : 5126,
             "count" : 1006,
             "max" : [
@@ -128,56 +84,38 @@
     "bufferViews" : [
         {
             "buffer" : 0,
-            "byteLength" : 36,
+            "byteLength" : 5052,
             "byteOffset" : 0,
             "target" : 34963
         },
         {
             "buffer" : 0,
-            "byteLength" : 288,
-            "byteOffset" : 36,
-            "target" : 34962
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 288,
-            "byteOffset" : 324,
-            "target" : 34962
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 5052,
-            "byteOffset" : 612,
-            "target" : 34963
-        },
-        {
-            "buffer" : 0,
             "byteLength" : 12072,
-            "byteOffset" : 5664,
+            "byteOffset" : 5052,
             "target" : 34962
         },
         {
             "buffer" : 0,
             "byteLength" : 12072,
-            "byteOffset" : 17736,
+            "byteOffset" : 17124,
             "target" : 34962
         },
         {
             "buffer" : 0,
             "byteLength" : 16096,
-            "byteOffset" : 29808,
+            "byteOffset" : 29196,
             "target" : 34962
         },
         {
             "buffer" : 0,
             "byteLength" : 8048,
-            "byteOffset" : 45904,
+            "byteOffset" : 45292,
             "target" : 34962
         }
     ],
     "buffers" : [
         {
-            "byteLength" : 53952,
+            "byteLength" : 53340,
             "uri" : "scene.bin"
         }
     ],
@@ -198,7 +136,7 @@
     "materials" : [
         {
             "doubleSided" : true,
-            "name" : "20_-_Default",
+            "name" : "20_-_Default.001",
             "normalTexture" : {
                 "index" : 2
             },
@@ -210,45 +148,20 @@
                     "index" : 1
                 }
             }
-        },
-        {
-            "name" : "Material",
-            "pbrMetallicRoughness" : {
-                "baseColorFactor" : [
-                    0.6400000190734865,
-                    0.6400000190734865,
-                    0.6400000190734865,
-                    1.0
-                ],
-                "metallicFactor" : 0.0
-            }
         }
     ],
     "meshes" : [
         {
-            "name" : "Cube",
+            "name" : "Radio_20 - Default_0.001",
             "primitives" : [
                 {
                     "attributes" : {
                         "NORMAL" : 2,
-                        "POSITION" : 1
+                        "POSITION" : 1,
+                        "TANGENT" : 3,
+                        "TEXCOORD_0" : 4
                     },
                     "indices" : 0,
-                    "material" : 1
-                }
-            ]
-        },
-        {
-            "name" : "Radio_20 - Default_0",
-            "primitives" : [
-                {
-                    "attributes" : {
-                        "NORMAL" : 5,
-                        "POSITION" : 4,
-                        "TANGENT" : 6,
-                        "TEXCOORD_0" : 7
-                    },
-                    "indices" : 3,
                     "material" : 0
                 }
             ]
@@ -256,45 +169,8 @@
     ],
     "nodes" : [
         {
-            "name" : "Camera",
-            "rotation" : [
-                0.483536034822464,
-                0.33687159419059753,
-                -0.20870360732078552,
-                0.7804827094078064
-            ],
-            "translation" : [
-                7.481131553649902,
-                5.34366512298584,
-                6.5076398849487305
-            ]
-        },
-        {
-            "mesh" : 0,
-            "name" : "Cube"
-        },
-        {
-            "name" : "Lamp",
-            "rotation" : [
-                0.16907575726509094,
-                0.7558802962303162,
-                -0.27217137813568115,
-                0.570947527885437
-            ],
-            "scale" : [
-                1.0,
-                1.0,
-                0.9999999403953552
-            ],
-            "translation" : [
-                4.076245307922363,
-                5.903861999511719,
-                -1.0054539442062378
-            ]
-        },
-        {
             "children" : [
-                9
+                6
             ],
             "name" : "Radio",
             "rotation" : [
@@ -315,7 +191,7 @@
             ]
         },
         {
-            "mesh" : 1,
+            "mesh" : 0,
             "name" : "Radio_20 - Default_0",
             "rotation" : [
                 1.7763570511584873e-15,
@@ -336,7 +212,7 @@
         },
         {
             "children" : [
-                6
+                3
             ],
             "name" : "radio_low.FBX",
             "rotation" : [
@@ -353,13 +229,13 @@
         },
         {
             "children" : [
-                3
+                0
             ],
             "name" : "RootNode"
         },
         {
             "children" : [
-                8
+                5
             ],
             "name" : "RootNode (gltf orientation matrix)",
             "rotation" : [
@@ -376,14 +252,61 @@
         },
         {
             "children" : [
-                5
+                2
             ],
             "name" : "RootNode (model correction matrix)"
         },
         {
             "children" : [
-                4
+                1
             ],
+            "name" : "Untitled",
+            "scale" : [
+                1.0,
+                0.9999999403953552,
+                1.0
+            ],
+            "translation" : [
+                0.0,
+                0.0,
+                -115.6868667602539
+            ]
+        },
+        {
+            "name" : "RootNode"
+        },
+        {
+            "name" : "radio_low.FBX",
+            "rotation" : [
+                0.7071068286895752,
+                0.0,
+                -0.0,
+                0.7071067094802856
+            ],
+            "scale" : [
+                1.0,
+                1.0000001192092896,
+                1.0000001192092896
+            ]
+        },
+        {
+            "name" : "RootNode (model correction matrix)"
+        },
+        {
+            "name" : "RootNode (gltf orientation matrix)",
+            "rotation" : [
+                -0.7071068286895752,
+                0.0,
+                -0.0,
+                0.7071067094802856
+            ],
+            "scale" : [
+                1.0,
+                1.0000001192092896,
+                1.0000001192092896
+            ]
+        },
+        {
             "name" : "Untitled",
             "scale" : [
                 1.0,
@@ -405,10 +328,7 @@
         {
             "name" : "Scene",
             "nodes" : [
-                7,
-                1,
-                2,
-                0
+                4
             ]
         }
     ],

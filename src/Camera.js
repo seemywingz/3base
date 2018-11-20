@@ -163,9 +163,9 @@ export default class Camera extends SceneObject{
     }
   }
 
-  getDirection () {
+  getDirection (x=0, y=0, z=0) {
     let v = new THREE.Vector3();
-    let direction = new THREE.Vector3( 0, 0, -1 );
+    let direction = new THREE.Vector3( x, y, z );
     let rotation = new THREE.Euler( 0, 0, 0, "YXZ" );
     rotation.set( this.controls.children[0].rotation.x, this.controls.rotation.y, 0 );
 		v.copy( direction ).applyEuler( rotation );

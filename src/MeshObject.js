@@ -1,6 +1,6 @@
 'use-strict';
 
-// import * as THREE from 'three';
+import * as THREE from 'three';
 import * as AMMO from 'ammo.js';
 import SceneObject from './SceneObject';
 
@@ -18,10 +18,10 @@ export default class MeshObject extends SceneObject {
 
   configMesh(){
     if (this.mesh === null) { return }
-    this.mesh.castShadow = true;
-    this.mesh.receiveShadow = true;
     this.mesh.position.set(this.x, this.y, this.z);
-    this.mesh.scale.set(this.scale, this.scale, this.scale);
+    this.mesh.castShadow = true;
+    this.mesh.side = THREE.DoubleSide;
+    this.mesh.receiveShadow = true;
     this.scene.sceneObjects.push(this);
   }
 

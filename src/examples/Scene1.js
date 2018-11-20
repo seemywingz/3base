@@ -45,14 +45,15 @@ export default class Scene1 extends tb.Scene {
       deadpool.playAnimation(0);
     })
 
-    new tb.GLTFModel(this, -10, 0, -10, 'assets/models/radio', 0.009, 0, true)
-    .then(radio=>{
-      radio.initPhysics(1, new tb.AMMO.btBoxShape(new tb.AMMO.btVector3(1,0.5,0.45)));
-      radio.setRotation(0,1,0,-1);
-      radio.addPositionalAudio("./assets/audio/theme.ogg", 10);
-    })
+    // new tb.GLTFModel(this, -10, 0, -10, 'assets/models/radio', 0.009, 0, true)
+    // .then(model=>{
+    //   // radio.initPhysics(1, new tb.AMMO.btBoxShape(new tb.AMMO.btVector3(1,0.5,0.45)));
+    //   model.initConcavePhysics();
+    //   model.setRotation(1,0,0,-1);
+    //   // radio.addPositionalAudio("./assets/audio/theme.ogg", 10);
+    // })
      
-    this.manager.playAudio('./assets/audio/wind.wav', 0.5, true);
+    // this.manager.playAudio('./assets/audio/wind.wav', 0.5, true);
   }
 
   createLights(){
@@ -68,8 +69,8 @@ export default class Scene1 extends tb.Scene {
   click(){
     let spd = 50;
     let pos = this.camera.controls.position;
-    let direction = this.camera.getDirection();
-    let ball = new tb.Ball(this, pos.x,pos.y,pos.z, this.cannonBallTexture, 0.5, 100);
+    let direction = this.camera.getDirection(0,0,-1);
+    let ball = new tb.Ball(this, pos.x,pos.y,pos.z, this.cannonBallTexture, 0.25, 100);
     ball.body.setLinearVelocity(new tb.AMMO.btVector3(direction.x * spd, direction.y * spd, direction.z * spd));
     ball.addToScene();
   }
