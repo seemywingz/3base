@@ -52,16 +52,15 @@ export default class GLTFModel extends MeshObject {
   initBoundingBoxPhysics(){
 
     let helper = new THREE.BoxHelper(this.gltf.scene, 0xff0000);
-    let geometry = new THREE.Geometry().fromBufferGeometry( helper.geometry );
-    geometry.computeBoundingBox()
-    let w = geometry.boundingBox.max.x - geometry.boundingBox.min.x;
-    let h = geometry.boundingBox.max.x - geometry.boundingBox.min.x;
-    let d = geometry.boundingBox.max.x - geometry.boundingBox.min.x;
+    helper.geometry.computeBoundingBox()
+    let w = (helper.geometry.boundingBox.max.x - helper.geometry.boundingBox.min.x)*.5;
+    let h = (helper.geometry.boundingBox.max.x - helper.geometry.boundingBox.min.x)*.5;
+    let d = (helper.geometry.boundingBox.max.x - helper.geometry.boundingBox.min.x)*.5;
 
-    let boxShape = new AMMO.btBoxShape(new AMMO.btVector3(w*0.5, h*0.5, d*0.5));
+    let boxShape = new AMMO.btBoxShape(new AMMO.btVector3(w, h, d));
     this.initPhysics(this.mass, boxShape);
 
-    console.log(helper, geometry)
+    console.log(helper)
     console.log(w, h, d);
 
     this.scene.scene.add(helper);

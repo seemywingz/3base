@@ -72,7 +72,7 @@ export default class Scene1 extends tb.Scene {
     let spd = 50;
     let pos = this.camera.controls.position;
     let direction = this.camera.getDirection(0,0,-1);
-    let ball = new tb.Ball(this, pos.x,pos.y,pos.z, this.cannonBallTexture, 0.25, 100);
+    let ball = new tb.Ball(this, pos.x,pos.y,pos.z, this.cannonBallTexture, 0.25, 1);
     ball.body.setLinearVelocity(new tb.AMMO.btVector3(direction.x * spd, direction.y * spd, direction.z * spd));
     ball.addToScene();
   }
