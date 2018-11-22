@@ -29,19 +29,19 @@ module.exports = {
         exclude: /node_modules/,
         use: ['babel-loader']
       },
-      // {
-      //   test: /three\/examples\/js/,
-      //   use: 'imports-loader?THREE=three'
-      // }
+      {
+        test: /three\/examples\/js/,
+        use: 'imports-loader?THREE=three'
+      }
     ]
   },
 
-  // resolve: {
-  //   alias: {
-  //     'three-loaders': path.join(__dirname, './node_modules/three/examples/js/loaders')
-  //   },
-  //   extensions: ['*', '.js', '.jsx']
-  // },
+  resolve: {
+    alias: {
+      'three-loaders': path.join(__dirname, './node_modules/three/examples/js/loaders')
+    },
+    extensions: ['*', '.js', '.jsx']
+  },
   
   devServer: {
     port: 10001

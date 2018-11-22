@@ -1,8 +1,9 @@
 'use-strict';
 
 import * as THREE from 'three';
-import GLTFLoader from 'three-gltf-loader';
-// import 'three-loaders/GLTFLoader';
+import 'three-loaders/GLTFLoader';
+import 'three-loaders/OBJLoader';
+// import GLTFLoader from 'three-gltf-loader';
 THREE.Cache.enabled = true;
 
 export default class Manager {
@@ -39,7 +40,9 @@ export default class Manager {
       console.log('there has been an error');
     };
 
-    this.glTFLoader = new GLTFLoader(this.manager);
+    // this.glTFLoader = new GLTFLoader(this.manager);
+    this.glTFLoader = new THREE.GLTFLoader(this.manager);
+    this.objLoader = new THREE.OBJLoader(this.manager);
     this.textureLoader = new THREE.TextureLoader(this.manager);
     this.audioLoader = new THREE.AudioLoader();
   }
