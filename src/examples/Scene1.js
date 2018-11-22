@@ -23,30 +23,30 @@ export default class Scene1 extends tb.Scene {
     for (let w = 0; w < 5; w++) {
       for (let h = 0; h < 10; h++) {
         for (let d = 0; d < 5; d++) {
-          let box = new tb.Box(this,w,h,d, boxTextures[~~tb.Utils.randNum(0,boxTextures.length-1)], 1, 0.05);
-          box.body.setActivationState(0);
+          let box = new tb.Box(this,w,h,d, boxTextures[~~tb.Utils.randNum(0,boxTextures.length-1)], 1, 2.5);
+          // box.body.setActivationState(0);
           box.addToScene();
         }
       }
     }
     
-    let ballTexture = this.manager.loadTexture( 'assets/images/beachBall.jpg');
-    for (let index = 0; index < 25; index++) {
-      let ball = new tb.Ball(this, tb.Utils.randNum(-10,5), tb.Utils.randNum(0.5, 200), tb.Utils.randNum(-10,5), ballTexture, 1, 0.05);
-      ball.threeObject.shinyness = 100;
-      ball.body.setFriction(10);
-      ball.body.setRestitution(0.5);
-      ball.body.setDamping(0.05, 0.05);
-      ball.addToScene();
-    }
+    // let ballTexture = this.manager.loadTexture( 'assets/images/beachBall.jpg');
+    // for (let index = 0; index < 25; index++) {
+    //   let ball = new tb.Ball(this, tb.Utils.randNum(-10,5), tb.Utils.randNum(0.5, 200), tb.Utils.randNum(-10,5), ballTexture, 1, 0.05);
+    //   ball.threeObject.shinyness = 100;
+    //   ball.body.setFriction(10);
+    //   ball.body.setRestitution(0.5);
+    //   ball.body.setDamping(0.05, 0.05);
+    //   ball.addToScene();
+    // }
     
-    new tb.GLTFModel(this, -5, 0, -10, 'assets/models/deadpool', 3, 0)
-    .then(deadpool=>{
-      deadpool.playAnimation(0);
-      deadpool.addToScene();
-    })
+    // new tb.GLTFModel(this, -5, 0, -10, 'assets/models/deadpool', 3, 0)
+    // .then(deadpool=>{
+    //   deadpool.playAnimation(0);
+    //   deadpool.addToScene();
+    // })
 
-    new tb.GLTFModel(this, -10, 0, -10, 'assets/models/radio', 0.009, 0)
+    new tb.GLTFModel(this, -10, 0, -10, 'assets/models/radio', 0.009, 100)
     .then(model=>{
       // model.initPhysics(1, new tb.AMMO.btBoxShape(new tb.AMMO.btVector3(1,0.5,0.45)));
       // model.initConcavePhysics();

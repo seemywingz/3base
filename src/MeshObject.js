@@ -9,8 +9,6 @@ export default class MeshObject extends SceneObject {
   constructor(scene, x=0, y=0, z=0, mesh, scale=1, mass=0){
     super(scene, x, y, z, mesh)
     this.mass = mass;
-    this.body = null;
-    this.mixer = null;
     this.scale = scale;
     this.configMesh();
   }
@@ -21,11 +19,6 @@ export default class MeshObject extends SceneObject {
     this.threeObject.castShadow = true;
     this.threeObject.side = THREE.DoubleSide;
     this.threeObject.receiveShadow = true;
-  }
-
-  addToScene(){
-    super.addToScene();
-    this.scene.sceneObjects.push(this);
   }
 
   initPhysics(mass, shape){
@@ -39,28 +32,6 @@ export default class MeshObject extends SceneObject {
     this.body = new AMMO.btRigidBody(rbInfo);
     this.scene.dynamicsWorld.addRigidBody(this.body);
   }
-
-  update(tick=0.5){
-    if(this.scene.physicsEnabled && this.body !== null){
-      this.body.getMotionState().getWorldTransform(this.transform);
-      var origin = this.transform.getOrigin();
-      this.threeObject.position.x = origin.x();
-      this.threeObject.position.y = origin.y();
-      this.threeObject.position.z = origin.z();
-      var rotation = this.transform.getRotation();
-      this.threeObject.quaternion.x = rotation.x();
-      this.threeObject.quaternion.y = rotation.y();
-      this.threeObject.quaternion.z = rotation.z();
-      this.threeObject.quaternion.w = rotation.w();
-    }
-
-    if( this.mixer !== null)
-      this.mixer.update( tick );
-
-    this.onUpdate();
-  }
-
-  onUpdate(){}
 
   setRotation(x=0.0, y=0.0, z=0.0, w=0.0){
     let quat = new AMMO.btQuaternion(x,y,z,w);

@@ -29,8 +29,8 @@ export default class GLTFModel extends MeshObject {
                   node.geometry.scale(this.scale, this.scale, this.scale)
                 }
                 node.castShadow = true;
-                node.side = THREE.DoubleSide;
                 node.receiveShadow = true;
+                node.side = THREE.DoubleSide;
               }
             });
             resolve(this);
@@ -50,13 +50,21 @@ export default class GLTFModel extends MeshObject {
   }
 
   initBoundingBoxPhysics(){
-    this.gltf.scene.traverse( node => {
-      if ( node instanceof THREE.Mesh ){
-        let geometry = new THREE.Geometry().fromBufferGeometry( node.geometry );
-        geometry.mergeVertices();
-        triangles = this.trianglesFromGeomerty(geometry, triangles);
-      }
-    });
+
+    let helper = new THREE.BoxHelper(this.gltf.scene, 0xff0000);
+    let geometry = new THREE.Geometry().fromBufferGeometry( helper.geometry );
+    geometry.computeBoundingBox()
+    let w = geometry.boundingBox.max.x - geometry.boundingBox.min.x;
+    let h = geometry.boundingBox.max.x - geometry.boundingBox.min.x;
+    let d = geometry.boundingBox.max.x - geometry.boundingBox.min.x;
+
+    let boxShape = new AMMO.btBoxShape(new AMMO.btVector3(w, h, d));
+    // this.initPhysics(this.mass, boxShape);
+
+    console.log(helper, geometry)
+    console.log(w, h, d);
+
+    this.scene.scene.add(helper);
   }
 
   initConcavePhysics(){
@@ -72,9 +80,9 @@ export default class GLTFModel extends MeshObject {
 
     let
       triangle_mesh = new AMMO.btTriangleMesh,
-      _vec3_1 = new AMMO.btVector3,
-      _vec3_2 = new AMMO.btVector3, 
-      _vec3_3 = new AMMO.btVector3;
+      _vec3_1 = new AMMO.btVector3(),
+      _vec3_2 = new AMMO.btVector3(), 
+      _vec3_3 = new AMMO.btVector3();
 
     for ( let i = 0; i < triangles.length; i++ ) {
       let triangle = triangles[i];
