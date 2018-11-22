@@ -2,6 +2,13 @@ const path = require('path');
 console.log(path.join( __dirname + "/srv"));
 
 module.exports = {
+  // target: "web",
+  // externals:{
+  //   fs:    "commonjs fs",
+  //   path:  "commonjs path",
+  //   require:  "commonjs require"
+  // },
+
   node: {
     fs: "empty"
   },

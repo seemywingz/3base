@@ -58,8 +58,8 @@ export default class GLTFModel extends MeshObject {
     let h = geometry.boundingBox.max.x - geometry.boundingBox.min.x;
     let d = geometry.boundingBox.max.x - geometry.boundingBox.min.x;
 
-    let boxShape = new AMMO.btBoxShape(new AMMO.btVector3(w, h, d));
-    // this.initPhysics(this.mass, boxShape);
+    let boxShape = new AMMO.btBoxShape(new AMMO.btVector3(w*0.5, h*0.5, d*0.5));
+    this.initPhysics(this.mass, boxShape);
 
     console.log(helper, geometry)
     console.log(w, h, d);

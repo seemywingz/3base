@@ -4573,15 +4573,15 @@ tar@^4:
     safe-buffer "^5.1.2"
     yallist "^3.0.2"
 
-three-gltf-loader@^1.97.0:
-  version "1.97.0"
-  resolved "https://registry.yarnpkg.com/three-gltf-loader/-/three-gltf-loader-1.97.0.tgz#5bfb17b5e5817276b65855a86286f98c51efb415"
-  integrity sha512-TVjBeuOQSlmZOXXFhrQplxuNQQjmk2HAY+IfMGh0I2uqy0bR/dfrU/ioNeigJ4IyZre62eeW7eUhSvqU6K7kIg==
+three-gltf-loader@^1.98.0:
+  version "1.98.0"
+  resolved "https://registry.yarnpkg.com/three-gltf-loader/-/three-gltf-loader-1.98.0.tgz#ed575a910ca5864bf44a64b84f8ec08d741e9399"
+  integrity sha512-EDkIHescmJ8Zk0P1p+auFBp0nYXyyNx5rGcqEpvcKRoT7upkw/i645bD0WjOV8/StYFYpRXyzetfQBvdbBjdcg==
 
-three@^0.93.0:
-  version "0.93.0"
-  resolved "https://registry.yarnpkg.com/three/-/three-0.93.0.tgz#3fd6c367ef4554abbb6e16ad69936283e895c123"
-  integrity sha1-P9bDZ+9FVKu7bhataZNig+iVwSM=
+three@^0.98.0:
+  version "0.98.0"
+  resolved "https://registry.yarnpkg.com/three/-/three-0.98.0.tgz#11d4e3cca4b5d099c7de0ea5afa153b5d20cda84"
+  integrity sha512-fihjYVjCmQbI03zt1+YCl/m+UrZCcDHFNLexgqBOIdPwnO6PYkQaYUsIbqtvNNse+BiMeu+pQWzZn9/NSnIv6A==
 
 through2@^2.0.0:
   version "2.0.3"
