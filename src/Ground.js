@@ -14,10 +14,10 @@ export default class Ground extends MeshObject {
     let material = new THREE.MeshPhongMaterial({ map: texture });
     let mesh = new THREE.Mesh(new THREE.PlaneGeometry(scale, scale), material);
     super(scene, 0,0,0, mesh);
-    this.mesh.material.shininess = 0;
-    this.mesh.rotation.x = -Math.PI/2;
-    this.mesh.castShadow = false;
-    this.mesh.receiveShadow = true;
+    this.threeObject.material.shininess = 0;
+    this.threeObject.rotation.x = -Math.PI/2;
+    this.threeObject.castShadow = false;
+    this.threeObject.receiveShadow = true;
     if(this.scene.physicsEnabled)
       this.initPhysics();
   }
@@ -32,7 +32,7 @@ export default class Ground extends MeshObject {
     let motionState = new AMMO.btDefaultMotionState(this.transform);
     let rbInfo = new AMMO.btRigidBodyConstructionInfo(mass, motionState, groundShape, localInertia);
     this.body = new AMMO.btRigidBody(rbInfo);
-    this.body.setFriction(1);
+    this.body.setFriction(10);
     this.body.setRestitution(1);
     this.scene.dynamicsWorld.addRigidBody(this.body);
   }

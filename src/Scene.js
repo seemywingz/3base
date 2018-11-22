@@ -34,7 +34,7 @@ export default class Scene {
       this.camera.update(deltaTime);
       
       if(this.physicsEnabled ){
-        this.dynamicsWorld.stepSimulation(deltaTime, 2);
+        this.dynamicsWorld.stepSimulation(deltaTime, 1);
         // this.removeBodies.map((body)=>{
         //   this.world.remove(body);
         // });

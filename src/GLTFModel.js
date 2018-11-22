@@ -6,13 +6,13 @@ import MeshObject from './MeshObject';
 
 export default class GLTFModel extends MeshObject {
 
-  constructor(scene, x, y, z, model, scale=1, mass=1, addToScene=false){
+  constructor(scene, x, y, z, model, scale=1, mass=1){
     super(scene, x, y, z, null, scale, mass);
     this.model = model;
-    return this.loadGLTF(addToScene)
+    return this.loadGLTF()
   }
 
-  loadGLTF(addToScene){
+  loadGLTF(){
     return new Promise((resolve, reject) => {
       this.scene.manager.glTFLoader.load(
         this.model + '/scene.gltf',
@@ -21,21 +21,18 @@ export default class GLTFModel extends MeshObject {
             this.gltf = gltf;
             this.threeObject = gltf.scene;
             gltf.scene.position.set(this.x, this.y, this.z);
-            gltf.scene.traverse( mesh => {
-              if ( mesh instanceof THREE.Mesh ){
+            gltf.scene.traverse( node => {
+              if ( node instanceof THREE.Mesh ){
                 if (this.gltf.animations.length > 0) {
                   gltf.scene.scale.set(this.scale,this.scale,this.scale);
                 }else{
-                  mesh.geometry.scale(this.scale, this.scale, this.scale)
+                  node.geometry.scale(this.scale, this.scale, this.scale)
                 }
-                mesh.castShadow = true;
-                mesh.side = THREE.DoubleSide;
-                mesh.receiveShadow = true;
+                node.castShadow = true;
+                node.side = THREE.DoubleSide;
+                node.receiveShadow = true;
               }
             });
-            if (addToScene) {
-              this.addToScene();
-            }
             resolve(this);
          }catch(e){
           reject(e);
@@ -52,38 +49,24 @@ export default class GLTFModel extends MeshObject {
     });
   }
 
+  initBoundingBoxPhysics(){
+    this.gltf.scene.traverse( node => {
+      if ( node instanceof THREE.Mesh ){
+        let geometry = new THREE.Geometry().fromBufferGeometry( node.geometry );
+        geometry.mergeVertices();
+        triangles = this.trianglesFromGeomerty(geometry, triangles);
+      }
+    });
+  }
+
   initConcavePhysics(){
     
     let triangles = new Array(0);
-    console.log(new Array(0))
-    this.mesh.traverse( node => {
+    this.gltf.scene.traverse( node => {
       if ( node instanceof THREE.Mesh ){
-        let bufferGeometry = node.geometry;
-        let geometry = new THREE.Geometry().fromBufferGeometry( bufferGeometry );
+        let geometry = new THREE.Geometry().fromBufferGeometry( node.geometry );
         geometry.mergeVertices();
-        // triangles = this.trianglesFromGeomerty(geometry, triangles);
-        let vertices = geometry.vertices;
-        for ( let i = 0; i < geometry.faces.length; i++ ) {
-          let face = geometry.faces[i];
-          if ( face instanceof THREE.Face3) {
-            triangles.push([
-              { x: vertices[face.a].x, y: vertices[face.a].y, z: vertices[face.a].z },
-              { x: vertices[face.b].x, y: vertices[face.b].y, z: vertices[face.b].z },
-              { x: vertices[face.c].x, y: vertices[face.c].y, z: vertices[face.c].z }
-            ]);
-          } else if ( face instanceof THREE.Face4 ) {
-            triangles.push([
-              { x: vertices[face.a].x, y: vertices[face.a].y, z: vertices[face.a].z },
-              { x: vertices[face.b].x, y: vertices[face.b].y, z: vertices[face.b].z },
-              { x: vertices[face.d].x, y: vertices[face.d].y, z: vertices[face.d].z }
-            ]);
-            triangles.push([
-              { x: vertices[face.b].x, y: vertices[face.b].y, z: vertices[face.b].z },
-              { x: vertices[face.c].x, y: vertices[face.c].y, z: vertices[face.c].z },
-              { x: vertices[face.d].x, y: vertices[face.d].y, z: vertices[face.d].z }
-            ]);
-          }
-        }
+        triangles = this.trianglesFromGeomerty(geometry, triangles);
       }
     });
 

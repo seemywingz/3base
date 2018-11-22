@@ -12,16 +12,15 @@ export default class MeshObject extends SceneObject {
     this.body = null;
     this.mixer = null;
     this.scale = scale;
-    this.mesh = mesh;
     this.configMesh();
   }
 
   configMesh(){
-    if (this.mesh === null) { return }
-    this.mesh.position.set(this.x, this.y, this.z);
-    this.mesh.castShadow = true;
-    this.mesh.side = THREE.DoubleSide;
-    this.mesh.receiveShadow = true;
+    if (this.threeObject === null) { return }
+    this.threeObject.position.set(this.x, this.y, this.z);
+    this.threeObject.castShadow = true;
+    this.threeObject.side = THREE.DoubleSide;
+    this.threeObject.receiveShadow = true;
   }
 
   addToScene(){
@@ -45,14 +44,14 @@ export default class MeshObject extends SceneObject {
     if(this.scene.physicsEnabled && this.body !== null){
       this.body.getMotionState().getWorldTransform(this.transform);
       var origin = this.transform.getOrigin();
-      this.mesh.position.x = origin.x();
-      this.mesh.position.y = origin.y();
-      this.mesh.position.z = origin.z();
+      this.threeObject.position.x = origin.x();
+      this.threeObject.position.y = origin.y();
+      this.threeObject.position.z = origin.z();
       var rotation = this.transform.getRotation();
-      this.mesh.quaternion.x = rotation.x();
-      this.mesh.quaternion.y = rotation.y();
-      this.mesh.quaternion.z = rotation.z();
-      this.mesh.quaternion.w = rotation.w();
+      this.threeObject.quaternion.x = rotation.x();
+      this.threeObject.quaternion.y = rotation.y();
+      this.threeObject.quaternion.z = rotation.z();
+      this.threeObject.quaternion.w = rotation.w();
     }
 
     if( this.mixer !== null)
@@ -72,11 +71,11 @@ export default class MeshObject extends SceneObject {
 
   addPositionalAudio(fileName = "", dist = 1){
     let audio = this.scene.getPositionalAudio(fileName, dist)
-    this.mesh.add(audio);
+    this.threeObject.add(audio);
   }
 
   die(){
-    this.scene.scene.remove(this.mesh);
+    this.scene.scene.remove(this.threeObject);
     this.scene.removeBodies.push(this.body);
     // this.scene.world.removeBody(this.body)
   }
