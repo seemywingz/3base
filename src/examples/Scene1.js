@@ -48,8 +48,8 @@ export default class Scene1 extends tb.Scene {
 
     new tb.GLTFModel(this, -10, 0, -10, 'assets/models/radio', 1, 100)
     .then(model=>{
-      // model.initPhysics(1, new tb.AMMO.btBoxShape(new tb.AMMO.btVector3(1,0.5,0.45)));
-      model.initBoundingBoxPhysics();
+      model.initPhysics(1, new tb.AMMO.btBoxShape(new tb.AMMO.btVector3(1,1,0.45)));
+      // model.initBoundingBoxPhysics();
       console.log(model.model)
       // model.addPositionalAudio("./assets/audio/theme.ogg", 10);
       model.addToScene();

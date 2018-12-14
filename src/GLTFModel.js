@@ -23,6 +23,7 @@ export default class GLTFModel extends MeshObject {
             gltf.scene.position.set(this.x, this.y, this.z);
             gltf.scene.traverse( node => {
               if ( node instanceof THREE.Mesh ){
+                this.mesh = node;
                 if (this.gltf.animations.length > 0) {
                   gltf.scene.scale.set(this.scale,this.scale,this.scale);
                 }else{
@@ -51,7 +52,7 @@ export default class GLTFModel extends MeshObject {
 
   initBoundingBoxPhysics(){
 
-    let helper = new THREE.BoxHelper(this.gltf.scene, 0xff0000);
+    let helper = new THREE.BoxHelper(this.mesh, 0xff0000);
     helper.geometry.computeBoundingBox()
     let w = (helper.geometry.boundingBox.max.x - helper.geometry.boundingBox.min.x)*.5;
     let h = (helper.geometry.boundingBox.max.x - helper.geometry.boundingBox.min.x)*.5;
