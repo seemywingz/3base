@@ -36,7 +36,7 @@ module.exports = {
   },
 
   entry: {
-    app: './src/examples/index.js',
+    app: './src/index.js',
   },
 
   output: {
