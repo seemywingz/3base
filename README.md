@@ -118,3 +118,6 @@ export default class ExampleScene extends tb.Scene {
   }
 }
 ```
+
+### PRs are Welcomed and Encouraged!!
+### Please Report Any [Issues](https://github.com/seemywingz/3base/issues)
