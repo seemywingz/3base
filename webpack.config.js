@@ -36,12 +36,12 @@ module.exports = {
     ]
   },
 
-  resolve: {
-    alias: {
-      'three-loaders': path.join(__dirname, './node_modules/three/examples/js/loaders')
-    },
-    extensions: ['*', '.js', '.jsx']
-  },
+  // resolve: {
+  //   alias: {
+  //     'three-loaders': path.join(__dirname, './node_modules/three/examples/js/loaders')
+  //   },
+  //   extensions: ['*', '.js', '.jsx']
+  // },
   
   devServer: {
     port: 10001

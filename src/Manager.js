@@ -1,9 +1,8 @@
 'use-strict';
 
 import * as THREE from 'three';
-import 'three-loaders/GLTFLoader';
-import 'three-loaders/OBJLoader';
-// import GLTFLoader from 'three-gltf-loader';
+import './GLTFLoader';
+import './OBJLoader';
 THREE.Cache.enabled = true;
 
 export default class Manager {

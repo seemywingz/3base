@@ -14,6 +14,7 @@ export let DirectionalLight = require("./DirectionalLight").default;
 export let AmbientLight = require("./AmbientLight").default;
 export let HemisphereLight = require("./HemisphereLight").default;
 export let AMMO = require("ammo.js");
+export let THREE = require("three");
 
 import UtilityFunctions from './UtilityFunctions';
 export let Utils = new UtilityFunctions();
