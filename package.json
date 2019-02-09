@@ -1,6 +1,6 @@
 {
   "name": "3base",
-  "version": "0.1.23",
+  "version": "0.1.24",
   "main": "lib/3base.js",
   "description": "3d Web Application Engine (THREE.js and Ammo.js Wrapper)",
   "scripts": {
