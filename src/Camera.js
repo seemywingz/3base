@@ -27,6 +27,7 @@ export default class Camera extends SceneObject{
       this.far
     );
     this.lens.position.set(x, y, z);
+	  this.lens.rotation.set( 0, 0, 0 );
   
     // Easter Eggs
     this.konamiCode = [38, 38, 40, 40, 37, 39, 37, 39, 66, 65];

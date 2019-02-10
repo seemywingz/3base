@@ -18,7 +18,6 @@ export default class SceneObject {
     this.scene.scene.add(this.threeObject);
     this.scene.sceneObjects.push(this);
   }
-
   
   update(tick=0.5){
     if(this.scene.physicsEnabled && this.body !== null){
