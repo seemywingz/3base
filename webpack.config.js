@@ -29,10 +29,10 @@ module.exports = {
         exclude: /node_modules/,
         use: ['babel-loader']
       },
-      {
-        test: /three\/examples\/js/,
-        use: 'imports-loader?THREE=three'
-      }
+      // {
+      //   test: /three\/examples\/jsm/,
+      //   use: 'imports-loader'
+      // }
     ]
   },
 

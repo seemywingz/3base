@@ -46,7 +46,7 @@ export default class Scene1 extends tb.Scene {
     //   deadpool.addToScene();
     // })
 
-    new tb.GLTFModel(this, -10, 0, -10, 'assets/models/radio', 1, 100)
+    new tb.GLTFModel(this, -10, 100, -10, 'assets/models/radio', 1, 100)
     .then(model=>{
       model.initPhysics(1, new tb.AMMO.btBoxShape(new tb.AMMO.btVector3(1,1,0.45)));
       // model.initBoundingBoxPhysics();
