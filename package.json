@@ -25,13 +25,13 @@
     "@babel/preset-env": "^7.11.0",
     "babel-cli": "^6.26.0",
     "babel-loader": "^8.1.0",
+    "imports-loader": "^1.1.0",
     "webpack": "^4.44.1",
     "webpack-cli": "^3.3.12",
     "webpack-dev-server": "^3.11.0"
   },
   "dependencies": {
     "ammo.js": "^0.0.10",
-    "imports-loader": "^1.1.0",
     "three": "^0.119.1"
   },
   "postinstall": "install-app-deps"
