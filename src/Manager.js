@@ -13,7 +13,7 @@ export default class Manager {
     this.textureLoader
     this.paused = false;
 
-    this.initManager(options.onLoad, options.onProgress);
+    this.initManager(options.onLoad, options.onProgress, options.onError);
     this.initRenderer(options.rendererOptions);
 
     // Window Event Listeners
@@ -23,7 +23,7 @@ export default class Manager {
     window.focus();
   }
 
-  initManager(onLoad, onProgress){
+  initManager(onLoad, onProgress, onError){
     console.log("Loading...");
     this.manager = new THREE.LoadingManager();
     this.manager.onProgress = onProgress;
@@ -34,9 +34,7 @@ export default class Manager {
       console.log("...Loaded");
     };
 
-    this.manager.onError = function () {
-      console.log('there has been an error');
-    };
+    this.manager.onError = onError
 
     this.glTFLoader = new GLTFLoader(this.manager);
     this.objLoader = new OBJLoader(this.manager);
