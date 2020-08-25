@@ -6,9 +6,6 @@ import ExampleScene from './ExampleScene';
 
 // let manager = new tb.Manager({canvas: myCanvas});
 let manager = new tb.Manager({"onLoad": ()=>{
-    const loadingScreen = document.getElementById( 'loading-screen' );
-    if ( loadingScreen != null){
-      loadingScreen.classList.add( 'fade-out' );
-    }
+  document.getElementById( 'loading-screen' ).classList.add( 'fade-out' );
 }});
 manager.loadScene(Scene1);
