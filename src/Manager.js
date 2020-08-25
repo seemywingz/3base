@@ -1,23 +1,20 @@
 'use-strict';
 
 import * as THREE from 'three';
-// import './GLTFLoader';
 import {GLTFLoader} from 'three/examples/jsm/loaders/GLTFLoader'
 import {OBJLoader} from 'three/examples/jsm/loaders/OBJLoader'
-// import './OBJLoader';
 THREE.Cache.enabled = true;
 
 export default class Manager {
-  constructor(rendererOptions, onLoad, onProgress) {
-
+  constructor(options) {
     this.manager
     this.glTFLoader
     this.audioLoader
     this.textureLoader
     this.paused = false;
 
-    this.initManager(onLoad, onProgress);
-    this.initRenderer(rendererOptions);
+    this.initManager(options.onLoad, options.onProgress);
+    this.initRenderer(options.rendererOptions);
 
     // Window Event Listeners
     window.addEventListener( 'resize', this.onWindowResize.bind(this), false );
@@ -32,9 +29,9 @@ export default class Manager {
     this.manager.onProgress = onProgress;
 
     this.manager.onLoad = () => {// Completion
-      console.log("...Loaded");
       if (onLoad !== undefined){onLoad()};
       document.body.appendChild( this.renderer.domElement );
+      console.log("...Loaded");
     };
 
     this.manager.onError = function () {
