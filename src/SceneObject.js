@@ -36,6 +36,10 @@ export default class SceneObject {
     if( this.mixer !== null)
       this.mixer.update( tick );
 
+    if (this.helper) {
+      this.helper.update()
+    }
+
     this.onUpdate();
   }
 

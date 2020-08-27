@@ -46,11 +46,13 @@ export default class Scene1 extends tb.Scene {
     //   deadpool.addToScene();
     // })
 
-    new tb.GLTFModel(this, -10, 100, -10, 'assets/models/radio', 1, 100)
+    new tb.GLTFModel(this, -10, 10, -10, 'assets/models/deadpool', 3, 10)
     .then(model=>{
-      model.initPhysics(1, new tb.AMMO.btBoxShape(new tb.AMMO.btVector3(1,1,0.45)));
-      // model.initBoundingBoxPhysics();
+      // model.initPhysics(1, new tb.AMMO.btBoxShape(new tb.AMMO.btVector3(1,1,0.45)));
+      model.initBoundingBoxPhysics()
+      // model.initConcavePhysics()
       console.log(model.model)
+      // model.playAnimation(0);
       // model.addPositionalAudio("./assets/audio/theme.ogg", 10);
       model.addToScene();
     })
@@ -72,7 +74,7 @@ export default class Scene1 extends tb.Scene {
     let spd = 50;
     let pos = this.camera.controls.position;
     let direction = this.camera.getDirection(0,0,-1);
-    let ball = new tb.Ball(this, pos.x,pos.y,pos.z, this.cannonBallTexture, 0.25, 1);
+    let ball = new tb.Ball(this, pos.x,pos.y,pos.z, this.cannonBallTexture, 0.25, 10);
     ball.body.setLinearVelocity(new tb.AMMO.btVector3(direction.x * spd, direction.y * spd, direction.z * spd));
     ball.addToScene();
   }
