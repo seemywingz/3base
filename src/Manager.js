@@ -1,23 +1,20 @@
 'use-strict';
 
 import * as THREE from 'three';
-// import './GLTFLoader';
 import {GLTFLoader} from 'three/examples/jsm/loaders/GLTFLoader'
 import {OBJLoader} from 'three/examples/jsm/loaders/OBJLoader'
-// import './OBJLoader';
 THREE.Cache.enabled = true;
 
 export default class Manager {
-  constructor(rendererOptions, onLoad, onProgress) {
-
+  constructor(options) {
     this.manager
     this.glTFLoader
     this.audioLoader
     this.textureLoader
     this.paused = false;
 
-    this.initManager(onLoad, onProgress);
-    this.initRenderer(rendererOptions);
+    this.initManager(options.onLoad, options.onProgress, options.onError);
+    this.initRenderer(options.rendererOptions);
 
     // Window Event Listeners
     window.addEventListener( 'resize', this.onWindowResize.bind(this), false );
@@ -26,20 +23,18 @@ export default class Manager {
     window.focus();
   }
 
-  initManager(onLoad, onProgress){
+  initManager(onLoad, onProgress, onError){
     console.log("Loading...");
     this.manager = new THREE.LoadingManager();
     this.manager.onProgress = onProgress;
 
     this.manager.onLoad = () => {// Completion
-      console.log("...Loaded");
       if (onLoad !== undefined){onLoad()};
       document.body.appendChild( this.renderer.domElement );
+      console.log("...Loaded");
     };
 
-    this.manager.onError = function () {
-      console.log('there has been an error');
-    };
+    this.manager.onError = onError
 
     this.glTFLoader = new GLTFLoader(this.manager);
     this.objLoader = new OBJLoader(this.manager);
