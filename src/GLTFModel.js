@@ -20,10 +20,10 @@ export default class GLTFModel extends MeshObject {
           try{
             this.gltf = gltf;
             this.threeObject = gltf.scene;
+            this.mesh = gltf.scene;
             gltf.scene.position.set(this.x, this.y, this.z);
             gltf.scene.traverse( node => {
               if ( node instanceof THREE.Mesh ){
-                this.mesh = node;
                 if (this.gltf.animations.length > 0) {
                   gltf.scene.scale.set(this.scale,this.scale,this.scale);
                 }else{
@@ -52,19 +52,21 @@ export default class GLTFModel extends MeshObject {
 
   initBoundingBoxPhysics(){
 
-    let helper = new THREE.BoxHelper(this.mesh, 0xff0000);
-    helper.geometry.computeBoundingBox()
-    let w = (helper.geometry.boundingBox.max.x - helper.geometry.boundingBox.min.x)*.5;
-    let h = (helper.geometry.boundingBox.max.x - helper.geometry.boundingBox.min.x)*.5;
-    let d = (helper.geometry.boundingBox.max.x - helper.geometry.boundingBox.min.x)*.5;
+    this.helper = new THREE.BoxHelper(this.mesh, 0xff0000);
+    var bbox = new THREE.Box3().setFromObject(this.helper);
 
+    let w = (bbox.max.x - bbox.min.x)*.5;
+    let h = (bbox.max.y - bbox.min.y)*.5;
+    let d = (bbox.max.z - bbox.min.z)*.5;
+    
+    console.log(w, h, d)
+    console.log(this.helper)
+    
+    // let boxShape = new AMMO.btBoxShape(new AMMO.btVector3(w, h, d));
     let boxShape = new AMMO.btBoxShape(new AMMO.btVector3(w, h, d));
+    
     this.initPhysics(this.mass, boxShape);
-
-    console.log(helper)
-    console.log(w, h, d);
-
-    this.scene.scene.add(helper);
+    this.scene.scene.add(this.helper);
   }
 
   initConcavePhysics(){
