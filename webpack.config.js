@@ -1,16 +1,15 @@
 const path = require('path');
-console.log(path.join( __dirname + "/srv"));
+srvPath = path.join( __dirname + "/srv");
+console.log("Server Path: " + srvPath);
+
 
 module.exports = {
-  // target: "web",
-  // externals:{
-  //   fs:    "commonjs fs",
-  //   path:  "commonjs path",
-  //   require:  "commonjs require"
-  // },
-
-  node: {
-    fs: "empty"
+  
+  resolve: {
+    fallback: {
+      fs: false,
+      path: false
+    }
   },
 
   entry: {
@@ -18,7 +17,7 @@ module.exports = {
   },
 
   output: {
-    path: path.join( __dirname + "/srv"),
+    path: srvPath,
     filename: 'bundle.js'
   },
 
@@ -44,6 +43,9 @@ module.exports = {
   // },
   
   devServer: {
-    port: 10001
+    port: 10001,
+    static: {
+      directory: srvPath,
+    },
   }
 };

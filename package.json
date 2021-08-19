@@ -5,7 +5,7 @@
   "description": "3d Web Application Engine (THREE.js and Ammo.js Wrapper)",
   "scripts": {
     "test": "echo \"PASS\" && exit 0",
-    "dev": "webpack-dev-server --mode development --content-base srv/",
+    "dev": "webpack-dev-server --mode development",
     "watch": "webpack --progress --colors --watch --mode development",
     "dist": "webpack --mode production",
     "prepare": "node_modules/babel-cli/bin/babel.js src --out-dir lib"
@@ -23,16 +23,16 @@
   "devDependencies": {
     "@babel/core": "^7.11.1",
     "@babel/preset-env": "^7.11.0",
+    "@webpack-cli/serve": "^1.5.2",
     "babel-cli": "^6.26.0",
     "babel-loader": "^8.1.0",
     "imports-loader": "^1.1.0",
-    "webpack": "^4.44.1",
-    "webpack-cli": "^3.3.12",
-    "webpack-dev-server": "^3.11.0"
+    "webpack": "^5.51.1",
+    "webpack-dev-server": "^4.0.0"
   },
   "dependencies": {
     "ammo.js": "^0.0.10",
-    "three": "^0.119.1"
+    "three": "^0.131.3"
   },
   "postinstall": "install-app-deps"
 }
