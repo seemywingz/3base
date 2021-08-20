@@ -51,18 +51,16 @@ export default class GLTFModel extends MeshObject {
   }
 
   initBoundingBoxPhysics(){
-
+        
+    this.mesh.updateMatrixWorld(true); // ensure world matrix is up to date
     this.helper = new THREE.BoxHelper(this.mesh, 0xff0000);
-    var bbox = new THREE.Box3().setFromObject(this.helper);
+    var bBox = new THREE.Box3().setFromObject(this.helper);
+    bBox.applyMatrix4( this.mesh.matrixWorld );
 
-    let w = (bbox.max.x - bbox.min.x)*.5;
-    let h = (bbox.max.y - bbox.min.y)*.5;
-    let d = (bbox.max.z - bbox.min.z)*.5;
+    let w = (bBox.max.x - bBox.min.x)*.5;
+    let h = (bBox.max.y - bBox.min.y)*.5;
+    let d = (bBox.max.z - bBox.min.z)*.5;
     
-    console.log(w, h, d)
-    console.log(this.helper)
-    
-    // let boxShape = new AMMO.btBoxShape(new AMMO.btVector3(w, h, d));
     let boxShape = new AMMO.btBoxShape(new AMMO.btVector3(w, h, d));
     
     this.initPhysics(this.mass, boxShape);
