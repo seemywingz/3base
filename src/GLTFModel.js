@@ -50,7 +50,7 @@ export default class GLTFModel extends MeshObject {
     });
   }
 
-  initBoundingBoxPhysics(){
+  initBoundingBoxPhysics(showHelper = false){
         
     this.mesh.updateMatrixWorld(true); // ensure world matrix is up to date
     this.helper = new THREE.BoxHelper(this.mesh, 0xff0000);
@@ -64,7 +64,9 @@ export default class GLTFModel extends MeshObject {
     let boxShape = new AMMO.btBoxShape(new AMMO.btVector3(w, h, d));
     
     this.initPhysics(this.mass, boxShape);
-    this.scene.scene.add(this.helper);
+    if(showHelper){
+      this.scene.scene.add(this.helper);
+    }
   }
 
   // initConcavePhysics(){

@@ -1,136 +1,100 @@
 {
-    "accessors" : [
-        {
-            "bufferView" : 0,
-            "componentType" : 5123,
-            "count" : 2526,
-            "max" : [
-                1005
-            ],
-            "min" : [
-                0
-            ],
-            "type" : "SCALAR"
-        },
-        {
-            "bufferView" : 1,
-            "componentType" : 5126,
-            "count" : 1006,
-            "max" : [
-                149.51568603515625,
-                80.47223663330078,
-                202.17092895507812
-            ],
-            "min" : [
-                -128.43382263183594,
-                -30.093097686767578,
-                0.0
-            ],
-            "type" : "VEC3"
-        },
-        {
-            "bufferView" : 2,
-            "componentType" : 5126,
-            "count" : 1006,
-            "max" : [
-                1.0,
-                1.0,
-                1.0
-            ],
-            "min" : [
-                -1.0,
-                -1.0,
-                -1.0
-            ],
-            "type" : "VEC3"
-        },
-        {
-            "bufferView" : 3,
-            "componentType" : 5126,
-            "count" : 1006,
-            "max" : [
-                1.0,
-                1.0,
-                1.0,
-                -1.0
-            ],
-            "min" : [
-                -1.0,
-                -1.0,
-                -1.0,
-                -1.0
-            ],
-            "type" : "VEC4"
-        },
-        {
-            "bufferView" : 4,
-            "componentType" : 5126,
-            "count" : 1006,
-            "max" : [
-                0.9897820949554443,
-                0.9964815974235535
-            ],
-            "min" : [
-                0.009165281429886818,
-                0.013706505298614502
-            ],
-            "type" : "VEC2"
-        }
-    ],
     "asset" : {
-        "generator" : "Khronos Blender glTF 2.0 exporter",
+        "generator" : "Khronos glTF Blender I/O v1.6.16",
         "version" : "2.0"
     },
-    "bufferViews" : [
+    "scene" : 0,
+    "scenes" : [
         {
-            "buffer" : 0,
-            "byteLength" : 5052,
-            "byteOffset" : 0,
-            "target" : 34963
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 12072,
-            "byteOffset" : 5052,
-            "target" : 34962
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 12072,
-            "byteOffset" : 17124,
-            "target" : 34962
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 16096,
-            "byteOffset" : 29196,
-            "target" : 34962
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 8048,
-            "byteOffset" : 45292,
-            "target" : 34962
+            "name" : "Scene",
+            "nodes" : [
+                6
+            ]
         }
     ],
-    "buffers" : [
+    "nodes" : [
         {
-            "byteLength" : 53340,
-            "uri" : "scene.bin"
-        }
-    ],
-    "images" : [
-        {
-            "name" : "images[2]",
-            "uri" : "images[2].jpg"
+            "mesh" : 0,
+            "name" : "Radio_20 - Default_0",
+            "scale" : [
+                0.007993617095053196,
+                0.007993617095053196,
+                0.007993617095053196
+            ],
+            "translation" : [
+                0,
+                2.504885196685791e-05,
+                0
+            ]
         },
         {
-            "name" : "images[1]",
-            "uri" : "images[1].png"
+            "children" : [
+                0
+            ],
+            "name" : "Untitled",
+            "translation" : [
+                0,
+                0,
+                -115.6868667602539
+            ]
         },
         {
-            "name" : "images[0]",
-            "uri" : "images[0].jpg"
+            "children" : [
+                1
+            ],
+            "name" : "Radio",
+            "rotation" : [
+                -0.7071068286895752,
+                0,
+                0,
+                0.7071067094802856
+            ],
+            "scale" : [
+                0.9805647730827332,
+                0.6205045580863953,
+                1
+            ],
+            "translation" : [
+                0,
+                115.6868667602539,
+                0
+            ]
+        },
+        {
+            "children" : [
+                2
+            ],
+            "name" : "RootNode"
+        },
+        {
+            "children" : [
+                3
+            ],
+            "name" : "radio_low.FBX",
+            "rotation" : [
+                0.7071068286895752,
+                0,
+                0,
+                0.7071067094802856
+            ]
+        },
+        {
+            "children" : [
+                4
+            ],
+            "name" : "RootNode (model correction matrix)"
+        },
+        {
+            "children" : [
+                5
+            ],
+            "name" : "RootNode (gltf orientation matrix)",
+            "rotation" : [
+                -0.7071068286895752,
+                0,
+                0,
+                0.7071067094802856
+            ]
         }
     ],
     "materials" : [
@@ -138,14 +102,14 @@
             "doubleSided" : true,
             "name" : "20_-_Default",
             "normalTexture" : {
-                "index" : 2
+                "index" : 0
             },
             "pbrMetallicRoughness" : {
                 "baseColorTexture" : {
-                    "index" : 0
+                    "index" : 1
                 },
                 "metallicRoughnessTexture" : {
-                    "index" : 1
+                    "index" : 2
                 }
             }
         }
@@ -156,132 +120,13 @@
             "primitives" : [
                 {
                     "attributes" : {
-                        "NORMAL" : 2,
-                        "POSITION" : 1,
-                        "TANGENT" : 3,
-                        "TEXCOORD_0" : 4
+                        "POSITION" : 0,
+                        "NORMAL" : 1,
+                        "TEXCOORD_0" : 2
                     },
-                    "indices" : 0,
+                    "indices" : 3,
                     "material" : 0
                 }
-            ]
-        }
-    ],
-    "nodes" : [
-        {
-            "children" : [
-                6
-            ],
-            "name" : "Radio",
-            "rotation" : [
-                -0.7071068286895752,
-                0.0,
-                -0.0,
-                0.7071067094802856
-            ],
-            "scale" : [
-                0.9805647730827332,
-                0.6205045580863953,
-                1.0000001192092896
-            ],
-            "translation" : [
-                0.0,
-                115.6868667602539,
-                -0.0
-            ]
-        },
-        {
-            "mesh" : 0,
-            "name" : "Radio_20 - Default_0",
-            "rotation" : [
-                3.472217384965846e-15,
-                0.0,
-                -0.0,
-                1.0
-            ],
-            "scale" : [
-                0.007993617095053196,
-                0.007993617095053196,
-                0.007993617095053196
-            ],
-            "translation" : [
-                0.0,
-                0.0,
-                -4.547473508864641e-13
-            ]
-        },
-        {
-            "children" : [
-                3
-            ],
-            "name" : "radio_low.FBX",
-            "rotation" : [
-                0.7071068286895752,
-                0.0,
-                -0.0,
-                0.7071067094802856
-            ],
-            "scale" : [
-                1.0,
-                1.0000001192092896,
-                1.0000001192092896
-            ]
-        },
-        {
-            "children" : [
-                0
-            ],
-            "name" : "RootNode"
-        },
-        {
-            "children" : [
-                5
-            ],
-            "name" : "RootNode (gltf orientation matrix)",
-            "rotation" : [
-                -0.7071068286895752,
-                0.0,
-                -0.0,
-                0.7071067094802856
-            ],
-            "scale" : [
-                1.0,
-                1.0000001192092896,
-                1.0000001192092896
-            ]
-        },
-        {
-            "children" : [
-                2
-            ],
-            "name" : "RootNode (model correction matrix)"
-        },
-        {
-            "children" : [
-                1
-            ],
-            "name" : "Untitled",
-            "scale" : [
-                1.0,
-                0.9999999403953552,
-                1.0
-            ],
-            "translation" : [
-                0.0,
-                0.0,
-                -115.6868667602539
-            ]
-        }
-    ],
-    "samplers" : [
-        {}
-    ],
-    "scene" : 0,
-    "scenes" : [
-        {
-            "name" : "Scene",
-            "nodes" : [
-                4
             ]
         }
     ],
@@ -297,6 +142,93 @@
         {
             "sampler" : 0,
             "source" : 2
+        }
+    ],
+    "images" : [
+        {
+            "mimeType" : "image/jpeg",
+            "name" : "images[0]",
+            "uri" : "images0.jpg"
+        },
+        {
+            "mimeType" : "image/jpeg",
+            "name" : "images[2]",
+            "uri" : "images2.jpg"
+        },
+        {
+            "mimeType" : "image/png",
+            "name" : "images[1]",
+            "uri" : "images1.png"
+        }
+    ],
+    "accessors" : [
+        {
+            "bufferView" : 0,
+            "componentType" : 5126,
+            "count" : 1276,
+            "max" : [
+                150.1399688720703,
+                59.04674530029297,
+                125.57865142822266
+            ],
+            "min" : [
+                -127.80953979492188,
+                -51.518592834472656,
+                -76.59227752685547
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 1,
+            "componentType" : 5126,
+            "count" : 1276,
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 2,
+            "componentType" : 5126,
+            "count" : 1276,
+            "type" : "VEC2"
+        },
+        {
+            "bufferView" : 3,
+            "componentType" : 5123,
+            "count" : 2526,
+            "type" : "SCALAR"
+        }
+    ],
+    "bufferViews" : [
+        {
+            "buffer" : 0,
+            "byteLength" : 15312,
+            "byteOffset" : 0
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 15312,
+            "byteOffset" : 15312
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 10208,
+            "byteOffset" : 30624
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 5052,
+            "byteOffset" : 40832
+        }
+    ],
+    "samplers" : [
+        {
+            "magFilter" : 9729,
+            "minFilter" : 9987
+        }
+    ],
+    "buffers" : [
+        {
+            "byteLength" : 45884,
+            "uri" : "scene.bin"
         }
     ]
 }
