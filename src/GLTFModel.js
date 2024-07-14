@@ -46,6 +46,14 @@ export default class GLTFModel extends MeshObject {
     });
   }
 
+  playAnimation(aNum = 0) {
+    if (this.gltf.animations.length > 0) {
+      this.mixer = new THREE.AnimationMixer(this.gltf.scene);
+      this.mixer.clipAction(this.gltf.animations[aNum]).play();
+    }
+    console.log(this.gltf.animations);
+  }
+
   initBoundingBoxPhysics() {
     this.helper = new THREE.BoxHelper(this.mesh, 0xff0000);
     let bbox = new THREE.Box3().setFromObject(this.helper);
