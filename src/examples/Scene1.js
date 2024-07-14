@@ -24,7 +24,7 @@ export default class Scene1 extends tb.Scene {
       for (let h = 0; h < 10; h++) {
         for (let d = 0; d < 5; d++) {
           let box = new tb.Box(this, w, h, d, boxTextures[~~tb.Utils.randNum(0, boxTextures.length - 1)], 1, 2.5);
-          // box.body.setActivationState(0);
+          box.body.setActivationState(0);
           box.addToScene();
         }
       }
@@ -51,12 +51,13 @@ export default class Scene1 extends tb.Scene {
 
   createLights() {
     let dl = new tb.DirectionalLight(this, 1, 200, 0);
-    dl.addShadow(-30, 30, 30, -30);
+    dl.addShadow();
     dl.addToScene()
+    // dl.addHelper();
 
-    let skyColor = 0xefffff;
-    let groundColor = 0xecffd1;
-    new tb.HemisphereLight(this, skyColor, groundColor, 0.09).addToScene();
+    let skyColor = 0xcaeefc;
+    let groundColor = 0xe0ffe3;
+    new tb.HemisphereLight(this, skyColor, groundColor, 0.3).addToScene();
   }
 
   click() {
