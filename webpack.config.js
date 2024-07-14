@@ -24,6 +24,9 @@ module.exports = {
     port: devServerPort,
   },
   resolve: {
+    alias: {
+      'three': path.resolve(__dirname, 'node_modules/three')
+    },
     fallback: {
       "fs": false,
       "path": require.resolve("path-browserify"),

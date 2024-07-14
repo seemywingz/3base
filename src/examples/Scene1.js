@@ -40,11 +40,11 @@ export default class Scene1 extends tb.Scene {
       ball.addToScene();
     }
 
-    // new tb.GLTFModel(this, -5, 0, -10, 'assets/models/deadpool', 3, 0)
-    // .then(deadpool=>{
-    //   deadpool.playAnimation(0);
-    //   deadpool.addToScene();
-    // })
+    new tb.GLTFModel(this, -5, 0, -10, 'assets/models/deadpool', 3, 0)
+      .then(deadpool => {
+        // deadpool.playAnimation(0);
+        deadpool.addToScene();
+      })
 
     // this.manager.playAudio('./assets/audio/wind.wav', 0.5, true);
   }
