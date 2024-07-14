@@ -40,13 +40,13 @@ export default class Scene1 extends tb.Scene {
       ball.addToScene();
     }
 
-    new tb.GLTFModel(this, -5, 10, -10, 'assets/models/flower', 3, 0)
+    new tb.GLTFModel(this, -5, 0, -10, 'assets/models/deadpool', 3, 0)
       .then(deadpool => {
-        deadpool.playAnimation(0);
+        // deadpool.playAnimation(0);
         deadpool.addToScene();
       })
 
-    // this.manager.playAudio('./assets/audio/wind.wav', 0.5, true);
+    this.manager.playAudio('./assets/audio/wind.wav', 0.5, true);
   }
 
   createLights() {
@@ -57,7 +57,7 @@ export default class Scene1 extends tb.Scene {
 
     let skyColor = 0xcaeefc;
     let groundColor = 0xe0ffe3;
-    new tb.HemisphereLight(this, skyColor, groundColor, 0.3).addToScene();
+    new tb.HemisphereLight(this, skyColor, groundColor, 0.18).addToScene();
   }
 
   click() {
